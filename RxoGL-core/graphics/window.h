@@ -43,4 +43,4 @@ namespace rxogl { namespace graphics {
 		bool isMouseButtonPressed(unsigned int button) const;
 		void getMousePosition(double& x, double& y) const;
 	};
-}}
+} }

@@ -1,43 +1,46 @@
 #include "graphics/window.h"
+//#include "utils/fileutils.h"
+#include "graphics/shader.h"
 
 int main()
 {
 	using namespace rxogl;
 	using namespace graphics;
+	//using namespace utils;
 
 	Window window("rxogl", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	static const float vertices[] = {
+		-0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f
+	};
+
+	// Give vertices to oGL by creating a buffer 
+	unsigned int vbo;
+	// Generate 1 buffer, put the resulting identifier in vertexbuffer
+	glGenBuffers(1, &vbo);
+	// The following commands will talk about our 'vertexbuffer' buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	// Give our vertices to oGL.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	Shader shader("shaders/basic.vert", "shaders/basic.frag");
+	shader.enable();
 
 	while (!window.closed())
 	{
 		window.clear();
-		if (window.isKeyPressed(GLFW_KEY_A))
-		{
-			std::cout << "Pressed A" << std::endl;
-		}		
-		if (window.isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
-		{
-			std::cout << "LEFT" << std::endl;
-		}
-		double x, y;
-		window.getMousePosition(x, y);
-		std::cout << x << "," << y << std::endl;
-#if 0
-		glDrawArrays(GL_ARRAY_BUFFER, 0, 6);
-#else
-		glBegin(GL_QUADS);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f(-0.5f, 0.5f);
-		glVertex2f( 0.5f, 0.5f);
-		glVertex2f( 0.5f, -0.5f);
-		glEnd();
-#endif
+
+		glDrawArrays(GL_QUADS, 0, 4);
+
 		window.update();
 	}
 
