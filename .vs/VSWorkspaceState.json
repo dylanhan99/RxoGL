@@ -1,15 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\bin",
-    "\\bin\\Intermediates",
-    "\\bin\\Intermediates\\Win32",
-    "\\bin\\Intermediates\\Win32\\Debug",
-    "\\bin\\Win32",
-    "\\bin\\Win32\\Debug",
-    "\\RxoGL-core",
-    "\\RxoGL-core\\utils"
+    ""
   ],
-  "SelectedNode": "\\bin\\Win32\\Debug\\RxoGL-core.exe",
   "PreviewInSolutionExplorer": false
 }
