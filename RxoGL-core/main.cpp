@@ -2,6 +2,8 @@
 //#include "utils/fileutils.h"
 #include "graphics/shader.h"
 
+
+
 int main()
 {
 	using namespace rxogl;
@@ -16,8 +18,8 @@ int main()
 	static const float vertices[] = {
 		-0.5f, -0.5f, 0.0f,
 		-0.5f,  0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f
+		 0.5f,  0.5f, 0.0f
+		 //0.5f, -0.5f, 0.0f
 	};
 
 	// Give vertices to oGL by creating a buffer 
@@ -35,11 +37,44 @@ int main()
 	Shader shader("shaders/basic.vert", "shaders/basic.frag");
 	shader.enable();
 
+	shader.mathStuff();
+
 	while (!window.closed())
 	{
 		window.clear();
 
-		glDrawArrays(GL_QUADS, 0, 4);
+		if (window.isKeyPressed(GLFW_KEY_W))
+		{
+			shader.z--;
+			shader.mathStuff();
+		}
+		if (window.isKeyPressed(GLFW_KEY_S))
+		{
+			shader.z++;
+			shader.mathStuff();
+		}
+		if (window.isKeyPressed(GLFW_KEY_A))
+		{
+			shader.x--;
+			shader.mathStuff();
+		}
+		if (window.isKeyPressed(GLFW_KEY_D))
+		{
+			shader.x++;
+			shader.mathStuff();
+		}
+		if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		{
+			shader.y--;
+			shader.mathStuff();
+		}
+		if (window.isKeyPressed(GLFW_KEY_SPACE))
+		{
+			shader.y++;
+			shader.mathStuff();
+		}
+
+		glDrawArrays(GL_TRIANGLES, 0, 4);
 
 		window.update();
 	}
