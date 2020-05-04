@@ -1,3 +1,3 @@
-﻿  main.cpp
+﻿  shader.cpp
 F:\GitHub\RxoGL\RxoGL-core\graphics\shader.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   RxoGL-core.vcxproj -> F:\GitHub\RxoGL\bin\Win32\Debug\RxoGL-core.exe
