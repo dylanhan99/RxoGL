@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Dependencies",
+    "\\RxoGL-core",
+    "\\RxoGL-core\\vendor",
+    "\\RxoGL-core\\vendor\\imgui"
   ],
+  "SelectedNode": "\\RxoGL-core\\vendor\\imgui\\main.cpp",
   "PreviewInSolutionExplorer": false
 }

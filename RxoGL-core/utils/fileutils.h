@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 
-namespace rxogl { namespace utils {
+namespace utils {
 
 	class FileUtils
 	{
@@ -31,4 +31,4 @@ namespace rxogl { namespace utils {
 			return content;
 		}
 	};
-} }
+}

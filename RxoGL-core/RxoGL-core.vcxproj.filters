@@ -30,6 +30,54 @@
     <ClCompile Include="graphics\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\TestClearColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\TestTexture2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics\window.h">
@@ -41,9 +89,77 @@
     <ClInclude Include="utils\fileutils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_glfw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_opengl3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\TestClearColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\TestTexture2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\basic.frag" />
-    <None Include="shaders\basic.vert" />
+    <None Include="res\shaders\basic.frag" />
+    <None Include="res\shaders\basic.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\OverwatchLogo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\OverwatchLogo1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\youtube.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -1,118 +1,104 @@
 #include "shader.h"
 
-namespace rxogl { namespace graphics {
+#include "../Renderer.h"
+#include "../utils/fileutils.h"
 
-	Shader::Shader(const char* vertPath, const char* fragPath)
-		: m_VertPath(vertPath), m_FragPath(fragPath)
+Shader::Shader(const std::string& vertPath, const std::string& fragPath)
+	: m_VertPath(vertPath), m_FragPath(fragPath), m_RendererID(0)
+{
+	m_RendererID = CreateShader(vertPath, fragPath);
+}
+
+Shader::~Shader()
+{
+	GLCall(glDeleteProgram(m_RendererID));
+}
+
+unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+{
+	GLCall(unsigned int program = glCreateProgram());
+	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+
+	GLCall(glAttachShader(program, vs));
+	GLCall(glAttachShader(program, fs));
+	GLCall(glLinkProgram(program));
+	GLCall(glValidateProgram(program));
+
+	//GLCall(glDeleteShader(vs));
+	//GLCall(glDeleteShader(fs));
+
+	return program;
+}
+
+unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
+{
+	GLCall(unsigned int id = glCreateShader(type));
+	std::string sourceStr = utils::FileUtils::read_file(source.c_str());
+	const char* src = sourceStr.c_str();
+	GLCall(glShaderSource(id, 1, &src, nullptr));
+	GLCall(glCompileShader(id));
+
+	int result;
+	GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
+	if (result == GL_FALSE)
 	{
-		x = 0;
-		y = 0;
-		z = 3;
+		// Failed compilation
+		int length;
+		GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
+		// Keeping message defined on the stack
+		char* message = (char*)alloca(length * sizeof(char));
+		GLCall(glGetShaderInfoLog(id, length, &length, message));
+		std::cout << "Failed to compile " << 
+			(type == GL_VERTEX_SHADER ? "vertex" : "fragment") << "shader!" << std::endl;
+		std::cout << message << std::endl;
 
-		m_ShaderID = load();
+		GLCall(glDeleteShader(id));
+		return 0;
 	}
 
-	Shader::~Shader()
-	{
-		glDeleteProgram(m_ShaderID);
-	}
+	return id;
+}
 
-	GLuint Shader::load()
-	{
-		GLuint program = glCreateProgram();
-		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
-		GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
+void Shader::Bind() const
+{
+	GLCall(glUseProgram(m_RendererID));
+}
 
-		std::string vertSourceStr = utils::FileUtils::read_file(m_VertPath);
-		std::string fragSourceStr = utils::FileUtils::read_file(m_FragPath);
+void Shader::Unbind() const
+{
+	GLCall(glUseProgram(0));
+}
 
-		const char* vertSource = vertSourceStr.c_str();
-		const char* fragSource = fragSourceStr.c_str();
+void Shader::SetUniform1i(const std::string& name, int v)
+{
+	GLCall(glUniform1i(GetUniformLocation(name), v));
+}
 
-		glShaderSource(vertex, 1, &vertSource, NULL);
-		glCompileShader(vertex);
+void Shader::SetUniform1f(const std::string& name, float v)
+{
+	GLCall(glUniform1f(GetUniformLocation(name), v));
+}
 
-		GLint result;
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &result);
+void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
+{
+	GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3))
+}
 
-		if (result == GL_FALSE)
-		{
-			GLint length;
-			glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
-			std::vector<char> error(length);
-			glGetShaderInfoLog(vertex, length, &length, &error[0]);
-			std::cout << "Failed to compile vertex shader!" << std::endl <<
-				&error[0] << std::endl;
-			glDeleteShader(vertex);
+void Shader::SetUniformMat4f(const std::string& name, glm::mat4& matrix)
+{
+	GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+}
 
-			return 0;
-		}
+int Shader::GetUniformLocation(const std::string& name)
+{
+	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+		return m_UniformLocationCache[name];
 
-		glShaderSource(fragment, 1, &fragSource, NULL);
-		glCompileShader(fragment);
+	GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
+	if (location == -1)
+		std::cout << "Warning: uniform '" << name << "' does not exist!" << std::endl;
 
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &result);
-
-		if (result == GL_FALSE)
-		{
-			GLint length;
-			glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
-			std::vector<char> error(length);
-			glGetShaderInfoLog(fragment, length, &length, &error[0]);
-			std::cout << "Failed to compile fragment shader!" << std::endl << 
-				&error[0] << std::endl;
-			glDeleteShader(fragment);
-
-			return 0;
-		}
-
-		glAttachShader(program, vertex);
-		glAttachShader(program, fragment);
-
-		glLinkProgram(program);
-		glValidateProgram(program);
-		
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
-
-		return program;
-	}
-
-	void Shader::enable() const
-	{
-		glUseProgram(m_ShaderID);
-	}
-
-	void Shader::disable() const
-	{
-		glUseProgram(0);
-	}
-
-	void Shader::mathStuff() const
-	{
-		std::cout << x << " " << y << " " << z << " " << std::endl;
-		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-		glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)960 / (float)540, 0.1f, 100.0f);
-		// Camera matrix
-		glm::mat4 View = glm::lookAt(
-			glm::vec3(x, y, z), // Camera is at (4,3,3), in World Space
-			glm::vec3(2, 2, 0), // and looks at the origin
-			glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-		);
-
-		//glm::mat4 View = glm::translate(glm::mat4(1.0f), glm::vec3(-2, 0, -10));
-
-		// Model matrix : an identity matrix (model will be at the origin)
-		glm::mat4 Model = glm::mat4(1.0f);
-		// Our ModelViewProjection : multiplication of our 3 matrices
-		glm::mat4 mvp = Projection * View * Model; // Remember, matrix multiplication is the other way around
-
-												   // Get a handle for our "MVP" uniform
-		// Only during the initialisation
-		GLuint MatrixID = glGetUniformLocation(m_ShaderID, "MVP");
-
-		// Send our transformation to the currently bound shader, in the "MVP" uniform
-		// This is done in the main loop since each model will have a different MVP matrix (At least for the M part)
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-	}
-} }
+	m_UniformLocationCache[name] = location;
+	return location;
+}

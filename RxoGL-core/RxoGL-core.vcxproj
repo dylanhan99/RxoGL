@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,18 +152,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="graphics\window.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="tests\Test.cpp" />
+    <ClCompile Include="tests\TestClearColor.cpp" />
+    <ClCompile Include="tests\TestTexture2D.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="tests\TestClearColor.h" />
+    <ClInclude Include="tests\Test.h" />
+    <ClInclude Include="tests\TestTexture2D.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />
     <ClInclude Include="graphics\shader.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h" />
+    <ClInclude Include="VertexArray.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\basic.frag" />
-    <None Include="shaders\basic.vert" />
+    <None Include="res\shaders\basic.frag" />
+    <None Include="res\shaders\basic.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\OverwatchLogo.png" />
+    <Image Include="res\textures\OverwatchLogo1.png" />
+    <Image Include="res\textures\test.png" />
+    <Image Include="res\textures\youtube.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,27 +9,31 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace rxogl { namespace graphics {
+#include <unordered_map>
 
-	class Shader
-	{
-	public:
-		int x, y, z;
-	private:
-		GLuint m_ShaderID;
-		const char* m_VertPath;
-		const char* m_FragPath;
+class Shader
+{
+private:
+	GLuint m_RendererID;
+	const std::string& m_VertPath;
+	const std::string& m_FragPath;
+	// This cache is used so that the glGetUniformLocation function does not have
+	// to be called every single time. Performance improvement
+	std::unordered_map < std::string, int> m_UniformLocationCache;
 
-	public:
-		Shader(const char* vertPath, const char* fragPath);
-		~Shader();
+public:
+	Shader(const std::string& vertPath, const std::string& fragPath);
+	~Shader();
 
-		void enable() const;
-		void disable() const;
+	void Bind() const;
+	void Unbind() const;
 
-		void mathStuff() const;
-	private:
-		GLuint load();
-	};
-
-} }
+	void SetUniform1i(const std::string& name, int v);
+	void SetUniform1f(const std::string& name, float v);
+	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
+	void SetUniformMat4f(const std::string& name, glm::mat4& matrix);
+private:
+	unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
+	unsigned int CompileShader(unsigned int type, const std::string& source);
+	int GetUniformLocation(const std::string& name);
+};
