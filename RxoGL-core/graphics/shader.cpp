@@ -25,8 +25,8 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
 	GLCall(glLinkProgram(program));
 	GLCall(glValidateProgram(program));
 
-	//GLCall(glDeleteShader(vs));
-	//GLCall(glDeleteShader(fs));
+	GLCall(glDeleteShader(vs));
+	GLCall(glDeleteShader(fs));
 
 	return program;
 }

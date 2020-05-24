@@ -160,6 +160,7 @@
     <ClCompile Include="tests\Test.cpp" />
     <ClCompile Include="tests\TestClearColor.cpp" />
     <ClCompile Include="tests\TestTexture2D.cpp" />
+    <ClCompile Include="tests\TestTexture3D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="tests\TestClearColor.h" />
     <ClInclude Include="tests\Test.h" />
     <ClInclude Include="tests\TestTexture2D.h" />
+    <ClInclude Include="tests\TestTexture3D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />
