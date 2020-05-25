@@ -52,8 +52,9 @@ int main()
 	tests::TestMenu* testMenu = new tests::TestMenu(currentTest);
 	testMenu->RegisterTest<tests::TestClearColor>("Clear Color");
 	testMenu->RegisterTest<tests::TestTexture2D>("2D Texture");
+	testMenu->RegisterTest<tests::TestTexture3D>("3D Texture");
 
-	tests::TestTexture3D* test = new tests::TestTexture3D();
+	tests::TestTexture2D* test = new tests::TestTexture2D();
 
 	currentTest = test;
 

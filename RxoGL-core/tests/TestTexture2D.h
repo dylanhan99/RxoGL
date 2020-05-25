@@ -20,7 +20,7 @@ namespace tests
 		std::unique_ptr<VertexBuffer> m_VBO;
 		std::unique_ptr<IndexBuffer> m_IBO;
 		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<Texture> m_Texture;
+		std::unique_ptr<Texture> m_OWTexture, m_OW1Texture;
 	public:
 		TestTexture2D();
 		~TestTexture2D();

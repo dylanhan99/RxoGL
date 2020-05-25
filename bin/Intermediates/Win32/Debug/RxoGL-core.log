@@ -1,6 +1,0 @@
-﻿  main.cpp
-F:\GitHub\RxoGL\RxoGL-core\graphics\shader.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  TestTexture3D.cpp
-F:\GitHub\RxoGL\RxoGL-core\graphics\Shader.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
-  RxoGL-core.vcxproj -> F:\GitHub\RxoGL\bin\Win32\Debug\RxoGL-core.exe
