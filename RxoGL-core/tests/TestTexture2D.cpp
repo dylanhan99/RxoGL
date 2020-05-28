@@ -1,6 +1,5 @@
 #include "TestTexture2D.h"
 
-
 namespace tests
 {
 	TestTexture2D::TestTexture2D()
@@ -31,11 +30,11 @@ namespace tests
 			6, 7, 4
 		};
 
-		m_VAO = std::make_unique<VertexArray>();
-		m_VBO = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
-		m_IBO = std::make_unique<IndexBuffer>(indeces, 4 * 3);
+		m_VAO = std::make_unique<rxogl::VertexArray>();
+		m_VBO = std::make_unique<rxogl::VertexBuffer>(vertices, sizeof(vertices));
+		m_IBO = std::make_unique<rxogl::IndexBuffer>(indeces, 4 * 3);
 
-		VertexBufferLayout layout;
+		rxogl::BufferLayout layout;
 		layout.Push<float>(3); // vec3 Pos
 		layout.Push<float>(4); // vec4 Color
 		layout.Push<float>(2); // Texture
@@ -44,8 +43,8 @@ namespace tests
 
 		m_Shader = std::make_unique<Shader>("F:/GitHub/RxoGL/RxoGL-core/res/shaders/basic.vert", "F:/GitHub/RxoGL/RxoGL-core/res/shaders/basic.frag");
 		m_Shader->Bind();
-		m_OWTexture = std::make_unique<Texture>("F:/GitHub/RxoGL/RxoGL-core/res/textures/OverwatchLogo.png");
-		m_YTTexture = std::make_unique<Texture>("F:/GitHub/RxoGL/RxoGL-core/res/textures/youtube.png");
+		m_OWTexture = std::make_unique<rxogl::Texture>("F:/GitHub/RxoGL/RxoGL-core/res/textures/OverwatchLogo.png");
+		m_YTTexture = std::make_unique<rxogl::Texture>("F:/GitHub/RxoGL/RxoGL-core/res/textures/youtube.png");
 		m_OWTexture->Bind();
 		m_YTTexture->Bind(1);
 	}
@@ -66,7 +65,7 @@ namespace tests
 
 	void TestTexture2D::OnRender()
 	{
-		Renderer renderer;
+		rxogl::Renderer renderer;
 		{
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationA);
 			glm::mat4 mvp = m_Proj * m_View * model;

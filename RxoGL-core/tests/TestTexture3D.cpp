@@ -80,12 +80,12 @@ namespace tests
 		};
 
 
-		m_VAO = std::make_unique<VertexArray>();
-		m_VBO = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
+		m_VAO = std::make_unique<rxogl::VertexArray>();
+		m_VBO = std::make_unique<rxogl::VertexBuffer>(vertices, sizeof(vertices));
 		//m_ColBO = std::make_unique<VertexBuffer>(color_buffer_data, sizeof(color_buffer_data));
-		m_IBO = std::make_unique<IndexBuffer>(indeces, 12 * 3);
+		m_IBO = std::make_unique<rxogl::IndexBuffer>(indeces, 12 * 3);
 
-		VertexBufferLayout layout;
+		rxogl::BufferLayout layout;
 		layout.Push<float>(3); // position
 		layout.Push<float>(4); // color
 		m_VAO->AddBuffer(*m_VBO, layout);
@@ -107,7 +107,7 @@ namespace tests
 
 	void TestTexture3D::OnRender()
 	{
-		Renderer renderer;
+		rxogl::Renderer renderer;
 
 		m_Shader->Bind();
 		//m_Texture->Bind();

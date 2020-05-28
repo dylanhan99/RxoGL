@@ -3,9 +3,7 @@
 #include "graphics/shader.h"
 
 #include "VertexArray.h"
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
-#include "IndexBuffer.h"
+#include "Buffer.h"
 #include "Renderer.h"
 #include "Texture.h"
 
@@ -27,7 +25,7 @@ int main()
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-	Renderer renderer;
+	rxogl::Renderer renderer;
 
 	// Setting up imgui
 	{

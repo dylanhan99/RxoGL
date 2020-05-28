@@ -1,20 +1,25 @@
 #pragma once
 
-#include "VertexBuffer.h"
+//#include "VertexBuffer.h"
+//#include "Buffer.h"
 
-class VertexBufferLayout;
+//class VertexBufferLayout;
 
-class VertexArray
+namespace rxogl
 {
-private:
-	unsigned int m_RendererID;
-public:
-	VertexArray();
-	~VertexArray();
+	class VertexBuffer;
+	class BufferLayout;
+	class VertexArray
+	{
+	private:
+		unsigned int m_RendererID;
+	public:
+		VertexArray();
+		~VertexArray();
 
-	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+		void AddBuffer(const VertexBuffer& vb, const BufferLayout& layout);
 
-	void Bind() const;
-	void Unbind() const;
-};
-
+		void Bind() const;
+		void Unbind() const;
+	};
+}
