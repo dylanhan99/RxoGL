@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Renderer.h"
+#include "ConstantsRxogl.h"
 #include <vector>
+#include <typeinfo>
 
 namespace rxogl
 {
 	struct BufferElement
 	{
+		//constants::Type type; // This doubles both as type name and size of type
 		unsigned int type;
 		unsigned int count;
 		unsigned char normalized;
@@ -54,10 +57,31 @@ namespace rxogl
 		}
 
 		template<>
-		void Push<unsigned char>(unsigned int count)
+		void Push<glm::vec2>(unsigned int count)
 		{
-			m_Elements.push_back({ GL_UNSIGNED_BYTE, count, GL_TRUE });
-			m_Stride += count * BufferElement::GetSizeOfType(GL_UNSIGNED_BYTE);
+			count = 2;
+			//m_Elements.push_back({ constants::t_Vec2, 1, GL_TRUE }); // all forced to be 1 first for count
+			//m_Stride += constants::t_Vec2;
+			m_Elements.push_back({ GL_FLOAT, 2, GL_TRUE }); // all forced to be 1 first for count
+			m_Stride += count * BufferElement::GetSizeOfType(GL_FLOAT);
+		}
+
+		template<>
+		void Push<glm::vec3>(unsigned int count)
+		{
+			count = 3;
+
+			m_Elements.push_back({ GL_FLOAT, 3, GL_TRUE });
+			m_Stride += count * BufferElement::GetSizeOfType(GL_FLOAT);
+		}
+
+		template<>
+		void Push<glm::vec4>(unsigned int count)
+		{
+			count = 4;
+
+			m_Elements.push_back({ GL_FLOAT, 4, GL_TRUE });
+			m_Stride += count * BufferElement::GetSizeOfType(GL_FLOAT);
 		}
 
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
@@ -70,10 +94,13 @@ namespace rxogl
 		unsigned int m_RendererID;
 	public:
 		VertexBuffer(const void* data, unsigned int size);
+		VertexBuffer(unsigned int size);
 		~VertexBuffer();
 
 		void Bind() const;
 		void Unbind() const;
+
+		void SetData(const void* data, unsigned int size);
 	};
 
 	class IndexBuffer

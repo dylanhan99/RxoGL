@@ -28,7 +28,9 @@ namespace rxogl
 			GLCall(glVertexAttribPointer(i, element.count, element.type,
 				element.normalized, layout.GetStride(), (const void*)offset));
 			GLCall(glEnableVertexAttribArray(i));
+
 			offset += element.count * rxogl::BufferElement::GetSizeOfType(element.type);
+			//offset += element.count * element.type; // type doubles as both type name and size
 		}
 	}
 

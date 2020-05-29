@@ -3,6 +3,7 @@
 #include <gl/glew.h>
 #include "VertexArray.h"
 #include "graphics/Shader.h"
+#include "ConstantsRxogl.h"
 
 #define ASSERT(x) if (!(x)) __debugbreak();
 #define GLCall(x) GLClearError();\
@@ -18,6 +19,9 @@ namespace rxogl
 	class IndexBuffer;
 	class Renderer
 	{
+	private:
+		constants::Vertex* QuadBuffer; // CPU side storage for vertex buffer
+		constants::Vertex* QuadBufferPtr; // 
 	public:
 		void Clear() const;
 		void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;

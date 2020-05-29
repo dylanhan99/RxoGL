@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="ConstantsRxogl.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="tests\TestClearColor.h" />
     <ClInclude Include="tests\Test.h" />

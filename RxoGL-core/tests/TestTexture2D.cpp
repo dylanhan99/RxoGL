@@ -1,4 +1,5 @@
 #include "TestTexture2D.h"
+#include "../ConstantsRxogl.h"
 
 namespace tests
 {
@@ -14,7 +15,7 @@ namespace tests
 			 50.f, -50.f, 0.0f, 0.609f, 0.115f, 0.436f, 1, 1.0f, 0.0f, 0.0f,
 			 50.f,  50.f, 0.0f, 0.327f, 0.483f, 0.844f, 1, 1.0f, 1.0f, 0.0f,
 			-50.f,  50.f, 0.0f, 0.822f, 0.569f, 0.201f, 1, 0.0f, 1.0f, 0.0f,
-
+		
 			100.f, -50.f, 0.0f, 0.435f, 0.602f, 0.223f, 1, 0.0f, 0.0f, 1.0f,
 			200.f, -50.f, 0.0f, 0.310f, 0.747f, 0.185f, 1, 1.0f, 0.0f, 1.0f,
 			200.f,  50.f, 0.0f, 0.597f, 0.770f, 0.761f, 1, 1.0f, 1.0f, 1.0f,
@@ -35,9 +36,9 @@ namespace tests
 		m_IBO = std::make_unique<rxogl::IndexBuffer>(indeces, 4 * 3);
 
 		rxogl::BufferLayout layout;
-		layout.Push<float>(3); // vec3 Pos
-		layout.Push<float>(4); // vec4 Color
-		layout.Push<float>(2); // Texture
+		layout.Push<glm::vec3>(1); // vec3 Pos
+		layout.Push<glm::vec4>(1); // vec4 Color
+		layout.Push<glm::vec2>(1); // Texture
 		layout.Push<float>(1); // Texture ID
 		m_VAO->AddBuffer(*m_VBO, layout);
 
