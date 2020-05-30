@@ -32,7 +32,7 @@ namespace rxogl
 		ib.Bind();
 		shader.Bind();
 
-		GLCall(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
+		GLCall(glDrawElements(GL_TRIANGLES,/* ib.GetCount()*/36, GL_UNSIGNED_INT, nullptr));
 
 	}
 }

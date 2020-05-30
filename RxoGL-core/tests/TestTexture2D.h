@@ -15,6 +15,10 @@ namespace tests
 	class TestTexture2D : public Test
 	{
 	private:
+		const size_t MaxQuadCount, MaxVertCount, MaxIndexCount;
+
+		unsigned int m_IndexCount;
+
 		glm::vec3 m_TranslationA, m_TranslationB;
 		glm::mat4 m_Proj, m_View;
 		std::unique_ptr<rxogl::VertexArray> m_VAO;
@@ -22,6 +26,8 @@ namespace tests
 		std::unique_ptr<rxogl::IndexBuffer> m_IBO;
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<rxogl::Texture> m_OWTexture, m_YTTexture;
+
+		constants::Vertex vertices[100];
 	public:
 		TestTexture2D();
 		~TestTexture2D();
