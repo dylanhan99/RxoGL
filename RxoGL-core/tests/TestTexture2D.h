@@ -15,8 +15,6 @@ namespace tests
 	class TestTexture2D : public Test
 	{
 	private:
-		unsigned int m_IndexCount;
-
 		glm::vec3 m_TranslationA, m_TranslationB;
 		glm::mat4 m_Proj, m_View;
 		std::unique_ptr<rxogl::VertexArray> m_VAO;

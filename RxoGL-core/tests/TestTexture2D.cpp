@@ -35,7 +35,6 @@ namespace tests
 
 	TestTexture2D::TestTexture2D()
 		: 
-		m_IndexCount(0),
 		m_TranslationA(glm::vec3(200, 200, 0)), m_TranslationB(glm::vec3(400, 200, 0)),
 		m_Proj(glm::ortho(0.f, 960.f, 0.f, 540.f, -1.0f, 1.0f)), 
 		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(/*-10*/0, 0, 0)))
@@ -100,10 +99,10 @@ namespace tests
 		layout.Push<float>(1); // Texture ID
 		m_VAO->AddBuffer(*m_VBO, layout);
 
-		m_Shader = std::make_unique<Shader>("F:/GitHub/RxoGL/RxoGL-core/res/shaders/basic.vert", "F:/GitHub/RxoGL/RxoGL-core/res/shaders/basic.frag");
+		m_Shader = std::make_unique<Shader>("res/shaders/basic.vert", "res/shaders/basic.frag");
 		m_Shader->Bind();
-		m_OWTexture = std::make_unique<rxogl::Texture>("F:/GitHub/RxoGL/RxoGL-core/res/textures/OverwatchLogo.png");
-		m_YTTexture = std::make_unique<rxogl::Texture>("F:/GitHub/RxoGL/RxoGL-core/res/textures/youtube.png");
+		m_OWTexture = std::make_unique<rxogl::Texture>("res/textures/OverwatchLogo.png");
+		m_YTTexture = std::make_unique<rxogl::Texture>("res/textures/youtube.png");
 		m_OWTexture->Bind();
 		m_YTTexture->Bind(1);
 	}
@@ -177,8 +176,6 @@ namespace tests
 			m_Shader->Bind();
 			m_Shader->SetUniformMat4f("u_MVP", mvp);
 			renderer.Draw(*m_VAO, *m_IBO, *m_Shader);
-
-			m_IndexCount = 0;
 		}
 	}
 
