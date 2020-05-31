@@ -4,6 +4,7 @@
 
 namespace tests
 {
+
 	static std::array<constants::Vertex, 4> CreateQuad(float x, float y, float texID)
 	{
 		float size = 100.f;
@@ -34,7 +35,6 @@ namespace tests
 
 	TestTexture2D::TestTexture2D()
 		: 
-		MaxQuadCount(1000), MaxVertCount(MaxQuadCount * 4), MaxIndexCount(MaxQuadCount * 6),
 		m_IndexCount(0),
 		m_TranslationA(glm::vec3(200, 200, 0)), m_TranslationB(glm::vec3(400, 200, 0)),
 		m_Proj(glm::ortho(0.f, 960.f, 0.f, 540.f, -1.0f, 1.0f)), 
@@ -53,8 +53,8 @@ namespace tests
 		//	100.f,  50.f, 0.0f, 0.559f, 0.436f, 0.730f, 1, 0.0f, 1.0f, 1.0f
 		//};
 
-		auto q0 = CreateQuad(-50.f, -50.f, 0.0f);
-		auto q1 = CreateQuad(100.f, -50.f, 1.0f);
+		//auto q0 = CreateQuad(-50.f, -50.f, 0.0f);
+		//auto q1 = CreateQuad(100.f, -50.f, 1.0f);
 
 		//constants::Vertex vertices[100];
 		//memcpy(vertices, q0.data(), q0.size() * sizeof(constants::Vertex));
@@ -68,14 +68,30 @@ namespace tests
 		//	4, 5, 6,
 		//	6, 7, 4,
 		//};
+		const size_t MaxQuadCount = 1000;
+		const size_t MaxVertCount = MaxQuadCount * 4;
+		const size_t MaxIndexCount = MaxQuadCount * 6;
 
 		unsigned int indeces[MaxIndexCount];
+		unsigned int offset = 0;
+		for (size_t i = 0; i < MaxIndexCount; i+=6)
+		{
+			indeces[i + 0] = 0 + offset;
+			indeces[i + 1] = 1 + offset;
+			indeces[i + 2] = 2 + offset;
+
+			indeces[i + 3] = 2 + offset;
+			indeces[i + 4] = 3 + offset;
+			indeces[i + 5] = 0 + offset;
+
+			offset += 4;
+		}
 
 
 		m_VAO = std::make_unique<rxogl::VertexArray>();
 		//m_VBO = std::make_unique<rxogl::VertexBuffer>(vertices, sizeof(vertices));
 		m_VBO = std::make_unique<rxogl::VertexBuffer>(sizeof(vertices));
-		m_IBO = std::make_unique<rxogl::IndexBuffer>(indeces, 12 * 3);
+		m_IBO = std::make_unique<rxogl::IndexBuffer>(indeces, MaxIndexCount);
 
 		rxogl::BufferLayout layout;
 		layout.Push<glm::vec3>(1); // vec3 Pos
@@ -103,25 +119,42 @@ namespace tests
 		//memcpy(vertices, q0.data(), q0.size() * sizeof(constants::Vertex));
 		//memcpy(vertices + q0.size(), q1.data(), q1.size() * sizeof(constants::Vertex));
 
-		std::array<constants::Vertex, 4> prev;
-		int count = 0;
+		//std::array<constants::Vertex, 4> prev;
+		//int count = 0;
+		//for (float y = -50.f; y < 250.f; y += 100.f)
+		//{
+		//	for (float x = -50.f; x < 250.f; x += 100.f)
+		//	{
+		//		float tex = 0.f;
+		//		if (count % 2 != 0)
+		//			tex = 1.f;
+		//		auto quad = CreateQuad(x, y, tex);
+		//		if(count = 0)
+		//			memcpy(vertices, quad.data(), quad.size() * sizeof(constants::Vertex));
+		//		else
+		//			memcpy(vertices + prev.size(), prev.data(), prev.size() * sizeof(constants::Vertex));
+		//
+		//		prev = quad;
+		//
+		//		count++;
+		//		m_IndexCount += 6;
+		//	}
+		//}
+		int vertexCount = 0;
 		for (float y = -50.f; y < 250.f; y += 100.f)
 		{
 			for (float x = -50.f; x < 250.f; x += 100.f)
 			{
 				float tex = 0.f;
-				if (count % 2 != 0)
+				if (vertexCount % 8 == 0)
 					tex = 1.f;
 				auto quad = CreateQuad(x, y, tex);
-				if(count = 0)
-					memcpy(vertices, quad.data(), quad.size() * sizeof(constants::Vertex));
-				else
-					memcpy(vertices + prev.size(), prev.data(), prev.size() * sizeof(constants::Vertex));
+				vertices[vertexCount]	  = quad[0];
+				vertices[vertexCount + 1] = quad[1];
+				vertices[vertexCount + 2] = quad[2];
+				vertices[vertexCount + 3] = quad[3];
 
-				prev = quad;
-
-				count++;
-				m_IndexCount += 6;
+				vertexCount += 4;
 			}
 		}
 
