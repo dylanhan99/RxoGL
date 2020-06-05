@@ -12,8 +12,8 @@ uniform sampler2D u_Texture;
 void main()
 {
     int index = int(v_TexIndex);
-    o_Col = texture(u_Textures[index], v_TexCoord);
+    //o_Col = texture(u_Textures[index], v_TexCoord);
     //o_Col = texture(u_Texture, v_TexCoord);
-    //o_Col = v_Col;
+    o_Col = v_Col;
     // o_Col = vec4(u_Textures[index], u_Textures[index], u_Textures[index], 1.0);
 }

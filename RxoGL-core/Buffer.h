@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer.h"
+//#include "Renderer.h"
 #include "ConstantsRxogl.h"
 #include <vector>
 #include <typeinfo>
@@ -95,6 +95,7 @@ namespace rxogl
 	public:
 		VertexBuffer(const void* data, unsigned int size);
 		VertexBuffer(unsigned int size);
+		VertexBuffer();
 		~VertexBuffer();
 
 		void Bind() const;

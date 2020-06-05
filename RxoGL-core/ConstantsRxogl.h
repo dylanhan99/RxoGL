@@ -1,23 +1,31 @@
 #pragma once
+#include <iostream>
+#include <gl/glew.h>
 #include <glm/glm.hpp>;
 
+#define ASSERT(x) if (!(x)) __debugbreak();
+#define GLCall(x) GLClearError();\
+	x;\
+	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+
+static void GLClearError()
+{
+	while (glGetError() != GL_NO_ERROR);
+}
+
+static bool GLLogCall(const char* function, const char* file, int line)
+{
+	while (GLenum error = glGetError())
+	{
+		std::cout << "[OpenGL Error] (" << error << "): "
+			<< function << " " << line << std::endl;
+		return false;
+	}
+	return true;
+}
+
+
 namespace constants {
-
-	enum Type {
-		t_Uint = sizeof(GL_UNSIGNED_INT),
-		t_Float = sizeof(GL_FLOAT),
-		t_Vec2 = sizeof(glm::vec2),
-		t_Vec3 = sizeof(glm::vec3),
-		t_Vec4 = sizeof(glm::vec4),
-	};
-
-	//enum Count
-	//{
-	//	c_Vec2 = 2,
-	//	c_Vec3 = 3,
-	//	c_Vec4 = 4
-	//};
-
 	struct Vertex
 	{
 		glm::vec3 Position;

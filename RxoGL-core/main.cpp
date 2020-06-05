@@ -11,9 +11,12 @@
 #include "vendor/imgui/imgui_impl_glfw.h"
 #include "vendor/imgui/imgui_impl_opengl3.h"
 
-#include "tests/TestClearColor.h"
+//#include "tests/TestClearColor.h"
 #include "tests/TestTexture2D.h"
-#include "tests/TestTexture3D.h"
+//#include "tests/TestTexture3D.h"
+#include "tests/TestRenderer2D.h"
+
+#include "SimpleRenderer2D.h"
 
 int main()
 {
@@ -25,7 +28,7 @@ int main()
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-	rxogl::Renderer renderer;
+	//rxogl::SimpleRenderer2D renderer;
 
 	// Setting up imgui
 	{
@@ -48,17 +51,19 @@ int main()
 
 	tests::Test* currentTest = nullptr;
 	tests::TestMenu* testMenu = new tests::TestMenu(currentTest);
-	testMenu->RegisterTest<tests::TestClearColor>("Clear Color");
-	testMenu->RegisterTest<tests::TestTexture2D>("2D Texture");
-	testMenu->RegisterTest<tests::TestTexture3D>("3D Texture");
+	//testMenu->RegisterTest<tests::TestClearColor>("Clear Color");
+	//testMenu->RegisterTest<tests::TestTexture2D>("2D Texture");
+	//testMenu->RegisterTest<tests::TestTexture3D>("3D Texture");
 
-	tests::TestTexture2D* test = new tests::TestTexture2D();
+	//tests::TestTexture2D* test = new tests::TestTexture2D();
+	tests::TestRenderer2D* test = new tests::TestRenderer2D();
 
 	currentTest = test;
 
 	while (!window.closed())
 	{
-		renderer.Clear();
+		//renderer.Clear();
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
 		// Start the Dear ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();

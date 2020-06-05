@@ -1,6 +1,7 @@
 #include "TestTexture2D.h"
 #include "../ConstantsRxogl.h"
 #include <array>
+#include "../SimpleRenderer2D.h"
 
 namespace tests
 {
@@ -169,13 +170,13 @@ namespace tests
 
 	void TestTexture2D::OnRender()
 	{
-		rxogl::Renderer renderer;
+		rxogl::SimpleRenderer2D renderer;
 		{
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationA);
 			glm::mat4 mvp = m_Proj * m_View * model;
 			m_Shader->Bind();
 			m_Shader->SetUniformMat4f("u_MVP", mvp);
-			renderer.Draw(*m_VAO, *m_IBO, *m_Shader);
+			//renderer.Draw(*m_VAO, *m_IBO, *m_Shader);
 		}
 	}
 

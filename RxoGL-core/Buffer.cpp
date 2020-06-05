@@ -22,6 +22,12 @@ namespace rxogl {
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW));
 	}
 
+	VertexBuffer::VertexBuffer()
+	{
+		GLCall(glGenBuffers(1, &m_RendererID));
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_RendererID));
+	}
+
 	VertexBuffer::~VertexBuffer()
 	{
 		GLCall(glDeleteBuffers(1, &m_RendererID));

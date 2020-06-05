@@ -1,29 +1,21 @@
 #pragma once
 
 #include <gl/glew.h>
-#include "VertexArray.h"
-#include "graphics/Shader.h"
+#include "Renderable2D.h"
+//#include "VertexArray.h"
+//#include "graphics/Shader.h"
 #include "ConstantsRxogl.h"
-
-#define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
-
-void GLClearError();
-
-bool GLLogCall(const char* function, const char* file, int line); 
 
 namespace rxogl
 {
-	class IndexBuffer;
+	//class IndexBuffer;
 	class Renderer
 	{
-	private:
-		constants::Vertex* QuadBuffer; // CPU side storage for vertex buffer
-		constants::Vertex* QuadBufferPtr; // 
-	public:
-		void Clear() const;
-		void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+	protected:
+		virtual void Submit(Renderable2D* renderable) = 0;
+		virtual void Flush() = 0;
+	//public:
+	//	void Clear() const;
+	//	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 	};
 }

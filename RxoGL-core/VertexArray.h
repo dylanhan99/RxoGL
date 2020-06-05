@@ -1,10 +1,5 @@
 #pragma once
 
-//#include "VertexBuffer.h"
-//#include "Buffer.h"
-
-//class VertexBufferLayout;
-
 namespace rxogl
 {
 	class VertexBuffer;
