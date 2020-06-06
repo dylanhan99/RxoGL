@@ -14,7 +14,8 @@
 //#include "tests/TestClearColor.h"
 #include "tests/TestTexture2D.h"
 //#include "tests/TestTexture3D.h"
-#include "tests/TestRenderer2D.h"
+#include "tests/TestSimpleRenderer2D.h"
+#include "tests/TestSimpleBatchRenderer2D.h"
 
 #include "SimpleRenderer2D.h"
 
@@ -56,7 +57,7 @@ int main()
 	//testMenu->RegisterTest<tests::TestTexture3D>("3D Texture");
 
 	//tests::TestTexture2D* test = new tests::TestTexture2D();
-	tests::TestRenderer2D* test = new tests::TestRenderer2D();
+	tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
 
 	currentTest = test;
 

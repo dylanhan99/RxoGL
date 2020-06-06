@@ -2,8 +2,6 @@
 
 #include <gl/glew.h>
 #include "Renderable2D.h"
-//#include "VertexArray.h"
-//#include "graphics/Shader.h"
 #include "ConstantsRxogl.h"
 
 namespace rxogl

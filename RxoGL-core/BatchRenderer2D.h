@@ -20,12 +20,15 @@ namespace rxogl
 		IndexBuffer* m_IBO;
 		GLsizei m_IndexCount;
 
-		void Init();
+		constants::Vertex* m_Buffer;
+
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();
 
+		void Begin();
 		void Submit(Renderable2D* renderable) override;
+		void End();
 		void Flush() override;
 	};
 }

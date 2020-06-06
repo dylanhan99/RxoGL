@@ -152,15 +152,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BatchRenderer2D.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="graphics\window.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimpleRenderer2D.cpp" />
-    <ClCompile Include="tests\TestRenderer2D.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StaticSprite.cpp" />
+    <ClCompile Include="tests\TestSimpleBatchRenderer2D.cpp" />
     <ClCompile Include="tests\Test.cpp" />
-    <ClCompile Include="tests\TestTexture2D.cpp" />
+    <ClCompile Include="tests\TestSimpleRenderer2D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
@@ -172,14 +175,17 @@
     <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BatchRenderer2D.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="ConstantsRxogl.h" />
     <ClInclude Include="Renderable2D.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SimpleRenderer2D.h" />
-    <ClInclude Include="tests\TestRenderer2D.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StaticSprite.h" />
+    <ClInclude Include="tests\TestSimpleBatchRenderer2D.h" />
     <ClInclude Include="tests\Test.h" />
-    <ClInclude Include="tests\TestTexture2D.h" />
+    <ClInclude Include="tests\TestSimpleRenderer2D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />

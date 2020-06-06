@@ -6,7 +6,6 @@ namespace rxogl
 		: m_VAO(),
 		m_VBO(RENDERER_BUFFER_SIZE)
 	{
-		//Init();
 		rxogl::BufferLayout layout;
 		layout.Push<glm::vec3>(1); // vec3 Pos
 		layout.Push<glm::vec4>(1); // vec4 Color
@@ -39,13 +38,59 @@ namespace rxogl
 		m_VBO.~VertexBuffer();
 	}
 
+	void BatchRenderer2D::Begin()
+	{
+		m_VBO.Bind();
+		m_Buffer = (constants::Vertex*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+
+	}
+
 	void BatchRenderer2D::Submit(Renderable2D* renderable)
 	{
+		const glm::vec3& position = renderable->GetPosition();
+		const glm::vec4& color = renderable->GetColor();
+		const glm::vec2& size = renderable->GetSize();
 
+		m_Buffer->Position = position;
+		m_Buffer->Color = color;
+		m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
+		m_Buffer->TexIndex = 0.0f;
+
+		m_Buffer->Position = glm::vec3(position.x + size.x, position.y, position.z);
+		m_Buffer->Color = color;
+		m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
+		m_Buffer->TexIndex = 0.0f;
+
+		m_Buffer->Position = glm::vec3(position.x + size.x, position.y + size.y, position.z);
+		m_Buffer->Color = color;
+		m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
+		m_Buffer->TexIndex = 0.0f;
+
+		m_Buffer->Position = glm::vec3(position.x, position.y + size.y, position.z);
+		m_Buffer->Color = color;
+		m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
+		m_Buffer->TexIndex = 0.0f;
+
+		m_Buffer++;
+		m_IndexCount += 6;
+	}
+
+	void BatchRenderer2D::End()
+	{
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		m_VBO.Unbind();
 	}
 
 	void BatchRenderer2D::Flush()
 	{
+		m_VAO.Bind();
+		m_IBO->Bind();
 
+		glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, nullptr);
+
+		m_IBO->Unbind();
+		m_VAO.Unbind();
+
+		m_IndexCount = 0;
 	}
 }
