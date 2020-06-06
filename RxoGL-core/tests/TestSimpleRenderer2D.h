@@ -13,6 +13,9 @@ namespace tests
 
 		rxogl::StaticSprite* sprite;
 		rxogl::StaticSprite* sprite2;
+
+		std::vector<rxogl::Renderable2D*> sprites;
+
 	public:
 		TestSimpleRenderer2D();
 		~TestSimpleRenderer2D();

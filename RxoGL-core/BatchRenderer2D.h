@@ -20,6 +20,9 @@ namespace rxogl
 		IndexBuffer* m_IBO;
 		GLsizei m_IndexCount;
 
+		//Shader* m_Shader;
+		//glm::mat4* m_MVP;
+
 		constants::Vertex* m_Buffer;
 
 	public:

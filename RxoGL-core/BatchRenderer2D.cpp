@@ -3,7 +3,8 @@
 namespace rxogl
 {
 	BatchRenderer2D::BatchRenderer2D()
-		: m_VAO(),
+		: m_Buffer(NULL), m_IndexCount(0),
+		m_VAO(),
 		m_VBO(RENDERER_BUFFER_SIZE)
 	{
 		rxogl::BufferLayout layout;
@@ -42,7 +43,6 @@ namespace rxogl
 	{
 		m_VBO.Bind();
 		m_Buffer = (constants::Vertex*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-
 	}
 
 	void BatchRenderer2D::Submit(Renderable2D* renderable)
@@ -55,23 +55,26 @@ namespace rxogl
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
 		m_Buffer->TexIndex = 0.0f;
+		m_Buffer++;
 
 		m_Buffer->Position = glm::vec3(position.x + size.x, position.y, position.z);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
 		m_Buffer->TexIndex = 0.0f;
+		m_Buffer++;
 
 		m_Buffer->Position = glm::vec3(position.x + size.x, position.y + size.y, position.z);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
 		m_Buffer->TexIndex = 0.0f;
+		m_Buffer++;
 
 		m_Buffer->Position = glm::vec3(position.x, position.y + size.y, position.z);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
 		m_Buffer->TexIndex = 0.0f;
-
 		m_Buffer++;
+
 		m_IndexCount += 6;
 	}
 

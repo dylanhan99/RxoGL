@@ -1,6 +1,7 @@
 #pragma once
 #include "Test.h"
 
+#include <vector>
 #include "../BatchRenderer2D.h"
 #include "../StaticSprite.h"
 #include "../Sprite.h"
@@ -11,8 +12,7 @@ namespace tests
 	{
 	private:
 		Shader* m_Shader;
-		rxogl::Sprite* sprite;
-		rxogl::Sprite* sprite2;
+		std::vector<rxogl::Renderable2D*> sprites;
 
 	public:
 		TestSimpleBatchRenderer2D();

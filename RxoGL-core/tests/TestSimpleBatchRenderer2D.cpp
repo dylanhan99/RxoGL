@@ -6,16 +6,30 @@ namespace tests
 	TestSimpleBatchRenderer2D::TestSimpleBatchRenderer2D()
 	{
 		m_Shader = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
-		sprite  = new rxogl::Sprite(glm::vec3(100, 100, 0), glm::vec2(50, 50), glm::vec4(0.609f, 0.115f, 0.436f, 1)/*, *m_Shader*/);
-		sprite2 = new rxogl::Sprite(glm::vec3(200, 100, 0), glm::vec2(50, 50), glm::vec4(0.609f, 0.115f, 0.436f, 1)/*, *m_Shader*/);
-
+		int count = 0;
+		float size = 30;
+		float width = size - 5;
+		for (float y = 0; y < 540; y += size)
+		{
+			for (float x = 0; x < 960; x += size)
+			{
+				sprites.push_back(new rxogl::Sprite(glm::vec3(x, y, 0), 
+													glm::vec2(width, width),
+													glm::vec4(rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, 1)));
+				count++;
+			}
+		}
+		std::cout << count << std::endl;
+		m_Shader->Bind();
 	}
 
 	TestSimpleBatchRenderer2D::~TestSimpleBatchRenderer2D()
 	{
 		delete m_Shader;
-		delete sprite;
-		delete sprite2;
+		for (rxogl::Renderable2D* s : sprites)
+		{
+			delete s;
+		}
 	}
 
 	void TestSimpleBatchRenderer2D::OnUpdate(float deltaTime)
@@ -25,10 +39,18 @@ namespace tests
 
 	void TestSimpleBatchRenderer2D::OnRender()
 	{
+		glm::mat4 proj = glm::ortho(0.f, 960.f, 0.f, 540.f, -1.0f, 1.0f);
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+		glm::mat4 mvp = proj * view * model;
+		m_Shader->SetUniformMat4f("u_MVP", mvp);
+
 		rxogl::BatchRenderer2D renderer;
 		renderer.Begin();
-		renderer.Submit(sprite);
-		renderer.Submit(sprite2);
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			renderer.Submit(sprites[i]);
+		}
 		renderer.End();
 		renderer.Flush();
 	}
