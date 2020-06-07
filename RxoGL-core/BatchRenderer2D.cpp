@@ -15,6 +15,8 @@ namespace rxogl
 		m_VAO.AddBuffer(m_VBO, layout);
 
 		unsigned int indeces[RENDERER_INDICES_SIZE];
+		std::cout << RENDERER_MAX_SPRITES << std::endl;
+		std::cout << RENDERER_INDICES_SIZE << std::endl;
 		unsigned int offset = 0;
 		for (size_t i = 0; i < RENDERER_INDICES_SIZE; i += 6)
 		{

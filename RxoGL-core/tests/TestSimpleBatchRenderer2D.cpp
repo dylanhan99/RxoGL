@@ -6,7 +6,6 @@ namespace tests
 	TestSimpleBatchRenderer2D::TestSimpleBatchRenderer2D()
 	{
 		m_Shader = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
-		int count = 0;
 		float size = 30;
 		float width = size - 5;
 		for (float y = 0; y < 540; y += size)
@@ -16,10 +15,8 @@ namespace tests
 				sprites.push_back(new rxogl::Sprite(glm::vec3(x, y, 0), 
 													glm::vec2(width, width),
 													glm::vec4(rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, 1)));
-				count++;
 			}
 		}
-		std::cout << count << std::endl;
 		m_Shader->Bind();
 	}
 

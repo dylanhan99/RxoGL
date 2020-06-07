@@ -57,6 +57,7 @@ int main()
 	//testMenu->RegisterTest<tests::TestTexture3D>("3D Texture");
 
 	//tests::TestTexture2D* test = new tests::TestTexture2D();
+	//tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
 	tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
 
 	currentTest = test;

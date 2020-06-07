@@ -6,18 +6,17 @@ namespace tests
 	TestSimpleRenderer2D::TestSimpleRenderer2D()
 	{
 		m_Shader = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
-		sprite = new rxogl::StaticSprite(glm::vec3(100, 100, 0), glm::vec2(50, 50), glm::vec4(0.609f, 0.115f, 0.436f, 1), *m_Shader);
-		sprite2 = new rxogl::StaticSprite(glm::vec3(200, 100, 0), glm::vec2(50, 50), glm::vec4(0.609f, 0.115f, 0.436f, 1), *m_Shader);
 
 		float size = 30;
+		float width = size - 5;
 		for (float y = 0; y < 540; y += size)
 		{
 			for (float x = 0; x < 960; x += size)
 			{
 				sprites.push_back(new rxogl::StaticSprite(glm::vec3(x, y, 0),
-					glm::vec2(size, size),
-					glm::vec4(rand() % 1000 / 1000.f, 0.5f, 0.5f, 1)
-					, *m_Shader));
+														  glm::vec2(width, width),
+														  glm::vec4(rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, 1)
+														  , *m_Shader));
 			}
 		}
 
@@ -26,8 +25,6 @@ namespace tests
 	TestSimpleRenderer2D::~TestSimpleRenderer2D()
 	{
 		delete m_Shader;
-		delete sprite;
-		delete sprite2;
 		for (rxogl::Renderable2D* s : sprites)
 		{
 			delete s;

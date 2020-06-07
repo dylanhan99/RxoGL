@@ -11,9 +11,6 @@ namespace tests
 	private:
 		Shader* m_Shader;
 
-		rxogl::StaticSprite* sprite;
-		rxogl::StaticSprite* sprite2;
-
 		std::vector<rxogl::Renderable2D*> sprites;
 
 	public:
