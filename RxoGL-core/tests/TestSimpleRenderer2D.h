@@ -1,8 +1,8 @@
 #pragma once
 #include "Test.h"
 
-#include "../SimpleRenderer2D.h"
-#include "../Renderable2D.h"
+#include "../graphics/SimpleRenderer2D.h"
+#include "../graphics/Renderable2D.h"
 
 namespace tests
 {

@@ -73,8 +73,8 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -83,8 +83,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -124,15 +126,21 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>;</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,19 +160,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BatchRenderer2D.cpp" />
-    <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="graphics\BatchRenderer2D.cpp" />
+    <ClCompile Include="graphics\buffers\Buffer.cpp" />
+    <ClCompile Include="graphics\layers\Layer.cpp" />
+    <ClCompile Include="graphics\layers\TileLayer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="graphics\window.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="SimpleRenderer2D.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="StaticSprite.cpp" />
+    <ClCompile Include="graphics\SimpleRenderer2D.cpp" />
+    <ClCompile Include="graphics\Sprite.cpp" />
+    <ClCompile Include="graphics\StaticSprite.cpp" />
+    <ClCompile Include="tests\TestMultipleLayer.cpp" />
     <ClCompile Include="tests\TestSimpleBatchRenderer2D.cpp" />
     <ClCompile Include="tests\Test.cpp" />
     <ClCompile Include="tests\TestSimpleRenderer2D.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="graphics\Texture.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
     <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
@@ -172,21 +182,24 @@
     <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />
-    <ClCompile Include="VertexArray.cpp" />
+    <ClCompile Include="graphics\buffers\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BatchRenderer2D.h" />
-    <ClInclude Include="Buffer.h" />
+    <ClInclude Include="graphics\BatchRenderer2D.h" />
+    <ClInclude Include="graphics\buffers\Buffer.h" />
     <ClInclude Include="ConstantsRxogl.h" />
-    <ClInclude Include="Renderable2D.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="SimpleRenderer2D.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="StaticSprite.h" />
+    <ClInclude Include="graphics\layers\Layer.h" />
+    <ClInclude Include="graphics\layers\TileLayer.h" />
+    <ClInclude Include="graphics\Renderable2D.h" />
+    <ClInclude Include="graphics\Renderer.h" />
+    <ClInclude Include="graphics\SimpleRenderer2D.h" />
+    <ClInclude Include="graphics\Sprite.h" />
+    <ClInclude Include="graphics\StaticSprite.h" />
+    <ClInclude Include="tests\TestMultipleLayer.h" />
     <ClInclude Include="tests\TestSimpleBatchRenderer2D.h" />
     <ClInclude Include="tests\Test.h" />
     <ClInclude Include="tests\TestSimpleRenderer2D.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="graphics\Texture.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />
     <ClInclude Include="graphics\shader.h" />
@@ -199,7 +212,7 @@
     <ClInclude Include="vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="vendor\imgui\imstb_truetype.h" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
-    <ClInclude Include="VertexArray.h" />
+    <ClInclude Include="graphics\buffers\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\basic.frag" />

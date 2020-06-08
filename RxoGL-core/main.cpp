@@ -2,10 +2,10 @@
 //#include "utils/fileutils.h"
 #include "graphics/shader.h"
 
-#include "VertexArray.h"
-#include "Buffer.h"
-#include "Renderer.h"
-#include "Texture.h"
+#include "graphics/buffers/VertexArray.h"
+#include "graphics/buffers/Buffer.h"
+#include "graphics/Renderer.h"
+#include "graphics/Texture.h"
 
 //#include "vendor/imgui/imgui.h"
 #include "vendor/imgui/imgui_impl_glfw.h"
@@ -16,8 +16,9 @@
 //#include "tests/TestTexture3D.h"
 #include "tests/TestSimpleRenderer2D.h"
 #include "tests/TestSimpleBatchRenderer2D.h"
+#include "tests/TestMultipleLayer.h"
 
-#include "SimpleRenderer2D.h"
+#include "graphics/SimpleRenderer2D.h"
 
 int main()
 {
@@ -58,7 +59,8 @@ int main()
 
 	//tests::TestTexture2D* test = new tests::TestTexture2D();
 	//tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
-	tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
+	//tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
+	tests::TestMultipleLayer* test = new tests::TestMultipleLayer();
 
 	currentTest = test;
 

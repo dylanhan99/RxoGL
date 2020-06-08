@@ -2,9 +2,9 @@
 #include "Test.h"
 
 #include <vector>
-#include "../BatchRenderer2D.h"
-#include "../StaticSprite.h"
-#include "../Sprite.h"
+#include "../graphics/BatchRenderer2D.h"
+#include "../graphics/StaticSprite.h"
+#include "../graphics/Sprite.h"
 
 namespace tests
 {

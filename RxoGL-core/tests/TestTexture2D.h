@@ -3,9 +3,9 @@
 
 #include "../vendor/imgui/imgui.h"
 
-#include "../VertexArray.h"
-#include "../Texture.h"
-#include "../Buffer.h"
+#include "../graphics/buffers/VertexArray.h"
+#include "../graphics/buffers/Buffer.h"
+#include "../graphics/Texture.h"
 #include "../graphics/shader.h"
 
 #include <memory>

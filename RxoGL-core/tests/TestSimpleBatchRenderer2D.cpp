@@ -6,15 +6,15 @@ namespace tests
 	TestSimpleBatchRenderer2D::TestSimpleBatchRenderer2D()
 	{
 		m_Shader = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
-		float size = 30;
-		float width = size - 5;
+		float size = 6;
+		float width = size - 1;
 		for (float y = 0; y < 540; y += size)
 		{
 			for (float x = 0; x < 960; x += size)
 			{
 				sprites.push_back(new rxogl::Sprite(glm::vec3(x, y, 0), 
 													glm::vec2(width, width),
-													glm::vec4(rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, rand() % 1000 / 1000.f, 1)));
+													glm::vec4(rand() % 1000 / 1000.f, 0.0f, 0.5f, 1)));
 			}
 		}
 		m_Shader->Bind();
