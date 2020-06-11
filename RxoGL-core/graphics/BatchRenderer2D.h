@@ -2,7 +2,7 @@
 #include "buffers/VertexArray.h"
 #include "buffers/Buffer.h"
 #include "../ConstantsRxogl.h"
-#include "Renderer.h"
+#include "Renderer2D.h"
 
 namespace rxogl
 {
@@ -12,7 +12,7 @@ namespace rxogl
 #define RENDERER_BUFFER_SIZE	RENDERER_SPRITE_SIZE * RENDERER_MAX_SPRITES
 #define RENDERER_INDICES_SIZE	RENDERER_MAX_SPRITES * 6
 
-	class BatchRenderer2D : public Renderer
+	class BatchRenderer2D : public Renderer2D
 	{
 	private:
 		VertexArray m_VAO;

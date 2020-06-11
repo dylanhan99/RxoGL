@@ -16,8 +16,8 @@ namespace tests
 		{
 			for (float x = 0; x < 960; x += size)
 			{
-				sprites.push_back(new rxogl::Sprite(glm::vec3(x, y, 0), 
-													glm::vec2(width, width),
+				sprites.push_back(new rxogl::Sprite(x, y, 0,
+													width, width,
 													glm::vec4(rand() % 1000 / 1000.f, 0.0f, 0.5f, 1)));
 			}
 		}
@@ -27,16 +27,16 @@ namespace tests
 			layer1->Add(sprites[i]);
 
 		m_Shader2->Bind();
-		sprite1 = new rxogl::Sprite(glm::vec3(50, 50, 0),
-								glm::vec2(50, 50),
+		sprite1 = new rxogl::Sprite(0, 0, 0,
+								50, 50,
 								glm::vec4(rand() % 1000 / 1000.f, 0.0f, 0.5f, 1));
-		sprite2 = new rxogl::Sprite(glm::vec3(200, 50, 0),
-								glm::vec2(50, 50),
+		sprite2 = new rxogl::Sprite(200, 50, 0,
+								50, 50,
 								glm::vec4(0.0f, rand() % 1000 / 1000.f, 0.5f, 1));
 		layer2->Add(sprite1);
 		layer2->Add(sprite2);
-		m_TranslationA = sprite1->GetPosition();
-		m_TranslationB = sprite2->GetPosition();
+		m_TranslationA = sprites[0]->GetPosition();
+		m_TranslationB = sprite1->GetPosition();
 	}
 
 	TestMultipleLayer::~TestMultipleLayer()
@@ -58,7 +58,9 @@ namespace tests
 
 		// Layer1
 		{
+			m_Shader1->Bind();
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationA);
+
 			glm::mat4 mvp = proj * view * model; // This should be handled in Layer. See comment in layer.cpp
 			m_Shader1->SetUniformMat4f("u_MVP", mvp);
 			layer1->Render();
@@ -66,10 +68,10 @@ namespace tests
 
 		// Layer2
 		{
+			m_Shader2->Bind();
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationB);
 
 			glm::mat4 mvp = proj * view * model; // This should be handled in Layer. See comment in layer.cpp
-
 			m_Shader2->SetUniformMat4f("u_MVP", mvp);// This should be handled in Layer. See comment in layer.cpp
 			layer2->Render();
 		}
@@ -77,7 +79,7 @@ namespace tests
 
 	void TestMultipleLayer::OnImguiRender()
 	{
-		ImGui::SliderFloat3("Translation A", &m_TranslationA.x, 0.0f, 960.0f);
-		ImGui::SliderFloat3("Translation B", &m_TranslationB.x, 0.0f, 960.0f);
+		ImGui::SliderFloat3("Layer1", &m_TranslationA.x, 0.0f, 960.0f);
+		ImGui::SliderFloat3("Layer2", &m_TranslationB.x, 0.0f, 960.0f);
 	}
 }

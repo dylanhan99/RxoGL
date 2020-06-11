@@ -4,7 +4,7 @@
 
 #include "graphics/buffers/VertexArray.h"
 #include "graphics/buffers/Buffer.h"
-#include "graphics/Renderer.h"
+#include "graphics/Renderer2D.h"
 #include "graphics/Texture.h"
 
 //#include "vendor/imgui/imgui.h"

@@ -54,12 +54,6 @@
     <ClCompile Include="tests\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\TestSimpleBatchRenderer2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\TestSimpleRenderer2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\BatchRenderer2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,9 +72,6 @@
     <ClCompile Include="graphics\layers\Layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\buffers\Buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\buffers\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,6 +79,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tests\TestMultipleLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\buffers\Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,19 +128,10 @@
     <ClInclude Include="ConstantsRxogl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\TestSimpleBatchRenderer2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\TestSimpleRenderer2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\BatchRenderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\Renderable2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\SimpleRenderer2D.h">
@@ -174,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\TestMultipleLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Renderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

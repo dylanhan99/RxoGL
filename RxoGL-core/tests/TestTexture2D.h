@@ -23,7 +23,7 @@ namespace tests
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<rxogl::Texture> m_OWTexture, m_YTTexture;
 
-		constants::Vertex vertices[1000];
+		rxogl::constants::Vertex vertices[1000];
 	public:
 		TestTexture2D();
 		~TestTexture2D();

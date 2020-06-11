@@ -1,5 +1,5 @@
 #pragma once
-#include "../Renderer.h"
+#include "../Renderer2D.h"
 #include "../Renderable2D.h"
 
 namespace rxogl
@@ -7,12 +7,12 @@ namespace rxogl
 	class Layer
 	{
 	protected:
-		Renderer* m_Renderer;
+		Renderer2D* m_Renderer;
 		Shader* m_Shader;
 		std::vector<Renderable2D*> m_Renderables;
 		glm::mat4 m_ProjectionMatrix;
 
-		Layer(Renderer* renderer, Shader* shader, glm::mat4 matrix);
+		Layer(Renderer2D* renderer, Shader* shader, glm::mat4 matrix);
 	public:
 		virtual ~Layer();
 		virtual void Add(Renderable2D* renderable);

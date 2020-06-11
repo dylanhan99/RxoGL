@@ -24,13 +24,18 @@ static bool GLLogCall(const char* function, const char* file, int line)
 	return true;
 }
 
-
+namespace rxogl {
 namespace constants {
+	typedef glm::vec4 rxoPosition;
+	typedef glm::vec4 rxoColor;
+	typedef glm::vec2 rxoTexCoords;
+
 	struct Vertex
 	{
-		glm::vec3 Position;
-		glm::vec4 Color;
-		glm::vec2 TexCoords;
-		float TexIndex;
+		rxoPosition		Position; // Vec4 because Homogeneous coordinates. The fourth element = 1
+		rxoColor		Color;
+		rxoTexCoords	TexCoords;
+		float			TexIndex;
 	};
+}
 }

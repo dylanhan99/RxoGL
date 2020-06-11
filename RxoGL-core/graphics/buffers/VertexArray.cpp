@@ -1,7 +1,7 @@
 #include "VertexArray.h"
 
 #include "Buffer.h"
-#include "../Renderer.h"
+#include "../Renderer2D.h"
 
 namespace rxogl
 {
@@ -25,6 +25,9 @@ namespace rxogl
 		for (unsigned int i = 0; i < elements.size(); i++)
 		{
 			const auto& element = elements[i];
+
+			std::cout << element.count << std::endl;
+
 			GLCall(glVertexAttribPointer(i, element.count, element.type,
 				element.normalized, layout.GetStride(), (const void*)offset));
 			GLCall(glEnableVertexAttribArray(i));

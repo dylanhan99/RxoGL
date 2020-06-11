@@ -100,6 +100,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,9 +172,7 @@
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\StaticSprite.cpp" />
     <ClCompile Include="tests\TestMultipleLayer.cpp" />
-    <ClCompile Include="tests\TestSimpleBatchRenderer2D.cpp" />
     <ClCompile Include="tests\Test.cpp" />
-    <ClCompile Include="tests\TestSimpleRenderer2D.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
@@ -191,14 +190,12 @@
     <ClInclude Include="graphics\layers\Layer.h" />
     <ClInclude Include="graphics\layers\TileLayer.h" />
     <ClInclude Include="graphics\Renderable2D.h" />
-    <ClInclude Include="graphics\Renderer.h" />
+    <ClInclude Include="graphics\Renderer2D.h" />
     <ClInclude Include="graphics\SimpleRenderer2D.h" />
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\StaticSprite.h" />
     <ClInclude Include="tests\TestMultipleLayer.h" />
-    <ClInclude Include="tests\TestSimpleBatchRenderer2D.h" />
     <ClInclude Include="tests\Test.h" />
-    <ClInclude Include="tests\TestSimpleRenderer2D.h" />
     <ClInclude Include="graphics\Texture.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />

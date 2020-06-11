@@ -59,29 +59,22 @@ namespace rxogl
 		template<>
 		void Push<glm::vec2>(unsigned int count)
 		{
-			count = 2;
-			//m_Elements.push_back({ constants::t_Vec2, 1, GL_TRUE }); // all forced to be 1 first for count
-			//m_Stride += constants::t_Vec2;
-			m_Elements.push_back({ GL_FLOAT, 2, GL_TRUE }); // all forced to be 1 first for count
-			m_Stride += count * BufferElement::GetSizeOfType(GL_FLOAT);
+			m_Elements.push_back({ GL_FLOAT, (unsigned int)glm::vec2::length(), GL_TRUE });
+			m_Stride += count * sizeof(glm::vec2);
 		}
 
 		template<>
 		void Push<glm::vec3>(unsigned int count)
 		{
-			count = 3;
-
-			m_Elements.push_back({ GL_FLOAT, 3, GL_TRUE });
-			m_Stride += count * BufferElement::GetSizeOfType(GL_FLOAT);
+			m_Elements.push_back({ GL_FLOAT, (unsigned int)glm::vec3::length(), GL_TRUE });
+			m_Stride += count * sizeof(glm::vec3);
 		}
 
 		template<>
 		void Push<glm::vec4>(unsigned int count)
 		{
-			count = 4;
-
-			m_Elements.push_back({ GL_FLOAT, 4, GL_TRUE });
-			m_Stride += count * BufferElement::GetSizeOfType(GL_FLOAT);
+			m_Elements.push_back({ GL_FLOAT, (unsigned int)glm::vec4::length(), GL_TRUE });
+			m_Stride += count * sizeof(glm::vec4);
 		}
 
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }

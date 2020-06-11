@@ -8,9 +8,9 @@ namespace rxogl
 		m_VBO(RENDERER_BUFFER_SIZE)
 	{
 		rxogl::BufferLayout layout;
-		layout.Push<glm::vec3>(1); // vec3 Pos
-		layout.Push<glm::vec4>(1); // vec4 Color
-		layout.Push<glm::vec2>(1); // Texture
+		layout.Push<constants::rxoPosition>	(1); // vec4 Pos, 4th element = 1
+		layout.Push<constants::rxoColor>	(1); // vec4 Color
+		layout.Push<constants::rxoTexCoords>(1); // Texture
 		layout.Push<float>(1); // Texture ID
 		m_VAO.AddBuffer(m_VBO, layout);
 
@@ -47,29 +47,29 @@ namespace rxogl
 
 	void BatchRenderer2D::Submit(const Renderable2D* renderable)
 	{
-		const glm::vec3& position = renderable->GetPosition();
+		const glm::vec4& position = renderable->GetPosition();
 		const glm::vec4& color = renderable->GetColor();
 		const glm::vec2& size = renderable->GetSize();
 
-		m_Buffer->Position = position;
+		m_Buffer->Position = m_TransformationStack[m_TransformationStack.size() - 1] * position;
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
 		m_Buffer->TexIndex = 0.0f;
 		m_Buffer++;
 
-		m_Buffer->Position = glm::vec3(position.x + size.x, position.y, position.z);
+		m_Buffer->Position = m_TransformationStack[m_TransformationStack.size() - 1] * glm::vec4(position.x + size.x, position.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
 		m_Buffer->TexIndex = 0.0f;
 		m_Buffer++;
 
-		m_Buffer->Position = glm::vec3(position.x + size.x, position.y + size.y, position.z);
+		m_Buffer->Position = m_TransformationStack[m_TransformationStack.size() - 1] * glm::vec4(position.x + size.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
 		m_Buffer->TexIndex = 0.0f;
 		m_Buffer++;
 
-		m_Buffer->Position = glm::vec3(position.x, position.y + size.y, position.z);
+		m_Buffer->Position = m_TransformationStack[m_TransformationStack.size() - 1] * glm::vec4(position.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
 		m_Buffer->TexIndex = 0.0f;

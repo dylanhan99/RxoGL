@@ -18,7 +18,7 @@ namespace rxogl
 
 			glm::mat4 proj = glm::ortho(0.f, 960.f, 0.f, 540.f, -1.0f, 1.0f);
 			glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(/*-10*/0, 0, 0));
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), sprite->GetPosition());
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(sprite->GetPosition()));
 			glm::mat4 mvp = proj * view * model;
 
 			sprite->GetShader().SetUniformMat4f("u_MVP", mvp);

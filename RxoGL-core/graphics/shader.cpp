@@ -1,6 +1,6 @@
 #include "shader.h"
 
-#include "Renderer.h"
+#include "Renderer2D.h"
 #include "../utils/fileutils.h"
 
 Shader::Shader(const std::string& vertPath, const std::string& fragPath)

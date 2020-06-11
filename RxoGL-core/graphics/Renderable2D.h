@@ -10,21 +10,21 @@ namespace rxogl
 	class Renderable2D
 	{
 	protected:
-		glm::vec3 m_Position;
+		constants::rxoPosition m_Position;
 		glm::vec2 m_Size;
-		glm::vec4 m_Color;
+		constants::rxoColor m_Color;
 
 	public:
-		Renderable2D(glm::vec3 position, glm::vec2 size, glm::vec4 color)
+		Renderable2D(constants::rxoPosition position, glm::vec2 size, constants::rxoColor color)
 			: m_Position(position), m_Size(size), m_Color(color)
 		{ }
 
 		~Renderable2D()
 		{ }
 
-		inline const glm::vec3& GetPosition() const { return m_Position; }
-		inline const glm::vec2& GetSize() const { return m_Size; }
-		inline const glm::vec4& GetColor() const { return m_Color; }
+		inline const constants::rxoPosition& GetPosition() const { return m_Position; }
+		inline const glm::vec2&				 GetSize() const { return m_Size; }
+		inline const constants::rxoColor&	 GetColor() const { return m_Color; }
 
 	};
 }

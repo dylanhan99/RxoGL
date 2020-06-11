@@ -1,12 +1,12 @@
 #pragma once
 
 #include <deque>
-#include "Renderer.h"
+#include "Renderer2D.h"
 #include "StaticSprite.h"
 
 namespace rxogl
 {
-	class SimpleRenderer2D : Renderer
+	class SimpleRenderer2D : Renderer2D
 	{
 	private:
 		std::deque<StaticSprite*> m_RenderQueue;

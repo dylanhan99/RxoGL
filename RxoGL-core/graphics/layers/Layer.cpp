@@ -2,7 +2,7 @@
 
 namespace rxogl
 {
-	Layer::Layer(Renderer* renderer, Shader* shader, glm::mat4 matrix)
+	Layer::Layer(Renderer2D* renderer, Shader* shader, glm::mat4 matrix)
 		: m_Renderer(renderer), m_Shader(shader), m_ProjectionMatrix(matrix)
 	{
 		//m_Shader->Bind();

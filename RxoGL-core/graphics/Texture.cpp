@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-#include "Renderer.h"
+#include "Renderer2D.h"
 #include "../vendor/stb_image/stb_image.h"
 
 namespace rxogl
