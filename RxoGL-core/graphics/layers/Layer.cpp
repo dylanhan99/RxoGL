@@ -27,8 +27,12 @@ namespace rxogl
 	{
 		m_Shader->Bind();
 		m_Renderer->Begin();
+		int i = 0;
 		for (const Renderable2D* renderable : m_Renderables)
-			m_Renderer->Submit(renderable);
+		{
+			renderable->Submit(m_Renderer);
+			//m_Renderer->Submit(renderable);
+		}
 		m_Renderer->End();
 		m_Renderer->Flush();
 	}

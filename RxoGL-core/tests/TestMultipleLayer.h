@@ -2,9 +2,9 @@
 #include "Test.h"
 
 #include <vector>
-#include "../graphics/BatchRenderer2D.h"
-#include "../graphics/StaticSprite.h"
-#include "../graphics/Sprite.h"
+#include "../graphics/renderers/BatchRenderer2D.h"
+#include "../graphics/renderables/StaticSprite.h"
+#include "../graphics/renderables/Sprite.h"
 
 #include "../graphics/layers/TileLayer.h"
 

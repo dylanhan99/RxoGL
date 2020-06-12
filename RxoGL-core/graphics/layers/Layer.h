@@ -1,6 +1,6 @@
 #pragma once
-#include "../Renderer2D.h"
-#include "../Renderable2D.h"
+#include "../renderers/Renderer2D.h"
+#include "../renderables/Renderable2D.h"
 
 namespace rxogl
 {

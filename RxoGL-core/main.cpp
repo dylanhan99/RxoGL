@@ -4,7 +4,7 @@
 
 #include "graphics/buffers/VertexArray.h"
 #include "graphics/buffers/Buffer.h"
-#include "graphics/Renderer2D.h"
+#include "graphics/renderers/Renderer2D.h"
 #include "graphics/Texture.h"
 
 //#include "vendor/imgui/imgui.h"
@@ -12,13 +12,14 @@
 #include "vendor/imgui/imgui_impl_opengl3.h"
 
 //#include "tests/TestClearColor.h"
-#include "tests/TestTexture2D.h"
+//#include "tests/TestTexture2D.h"
 //#include "tests/TestTexture3D.h"
-#include "tests/TestSimpleRenderer2D.h"
-#include "tests/TestSimpleBatchRenderer2D.h"
+//#include "tests/TestSimpleRenderer2D.h"
+//#include "tests/TestSimpleBatchRenderer2D.h"
 #include "tests/TestMultipleLayer.h"
+#include "tests/TestGroups.h"
 
-#include "graphics/SimpleRenderer2D.h"
+#include "graphics/renderers/SimpleRenderer2D.h"
 
 int main()
 {
@@ -60,7 +61,8 @@ int main()
 	//tests::TestTexture2D* test = new tests::TestTexture2D();
 	//tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
 	//tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
-	tests::TestMultipleLayer* test = new tests::TestMultipleLayer();
+	//tests::TestMultipleLayer* test = new tests::TestMultipleLayer();
+	tests::TestGroups* test = new tests::TestGroups();
 
 	currentTest = test;
 

@@ -161,16 +161,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="graphics\BatchRenderer2D.cpp" />
+    <ClCompile Include="graphics\layers\Group.cpp" />
+    <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp" />
     <ClCompile Include="graphics\buffers\Buffer.cpp" />
     <ClCompile Include="graphics\layers\Layer.cpp" />
     <ClCompile Include="graphics\layers\TileLayer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="graphics\window.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
-    <ClCompile Include="graphics\SimpleRenderer2D.cpp" />
-    <ClCompile Include="graphics\Sprite.cpp" />
-    <ClCompile Include="graphics\StaticSprite.cpp" />
+    <ClCompile Include="graphics\renderers\SimpleRenderer2D.cpp" />
+    <ClCompile Include="graphics\renderables\Sprite.cpp" />
+    <ClCompile Include="graphics\renderables\StaticSprite.cpp" />
+    <ClCompile Include="tests\TestGroups.cpp" />
     <ClCompile Include="tests\TestMultipleLayer.cpp" />
     <ClCompile Include="tests\Test.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
@@ -184,16 +186,18 @@
     <ClCompile Include="graphics\buffers\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="graphics\BatchRenderer2D.h" />
+    <ClInclude Include="graphics\layers\Group.h" />
+    <ClInclude Include="graphics\renderers\BatchRenderer2D.h" />
     <ClInclude Include="graphics\buffers\Buffer.h" />
     <ClInclude Include="ConstantsRxogl.h" />
     <ClInclude Include="graphics\layers\Layer.h" />
     <ClInclude Include="graphics\layers\TileLayer.h" />
-    <ClInclude Include="graphics\Renderable2D.h" />
-    <ClInclude Include="graphics\Renderer2D.h" />
-    <ClInclude Include="graphics\SimpleRenderer2D.h" />
-    <ClInclude Include="graphics\Sprite.h" />
-    <ClInclude Include="graphics\StaticSprite.h" />
+    <ClInclude Include="graphics\renderables\Renderable2D.h" />
+    <ClInclude Include="graphics\renderers\Renderer2D.h" />
+    <ClInclude Include="graphics\renderers\SimpleRenderer2D.h" />
+    <ClInclude Include="graphics\renderables\Sprite.h" />
+    <ClInclude Include="graphics\renderables\StaticSprite.h" />
+    <ClInclude Include="tests\TestGroups.h" />
     <ClInclude Include="tests\TestMultipleLayer.h" />
     <ClInclude Include="tests\Test.h" />
     <ClInclude Include="graphics\Texture.h" />
