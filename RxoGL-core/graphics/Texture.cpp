@@ -1,19 +1,25 @@
 #include "Texture.h"
 
 #include "renderers/Renderer2D.h"
-#include "../vendor/stb_image/stb_image.h"
+//#include "../vendor/stb_image/stb_image.h"
+#include "../utils/LoadImage.h"
 
 namespace rxogl
 {
 	Texture::Texture(const std::string& path)
 		: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr), m_Width(0), m_Height(0), m_BPP(0)
 	{
-		// Flip texture vertically (upside down)
-		// because oGL starts reading the texture from the bottom left
-		// and PNG stores the image from the top left.
-		// AGAIN THIS IF FOR PNG
-		stbi_set_flip_vertically_on_load(1);
-		m_LocalBuffer = stbi_load(path.c_str(), &m_Width, &m_Height, &m_BPP, 4);
+		Load();
+	}
+
+	Texture::~Texture()
+	{
+		GLCall(glDeleteTextures(1, &m_RendererID));
+	}
+
+	void Texture::Load()
+	{
+		m_LocalBuffer = utils::LoadTexture(m_FilePath.c_str(), m_Width, m_Height);
 
 		GLCall(glGenTextures(1, &m_RendererID));
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_RendererID));
@@ -26,14 +32,6 @@ namespace rxogl
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
-
-		if (m_LocalBuffer)
-			stbi_image_free(m_LocalBuffer);
-	}
-
-	Texture::~Texture()
-	{
-		GLCall(glDeleteTextures(1, &m_RendererID));
 	}
 
 	void Texture::Bind(unsigned int slot) const

@@ -176,6 +176,9 @@
     <ClInclude Include="graphics\layers\Group.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="utils\LoadImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\basic.frag" />

@@ -1,9 +1,11 @@
 #include "TestGroups.h"
 #include "../vendor/imgui/imgui.h"
 
+
 namespace tests
 {
 	TestGroups::TestGroups()
+		: m_OWTexture("res/textures/OverwatchLogo.png")
 	{
 		m_Shader = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
 		layer = new rxogl::TileLayer(m_Shader);
@@ -30,6 +32,8 @@ namespace tests
 		layer->Add(ManyButtons);
 
 		m_Translation = ManyButtons->GetPosition();
+
+		m_OWTexture.Bind(1);
 	}
 
 	TestGroups::~TestGroups()
@@ -40,7 +44,9 @@ namespace tests
 
 	void TestGroups::OnUpdate(float deltaTime)
 	{
-
+		m_OWTexture.Bind(1);
+		int samplers[2] = { 0, 1 };
+		m_Shader->SetUniform1iv("u_Textures", 2, samplers);
 	}
 
 	void TestGroups::OnRender()

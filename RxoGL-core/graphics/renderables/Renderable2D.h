@@ -5,6 +5,7 @@
 #include "../buffers/Buffer.h"
 #include "../shader.h"
 #include "../renderers/Renderer2D.h"
+#include "../Texture.h"
 
 namespace rxogl
 {

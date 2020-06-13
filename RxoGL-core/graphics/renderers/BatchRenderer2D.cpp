@@ -54,25 +54,25 @@ namespace rxogl
 		m_Buffer->Position = *m_TransformationStackBack * position;
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
-		m_Buffer->TexIndex = 0.0f;
+		m_Buffer->TexIndex = 1.0f;
 		m_Buffer++;
 
 		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
-		m_Buffer->TexIndex = 0.0f;
+		m_Buffer->TexIndex = 1.0f;
 		m_Buffer++;
 
 		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
-		m_Buffer->TexIndex = 0.0f;
+		m_Buffer->TexIndex = 1.0f;
 		m_Buffer++;
 
 		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
-		m_Buffer->TexIndex = 0.0f;
+		m_Buffer->TexIndex = 1.0f;
 		m_Buffer++;
 
 		m_IndexCount += 6;

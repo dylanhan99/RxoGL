@@ -8,6 +8,7 @@
 
 #include "../graphics/layers/TileLayer.h"
 #include "../graphics/layers/Group.h"
+#include "../graphics/Texture.h"
 
 namespace tests
 {
@@ -22,7 +23,7 @@ namespace tests
 
 
 		rxogl::TileLayer* layer;
-
+		rxogl::Texture m_OWTexture;
 	public:
 		TestGroups();
 		~TestGroups();

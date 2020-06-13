@@ -31,7 +31,6 @@ namespace rxogl
 		for (const Renderable2D* renderable : m_Renderables)
 		{
 			renderable->Submit(m_Renderer);
-			//m_Renderer->Submit(renderable);
 		}
 		m_Renderer->End();
 		m_Renderer->Flush();
