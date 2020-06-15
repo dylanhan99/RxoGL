@@ -21,9 +21,8 @@ namespace tests
 		rxogl::Renderable2D* sprText;
 		glm::vec3 m_Translation;
 
-
 		rxogl::TileLayer* layer;
-		rxogl::Texture m_OWTexture;
+		rxogl::Texture m_OWTexture, m_OCTexture, m_FOTexture;
 	public:
 		TestGroups();
 		~TestGroups();

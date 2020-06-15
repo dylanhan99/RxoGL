@@ -20,8 +20,9 @@ namespace rxogl
 		VertexBuffer m_VBO;
 		IndexBuffer* m_IBO;
 		GLsizei m_IndexCount;
-
 		constants::Vertex* m_Buffer;
+
+		std::vector<unsigned int> m_TextureSlots;
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();

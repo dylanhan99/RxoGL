@@ -19,7 +19,8 @@ namespace rxogl
 		void Bind(unsigned int slot = 0) const;
 		void Unbind() const;
 
-		inline int GetWidth() { return m_Width; }
-		inline int GetHeight() { return m_Height; }
+		inline const unsigned int& GetTexID()	const { return m_RendererID; }
+		inline const unsigned int& GetWidth()	const { return m_Width; }
+		inline const unsigned int& GetHeight()	const { return m_Height; }
 	};
 }

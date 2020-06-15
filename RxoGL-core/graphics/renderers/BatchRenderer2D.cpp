@@ -47,32 +47,72 @@ namespace rxogl
 
 	void BatchRenderer2D::Submit(const Renderable2D* renderable)
 	{
-		const glm::vec4& position = renderable->GetPosition();
-		const glm::vec4& color = renderable->GetColor();
-		const glm::vec2& size = renderable->GetSize();
+		const glm::vec4&	position	= renderable->GetPosition();
+		const glm::vec4&	color		= renderable->GetColor();
+		const glm::vec2&	size		= renderable->GetSize();
+		const Texture*		texture		= renderable->GetTexture();
+		const unsigned int& texID		= texture->GetTexID();
+		//if (texture != NULL)
+		//	texID = texture->GetTexID();
+
+		unsigned int col = 0;
+		float texSlot = 0.f;
+		//if (texID > 0)
+		if (texture != nullptr)
+		{
+			bool found = false;
+			for (int i = 0; i < m_TextureSlots.size(); i++)
+			{
+				texSlot = (float)(i + 1);
+				found = true;
+				break;
+			}
+
+			if (!found)
+			{
+				if (m_TextureSlots.size() >= 32)
+				{
+					End();
+					Flush();
+					Begin();
+				}
+				m_TextureSlots.push_back(texID);
+				texSlot = (float)(m_TextureSlots.size() - 1);
+			}
+		}
+		else
+		{
+			int r = color.x * 255.f;
+			int g = color.y * 255.f;
+			int b = color.z * 255.f;
+			int a = color.w * 255.f;
+
+			col = a << 24 | b << 16 | g << 8 | r;
+		}
 
 		m_Buffer->Position = *m_TransformationStackBack * position;
+		//m_Buffer->Color = col;
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
-		m_Buffer->TexIndex = 1.0f;
+		m_Buffer->TexIndex = texSlot;
 		m_Buffer++;
 
 		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
-		m_Buffer->TexIndex = 1.0f;
+		m_Buffer->TexIndex = texSlot;
 		m_Buffer++;
 
 		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
-		m_Buffer->TexIndex = 1.0f;
+		m_Buffer->TexIndex = texSlot;
 		m_Buffer++;
 
 		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color = color;
 		m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
-		m_Buffer->TexIndex = 1.0f;
+		m_Buffer->TexIndex = texSlot;
 		m_Buffer++;
 
 		m_IndexCount += 6;
@@ -86,6 +126,13 @@ namespace rxogl
 
 	void BatchRenderer2D::Flush()
 	{
+		for (int i = 0; i < m_TextureSlots.size(); i++)
+		{
+			GLCall(glActiveTexture(GL_TEXTURE0 + i));
+			GLCall(glBindTexture(GL_TEXTURE_2D, m_TextureSlots[i]));
+			//GLCall(glBindTextureUnit(i, m_TextureSlots[i]));
+		}
+
 		m_VAO.Bind();
 		m_IBO->Bind();
 

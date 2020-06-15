@@ -1,17 +1,47 @@
 #include "TestGroups.h"
 #include "../vendor/imgui/imgui.h"
 
-
 namespace tests
 {
 	TestGroups::TestGroups()
-		: m_OWTexture("res/textures/OverwatchLogo.png")
+		: m_OWTexture("res/textures/a.png"), m_OCTexture("res/textures/b.png"), m_FOTexture("res/textures/c.png")
 	{
+		rxogl::Texture* textures[] =
+		{
+			&m_OWTexture,
+			&m_OCTexture,
+			&m_FOTexture
+		};
+
 		m_Shader = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
 		layer = new rxogl::TileLayer(m_Shader);
 
 		m_Shader->Bind();
-		sprButton = new rxogl::Sprite(0, 0, 0,
+		int texIDs[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		m_Shader->SetUniform1iv("u_Textures", 10, texIDs);
+
+		float size = 20;
+		float width = size;
+		for (float y = 0; y < 540; y += size)
+		{
+			for (float x = 0; x < 960; x += size)
+			{
+				if (rand() % 4 == 0)
+				{
+					layer->Add(new rxogl::Sprite(x, y, 0,
+						width, width,
+						textures[rand() % 3]));
+				}
+				else
+				{
+					layer->Add(new rxogl::Sprite(x, y, 0,
+						width, width,
+						glm::vec4(rand() % 1000 / 1000.f, 0, 0.7f, 1)));
+				}
+			}
+		}
+
+		/*sprButton = new rxogl::Sprite(0, 0, 0,
 			100, 50,
 			glm::vec4(rand() % 1000 / 1000.f, 0.0f, 0.7f, 1));
 
@@ -33,7 +63,7 @@ namespace tests
 
 		m_Translation = ManyButtons->GetPosition();
 
-		m_OWTexture.Bind(1);
+		m_OWTexture.Bind(1);*/
 	}
 
 	TestGroups::~TestGroups()
@@ -44,9 +74,6 @@ namespace tests
 
 	void TestGroups::OnUpdate(float deltaTime)
 	{
-		m_OWTexture.Bind(1);
-		int samplers[2] = { 0, 1 };
-		m_Shader->SetUniform1iv("u_Textures", 2, samplers);
 	}
 
 	void TestGroups::OnRender()
