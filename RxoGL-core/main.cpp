@@ -21,8 +21,12 @@
 
 #include "graphics/renderers/SimpleRenderer2D.h"
 
+//#include <freetype/freetype.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 int main()
 {
+	FT_Int;
 	Window window("rxogl", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
