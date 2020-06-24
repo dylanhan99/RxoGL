@@ -32,7 +32,7 @@ namespace rxogl
 		//GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer));
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_BGRA, GL_UNSIGNED_BYTE, m_LocalBuffer));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
-		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+		Unbind();
 	}
 
 	void Texture::Bind(unsigned int slot) const

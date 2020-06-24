@@ -90,6 +90,12 @@
     <ClCompile Include="graphics\layers\Group.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\renderables\Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\TestTextRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics\window.h">
@@ -179,10 +185,21 @@
     <ClInclude Include="utils\LoadImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\renderables\Label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\FreeType\FreeType-gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\TestTextRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\basic.frag" />
     <None Include="res\shaders\basic.vert" />
+    <None Include="res\shaders\text.vert" />
+    <None Include="res\shaders\text.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\OverwatchLogo.png">

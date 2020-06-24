@@ -18,10 +18,10 @@ namespace rxogl
 		constants::rxoColor m_Color;
 		Texture* m_Texture;
 
-		Renderable2D(){};
+		Renderable2D() : m_Texture(nullptr) {};
 	public:
 		Renderable2D(constants::rxoPosition position, glm::vec2 size, constants::rxoColor color)
-			: m_Position(position), m_Size(size), m_Color(color)
+			: m_Position(position), m_Size(size), m_Color(color), m_Texture(nullptr)
 		{ }
 
 		~Renderable2D()

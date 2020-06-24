@@ -18,15 +18,10 @@
 //#include "tests/TestSimpleBatchRenderer2D.h"
 #include "tests/TestMultipleLayer.h"
 #include "tests/TestGroups.h"
+#include "tests/TestTextRender.h"
 
-#include "graphics/renderers/SimpleRenderer2D.h"
-
-//#include <freetype/freetype.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 int main()
 {
-	FT_Int;
 	Window window("rxogl", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
@@ -66,7 +61,8 @@ int main()
 	//tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
 	//tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
 	//tests::TestMultipleLayer* test = new tests::TestMultipleLayer();
-	tests::TestGroups* test = new tests::TestGroups();
+	//tests::TestGroups* test = new tests::TestGroups();
+	tests::TestTextRender* test = new tests::TestTextRender();
 
 	currentTest = test;
 

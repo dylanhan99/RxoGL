@@ -42,6 +42,7 @@ namespace rxogl
 
 		virtual void Begin() {}
 		virtual void Submit(const Renderable2D* renderable) = 0;
+		virtual void DrawString(const std::string text, constants::rxoPosition position, const constants::rxoColor color) {}
 		virtual void End() {}
 		virtual void Flush() = 0;
 	//public:

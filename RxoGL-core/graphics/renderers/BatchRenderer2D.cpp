@@ -1,5 +1,7 @@
 #include "BatchRenderer2D.h"
 
+const int HAVETEXT = true;
+
 namespace rxogl
 {
 	BatchRenderer2D::BatchRenderer2D()
@@ -12,6 +14,7 @@ namespace rxogl
 		layout.Push<constants::rxoColor>	(1); // vec4 Color
 		layout.Push<constants::rxoTexCoords>(1); // Texture
 		layout.Push<float>(1); // Texture ID
+
 		m_VAO.AddBuffer(m_VBO, layout);
 
 		unsigned int indeces[RENDERER_INDICES_SIZE];
@@ -80,15 +83,15 @@ namespace rxogl
 				texSlot = (float)(m_TextureSlots.size() - 1);
 			}
 		}
-		else
-		{
-			int r = color.x * 255.f;
-			int g = color.y * 255.f;
-			int b = color.z * 255.f;
-			int a = color.w * 255.f;
-
-			col = a << 24 | b << 16 | g << 8 | r;
-		}
+		//else
+		//{
+		//	int r = color.x * 255.f;
+		//	int g = color.y * 255.f;
+		//	int b = color.z * 255.f;
+		//	int a = color.w * 255.f;
+		//
+		//	col = a << 24 | b << 16 | g << 8 | r;
+		//}
 
 		m_Buffer->Position = *m_TransformationStackBack * position;
 		//m_Buffer->Color = col;
@@ -116,6 +119,11 @@ namespace rxogl
 		m_Buffer++;
 
 		m_IndexCount += 6;
+	}
+
+	void BatchRenderer2D::DrawString(const std::string text, constants::rxoPosition position, const constants::rxoColor color)
+	{
+		
 	}
 
 	void BatchRenderer2D::End()

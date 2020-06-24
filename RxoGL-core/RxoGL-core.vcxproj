@@ -97,16 +97,20 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;FT2_BUILD_LIBRARY;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_LIB;_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;NDEBUG;FT2_BUILD_LIBRARY;FT_DEBUG_LEVEL_ERROR;FT_CONFIG_OPTION_ERROR_STRINGS;FT_DEBUG_LEVEL_TRACE;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -162,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="graphics\layers\Group.cpp" />
+    <ClCompile Include="graphics\renderables\Label.cpp" />
     <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp" />
     <ClCompile Include="graphics\buffers\Buffer.cpp" />
     <ClCompile Include="graphics\layers\Layer.cpp" />
@@ -176,6 +181,7 @@
     <ClCompile Include="tests\TestMultipleLayer.cpp" />
     <ClCompile Include="tests\Test.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
+    <ClCompile Include="tests\TestTextRender.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
     <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
@@ -187,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics\layers\Group.h" />
+    <ClInclude Include="graphics\renderables\Label.h" />
     <ClInclude Include="graphics\renderers\BatchRenderer2D.h" />
     <ClInclude Include="graphics\buffers\Buffer.h" />
     <ClInclude Include="ConstantsRxogl.h" />
@@ -201,10 +208,12 @@
     <ClInclude Include="tests\TestMultipleLayer.h" />
     <ClInclude Include="tests\Test.h" />
     <ClInclude Include="graphics\Texture.h" />
+    <ClInclude Include="tests\TestTextRender.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />
     <ClInclude Include="graphics\shader.h" />
     <ClInclude Include="utils\LoadImage.h" />
+    <ClInclude Include="vendor\FreeType\FreeType-gl.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />
     <ClInclude Include="vendor\imgui\imgui_impl_glfw.h" />
@@ -219,6 +228,8 @@
   <ItemGroup>
     <None Include="res\shaders\basic.frag" />
     <None Include="res\shaders\basic.vert" />
+    <None Include="res\shaders\text.frag" />
+    <None Include="res\shaders\text.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\OverwatchLogo.png" />
