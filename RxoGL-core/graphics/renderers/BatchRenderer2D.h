@@ -1,11 +1,13 @@
 #pragma once
 #include "../../vendor/FreeType/FreeType-gl.h"
 
+#include "Renderer2D.h"
 #include "../buffers/VertexArray.h"
 #include "../buffers/Buffer.h"
-#include "../../ConstantsRxogl.h"
-#include "Renderer2D.h"
 #include "../renderables/Sprite.h"
+#include "../../ConstantsRxogl.h"
+
+#include "../Font.h"
 
 namespace rxogl
 {
@@ -25,14 +27,14 @@ namespace rxogl
 		constants::Vertex* m_Buffer;
 
 		std::vector<unsigned int> m_TextureSlots;
-		
+
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();
 
 		void Begin() override;
 		void Submit(const Renderable2D* renderable) override;
-		virtual void DrawString(const std::string text, constants::rxoPosition position, const constants::rxoColor color) override;
+		virtual void SubmitString(const Renderable2D* renderable) override;
 		void End() override;
 		void Flush() override;
 	};

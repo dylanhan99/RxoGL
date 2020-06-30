@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="graphics\Font.cpp" />
     <ClCompile Include="graphics\layers\Group.cpp" />
     <ClCompile Include="graphics\renderables\Label.cpp" />
     <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="graphics\buffers\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="graphics\Font.h" />
     <ClInclude Include="graphics\layers\Group.h" />
     <ClInclude Include="graphics\renderables\Label.h" />
     <ClInclude Include="graphics\renderers\BatchRenderer2D.h" />

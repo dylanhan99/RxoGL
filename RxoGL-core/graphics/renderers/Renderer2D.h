@@ -4,6 +4,7 @@
 #include <vector>
 //#include "../renderables/Renderable2D.h"
 #include "../../ConstantsRxogl.h"
+#include "../Font.h"
 
 namespace rxogl
 {
@@ -20,6 +21,8 @@ namespace rxogl
 			m_TransformationStackBack = &m_TransformationStack.back();
 		}
 	public:
+		Font m_Font; // Initialized in Layer constructor
+
 		void Push(const glm::mat4& matrix, bool override = false)
 		{
 			if (override)
@@ -42,7 +45,7 @@ namespace rxogl
 
 		virtual void Begin() {}
 		virtual void Submit(const Renderable2D* renderable) = 0;
-		virtual void DrawString(const std::string text, constants::rxoPosition position, const constants::rxoColor color) {}
+		virtual void SubmitString(const Renderable2D* renderable) {}
 		virtual void End() {}
 		virtual void Flush() = 0;
 	//public:

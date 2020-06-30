@@ -7,8 +7,12 @@ namespace rxogl
 	{
 	private:
 		std::string m_Text;
+		float m_Scale;
 	public:
-		Label(std::string text, float x, float y, constants::rxoColor color);
+		Label(float x, float y, float scale, constants::rxoColor color, std::string text);
 		void Submit(Renderer2D* renderer) const override;
+
+		inline const std::string&		GetText()	const override	{ return m_Text; }
+		inline const float&				GetScale()	const override	{ return m_Scale; }
 	};
 }

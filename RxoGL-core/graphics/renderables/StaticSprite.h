@@ -12,7 +12,6 @@ namespace rxogl
 		Shader& m_Shader;
 	public:
 		StaticSprite(float x, float y, float z, float width, float height, glm::vec4 color, Shader& shader);
-		//StaticSprite(glm::vec3 position, glm::vec2 size, glm::vec4 color, Shader& shader);
 		~StaticSprite();
 
 		inline const VertexArray* GetVAO() const { return m_VAO; }

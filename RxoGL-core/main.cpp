@@ -61,8 +61,8 @@ int main()
 	//tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
 	//tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
 	//tests::TestMultipleLayer* test = new tests::TestMultipleLayer();
-	//tests::TestGroups* test = new tests::TestGroups();
-	tests::TestTextRender* test = new tests::TestTextRender();
+	tests::TestGroups* test = new tests::TestGroups();
+	//tests::TestTextRender* test = new tests::TestTextRender();
 
 	currentTest = test;
 

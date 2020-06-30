@@ -1,6 +1,6 @@
 #include "TileLayer.h"
 #include "../renderers/BatchRenderer2D.h"
-
+#include "../Font.h"
 namespace rxogl
 {
 	TileLayer::TileLayer(Shader* shader)

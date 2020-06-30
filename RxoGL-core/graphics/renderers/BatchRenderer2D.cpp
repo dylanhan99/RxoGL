@@ -1,19 +1,18 @@
 #include "BatchRenderer2D.h"
 
-const int HAVETEXT = true;
-
 namespace rxogl
 {
 	BatchRenderer2D::BatchRenderer2D()
-		: m_Buffer(NULL), m_IndexCount(0),
-		m_VAO(),
-		m_VBO(RENDERER_BUFFER_SIZE)
+		: Renderer2D(),
+		m_Buffer(NULL), m_IndexCount(0), m_VAO(), m_VBO(RENDERER_BUFFER_SIZE)
 	{
+
 		rxogl::BufferLayout layout;
-		layout.Push<constants::rxoPosition>	(1); // vec4 Pos, 4th element = 1
-		layout.Push<constants::rxoColor>	(1); // vec4 Color
-		layout.Push<constants::rxoTexCoords>(1); // Texture
-		layout.Push<float>(1); // Texture ID
+		layout.Push<constants::rxoPosition>(1);		// vec4 Pos, 4th element = 1
+		layout.Push<constants::rxoColor>(1);		// vec4 Color
+		layout.Push<constants::rxoTexCoords>(1);	// Texture
+		layout.Push<float>(1);						// Texture ID
+		layout.Push<float>(1);						// IsText
 
 		m_VAO.AddBuffer(m_VBO, layout);
 
@@ -31,7 +30,6 @@ namespace rxogl
 
 			offset += 4;
 		}
-
 		m_IBO = new IndexBuffer(indeces, RENDERER_INDICES_SIZE);
 	}
 
@@ -50,25 +48,26 @@ namespace rxogl
 
 	void BatchRenderer2D::Submit(const Renderable2D* renderable)
 	{
-		const glm::vec4&	position	= renderable->GetPosition();
-		const glm::vec4&	color		= renderable->GetColor();
-		const glm::vec2&	size		= renderable->GetSize();
-		const Texture*		texture		= renderable->GetTexture();
-		const unsigned int& texID		= texture->GetTexID();
-		//if (texture != NULL)
-		//	texID = texture->GetTexID();
+		const constants::rxoPosition&	position	= renderable->GetPosition();
+		const constants::rxoColor&		color		= renderable->GetColor();
+		const glm::vec2&				size		= renderable->GetSize();
+		const Texture*					texture		= renderable->GetTexture();
+		const unsigned int&				texID		= texture->GetTexID();
+		const float&					isText		= renderable->GetIsText();
 
 		unsigned int col = 0;
 		float texSlot = 0.f;
-		//if (texID > 0)
 		if (texture != nullptr)
 		{
 			bool found = false;
 			for (int i = 0; i < m_TextureSlots.size(); i++)
 			{
-				texSlot = (float)(i + 1);
-				found = true;
-				break;
+				if (m_TextureSlots[i] == texID)
+				{
+					texSlot = (float)(i + 1);
+					found = true;
+					break;
+				}
 			}
 
 			if (!found)
@@ -83,47 +82,117 @@ namespace rxogl
 				texSlot = (float)(m_TextureSlots.size() - 1);
 			}
 		}
-		//else
-		//{
-		//	int r = color.x * 255.f;
-		//	int g = color.y * 255.f;
-		//	int b = color.z * 255.f;
-		//	int a = color.w * 255.f;
-		//
-		//	col = a << 24 | b << 16 | g << 8 | r;
-		//}
 
-		m_Buffer->Position = *m_TransformationStackBack * position;
-		//m_Buffer->Color = col;
-		m_Buffer->Color = color;
-		m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
-		m_Buffer->TexIndex = texSlot;
+		m_Buffer->Position		= *m_TransformationStackBack * position;
+		m_Buffer->Color			= color;
+		m_Buffer->TexCoords		= glm::vec2(0.0f, 0.0f);
+		m_Buffer->TexIndex		= texSlot;
+		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
-		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y, position.z, 1);
-		m_Buffer->Color = color;
-		m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
-		m_Buffer->TexIndex = texSlot;
+		m_Buffer->Position		= *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y, position.z, 1);
+		m_Buffer->Color			= color;
+		m_Buffer->TexCoords		= glm::vec2(1.0f, 0.0f);
+		m_Buffer->TexIndex		= texSlot;
+		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
-		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y + size.y, position.z, 1);
-		m_Buffer->Color = color;
-		m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
-		m_Buffer->TexIndex = texSlot;
+		m_Buffer->Position		= *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y + size.y, position.z, 1);
+		m_Buffer->Color			= color;
+		m_Buffer->TexCoords		= glm::vec2(1.0f, 1.0f);
+		m_Buffer->TexIndex		= texSlot;
+		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
-		m_Buffer->Position = *m_TransformationStackBack * glm::vec4(position.x, position.y + size.y, position.z, 1);
-		m_Buffer->Color = color;
-		m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
-		m_Buffer->TexIndex = texSlot;
+		m_Buffer->Position		= *m_TransformationStackBack * glm::vec4(position.x, position.y + size.y, position.z, 1);
+		m_Buffer->Color			= color;
+		m_Buffer->TexCoords		= glm::vec2(0.0f, 1.0f);
+		m_Buffer->TexIndex		= texSlot;
+		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
 		m_IndexCount += 6;
 	}
 
-	void BatchRenderer2D::DrawString(const std::string text, constants::rxoPosition position, const constants::rxoColor color)
+	// This could easily be an if else in Submit funciton but 
+	// i split to make it clearer to me for now
+	// need to join******************
+	void BatchRenderer2D::SubmitString(const Renderable2D* renderable)
 	{
-		
+		const std::string& text = renderable->GetText();
+
+		float x_Offset = renderable->GetPosition().x;
+
+		for (const char& c : text)
+		{
+			const constants::rxoPosition&	position	= renderable->GetPosition();
+			const constants::rxoColor&		color		= renderable->GetColor();
+			//const glm::vec2&				size		= renderable->GetSize(); // Size should have a defualt null value or something
+			const constants::Character&		ch			= m_Font.GetCharacter(c);
+			const unsigned int&				texID		= ch.TextureID;
+			const float&					scale		= renderable->GetScale();
+			const bool&						isText		= renderable->GetIsText();
+
+			float xpos = x_Offset + ch.Bearing.x * scale;
+			float ypos = position.y - (ch.Size.y - ch.Bearing.y) * scale;
+			float w = ch.Size.x * scale;
+			float h = ch.Size.y * scale;
+
+			float texSlot = 0.f;
+			bool found = false;
+			for (int i = 0; i < m_TextureSlots.size(); i++)
+			{
+				if (m_TextureSlots[i] == texID)
+				{
+					texSlot = (float)(i + 1);
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				if (m_TextureSlots.size() >= 32)
+				{
+					End();
+					Flush();
+					Begin();
+				}
+				m_TextureSlots.push_back(texID);
+				texSlot = (float)(m_TextureSlots.size() - 1);
+			}
+
+			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos,		ypos,		0, 1);
+			m_Buffer->Color			= color;
+			m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
+			m_Buffer->TexIndex		= texSlot;
+			m_Buffer->IsText		= isText;
+			m_Buffer++;
+
+			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos + w,	ypos,		0, 1);
+			m_Buffer->Color			= color;
+			m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
+			m_Buffer->TexIndex		= texSlot;
+			m_Buffer->IsText		= isText;
+			m_Buffer++;
+
+			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos + w,	ypos + h,	0, 1);
+			m_Buffer->Color			= color;
+			m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
+			m_Buffer->TexIndex		= texSlot;
+			m_Buffer->IsText		= isText;
+			m_Buffer++;
+
+			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos,		ypos + h,	0, 1);
+			m_Buffer->Color			= color;
+			m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
+			m_Buffer->TexIndex		= texSlot;
+			m_Buffer->IsText		= isText;
+			m_Buffer++;
+
+			m_IndexCount += 6;
+			x_Offset += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
+		}
 	}
 
 	void BatchRenderer2D::End()

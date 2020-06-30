@@ -1,5 +1,6 @@
 #include "TestGroups.h"
 #include "../vendor/imgui/imgui.h"
+#include "../graphics/renderables/Label.h"
 
 namespace tests
 {
@@ -17,8 +18,10 @@ namespace tests
 		layer = new rxogl::TileLayer(m_Shader);
 
 		m_Shader->Bind();
-		int texIDs[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-		m_Shader->SetUniform1iv("u_Textures", 10, texIDs);
+		int texIDs[32];
+		for (int i = 0; i < 32; i++)
+			texIDs[i] = i;
+		m_Shader->SetUniform1iv("u_Textures", 32, texIDs);
 
 		float size = 20;
 		float width = size;
@@ -40,6 +43,8 @@ namespace tests
 				}
 			}
 		}
+
+		layer->Add(new rxogl::Label(40, 40, 1.f, rxogl::constants::rxoColor(0, 1, 0, 1), "The Quick Brown Fox Jumps Over The Moon!"));
 
 		/*sprButton = new rxogl::Sprite(0, 0, 0,
 			100, 50,

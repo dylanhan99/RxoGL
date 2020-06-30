@@ -75,9 +75,7 @@ namespace tests
 			FT_Face face;
 			if (FT_New_Face(lib, "res/fonts/arial.ttf", 0, &face))
 				std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-			FT_Set_Pixel_Sizes(face, 0, 400);
-			//FTCall(FT_Load_Char(face, 'X', FT_LOAD_RENDER));
-
+			FT_Set_Pixel_Sizes(face, 0, 48);
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
 			for (unsigned char c = 0; c < 128; c++)
@@ -117,13 +115,13 @@ namespace tests
 				};
 				Characters.insert(std::pair<char, Character>(c, character));
 			}
+			FT_Done_Face(face);
+			FT_Done_FreeType(lib);
 		}
 	}	
 	
 	TestTextRender::~TestTextRender()
 	{
-		//FT_Done_Face(face);
-		//FT_Done_FreeType(lib);
 	}
 
 	void TestTextRender::OnUpdate(float deltaTime)
@@ -142,7 +140,9 @@ namespace tests
 		glm::mat4 mvp = proj * view * model; // This should be handled in Layer. See comment in layer.cpp
 		m_Shader->SetUniformMat4f("u_MVP", mvp);
 
-		RenderText(*m_Shader, "OpenGL Text Test fReeeTypeee", m_TranslationA.x, m_TranslationA.y, 1.0f, glm::vec3(1.f, 1.f, 1.f));
+		RenderText(*m_Shader, "012345678901234567890123456789012", m_TranslationA.x, m_TranslationA.y, 1.0f, glm::vec3(1.f, 1.f, 1.f));
+		RenderText(*m_Shader, "012345678901234567890123456789012", 0, 0, 1.0f, glm::vec3(1.f, 1.f, 1.f));
+		RenderText(*m_Shader, "012345678901234567890123456789012", 100, 100, 1.0f, glm::vec3(1.f, 1.f, 1.f));
 		//RenderText(*m_Shader, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
 	}
