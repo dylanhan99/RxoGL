@@ -54,9 +54,6 @@
     <ClCompile Include="tests\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\layers\Layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,16 +63,10 @@
     <ClCompile Include="graphics\layers\TileLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\TestMultipleLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\buffers\Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tests\TestGroups.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\renderables\StaticSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\renderables\Sprite.cpp">
@@ -93,10 +84,13 @@
     <ClCompile Include="graphics\renderables\Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\TestTextRender.cpp">
+    <ClCompile Include="graphics\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Font.cpp">
+    <ClCompile Include="graphics\textures\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\textures\TextureSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -143,9 +137,6 @@
     <ClInclude Include="ConstantsRxogl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\layers\Layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -158,13 +149,7 @@
     <ClInclude Include="graphics\layers\TileLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\TestMultipleLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="tests\TestGroups.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\renderables\StaticSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\renderables\Sprite.h">
@@ -194,10 +179,13 @@
     <ClInclude Include="vendor\FreeType\FreeType-gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\TestTextRender.h">
+    <ClInclude Include="graphics\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Font.h">
+    <ClInclude Include="graphics\textures\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\textures\TextureSheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

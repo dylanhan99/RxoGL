@@ -2,7 +2,6 @@
 
 #include <gl/glew.h>
 #include <vector>
-//#include "../renderables/Renderable2D.h"
 #include "../../ConstantsRxogl.h"
 #include "../Font.h"
 

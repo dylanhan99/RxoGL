@@ -5,8 +5,11 @@
 namespace tests
 {
 	TestGroups::TestGroups()
-		: m_OWTexture("res/textures/a.png"), m_OCTexture("res/textures/b.png"), m_FOTexture("res/textures/c.png")
+		: m_OWTexture("res/textures/a.png"), m_OCTexture("res/textures/b.png"), m_FOTexture("res/textures/c.png"), m_TexSheet("res/textures/abcSheet.png")
 	{
+		m_TexSheet.Add("0", 0, 0, 8, 8);
+		m_TexSheet.Add("1", 8, 0, 8, 8);
+		m_TexSheet.Add("2", 8, 8, 8, 8);
 		rxogl::Texture* textures[] =
 		{
 			&m_OWTexture,
@@ -33,7 +36,8 @@ namespace tests
 				{
 					layer->Add(new rxogl::Sprite(x, y, 0,
 						width, width,
-						textures[rand() % 3]));
+						&m_TexSheet,
+						std::to_string(rand() % 3)));
 				}
 				else
 				{
@@ -44,7 +48,12 @@ namespace tests
 			}
 		}
 
-		layer->Add(new rxogl::Label(40, 40, 1.f, rxogl::constants::rxoColor(0, 1, 0, 1), "The Quick Brown Fox Jumps Over The Moon!"));
+		//glm::mat4 transform = glm::rotate(glm::radians(0.f), glm::vec3(0, 0, 1));
+		//transform = glm::translate(transform, glm::vec3(50, 450, 0));
+		//fpsGroup = new rxogl::Group(transform);
+		//fpsGroup->Add(new rxogl::Sprite(0, 0, 0, 100, 50, rxogl::constants::rxoColor(1, 1, 0, 1)));
+		////fpsGroup->Add()
+		//layer->Add(fpsGroup);
 
 		/*sprButton = new rxogl::Sprite(0, 0, 0,
 			100, 50,
@@ -79,6 +88,7 @@ namespace tests
 
 	void TestGroups::OnUpdate(float deltaTime)
 	{
+
 	}
 
 	void TestGroups::OnRender()

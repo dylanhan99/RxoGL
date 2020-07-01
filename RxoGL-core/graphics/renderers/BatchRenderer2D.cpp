@@ -6,7 +6,6 @@ namespace rxogl
 		: Renderer2D(),
 		m_Buffer(NULL), m_IndexCount(0), m_VAO(), m_VBO(RENDERER_BUFFER_SIZE)
 	{
-
 		rxogl::BufferLayout layout;
 		layout.Push<constants::rxoPosition>(1);		// vec4 Pos, 4th element = 1
 		layout.Push<constants::rxoColor>(1);		// vec4 Color
@@ -52,12 +51,13 @@ namespace rxogl
 		const constants::rxoColor&		color		= renderable->GetColor();
 		const glm::vec2&				size		= renderable->GetSize();
 		const Texture*					texture		= renderable->GetTexture();
+		const TexCoords*				texCoords	= new TexCoords{ glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) };
 		const unsigned int&				texID		= texture->GetTexID();
 		const float&					isText		= renderable->GetIsText();
 
 		unsigned int col = 0;
 		float texSlot = 0.f;
-		if (texture != nullptr)
+		if (texture)
 		{
 			bool found = false;
 			for (int i = 0; i < m_TextureSlots.size(); i++)
@@ -81,32 +81,35 @@ namespace rxogl
 				m_TextureSlots.push_back(texID);
 				texSlot = (float)(m_TextureSlots.size() - 1);
 			}
+
+			delete texCoords;
+			texCoords = &texture->GetTexCoords(renderable->GetTextureName());
 		}
 
 		m_Buffer->Position		= *m_TransformationStackBack * position;
 		m_Buffer->Color			= color;
-		m_Buffer->TexCoords		= glm::vec2(0.0f, 0.0f);
+		m_Buffer->TexCoords		= texCoords->bl;
 		m_Buffer->TexIndex		= texSlot;
 		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
 		m_Buffer->Position		= *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y, position.z, 1);
 		m_Buffer->Color			= color;
-		m_Buffer->TexCoords		= glm::vec2(1.0f, 0.0f);
+		m_Buffer->TexCoords		= texCoords->br;
 		m_Buffer->TexIndex		= texSlot;
 		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
 		m_Buffer->Position		= *m_TransformationStackBack * glm::vec4(position.x + size.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color			= color;
-		m_Buffer->TexCoords		= glm::vec2(1.0f, 1.0f);
+		m_Buffer->TexCoords		= texCoords->tr;
 		m_Buffer->TexIndex		= texSlot;
 		m_Buffer->IsText		= isText;
 		m_Buffer++;
 
 		m_Buffer->Position		= *m_TransformationStackBack * glm::vec4(position.x, position.y + size.y, position.z, 1);
 		m_Buffer->Color			= color;
-		m_Buffer->TexCoords		= glm::vec2(0.0f, 1.0f);
+		m_Buffer->TexCoords		= texCoords->tl;
 		m_Buffer->TexIndex		= texSlot;
 		m_Buffer->IsText		= isText;
 		m_Buffer++;
@@ -116,11 +119,9 @@ namespace rxogl
 
 	// This could easily be an if else in Submit funciton but 
 	// i split to make it clearer to me for now
-	// need to join******************
 	void BatchRenderer2D::SubmitString(const Renderable2D* renderable)
 	{
 		const std::string& text = renderable->GetText();
-
 		float x_Offset = renderable->GetPosition().x;
 
 		for (const char& c : text)
