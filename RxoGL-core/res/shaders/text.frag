@@ -1,12 +1,28 @@
 #version 330 core
-in vec2 TexCoords;
-out vec4 color;
 
-uniform sampler2D text[2];
-uniform vec3 textColor;
+out vec4    o_Col;
+
+in vec4     v_Col;
+in vec2     v_TexCoord;
+in float    v_TexIndex;
+//in float    v_IsText;
+
+uniform sampler2D u_Textures[32];
 
 void main()
-{    
-    vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text[0], TexCoords).r);
-    color = vec4(textColor, 1.0) * sampled;
-}  
+{
+    o_Col = v_Col;
+    if(v_TexIndex > 0.0)
+    {
+        //int index = int(v_TexIndex);
+        //if(v_IsText > 0.5) // true
+        //{
+            vec4 sampled = vec4(1.0, 1.0, 1.0, texture(u_Textures[index - 1], v_TexCoord).r);
+            o_Col = vec4(v_Col.r, v_Col.g, v_Col.b, 1.0) * sampled;
+        //}
+        //else
+        //{
+        //    o_Col = texture(u_Textures[index - 1], v_TexCoord);
+        //}
+    }
+}

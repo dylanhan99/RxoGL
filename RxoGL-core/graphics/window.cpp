@@ -8,8 +8,8 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 Window::Window(const char* title, int width, int height)
 {
 	m_Title = title;
-	m_Width = width;
-	m_Height = height;
+	*m_Width = width;
+	*m_Height = height;
 
 	if (!init())
 		glfwTerminate();
@@ -27,6 +27,8 @@ Window::Window(const char* title, int width, int height)
 Window::~Window()
 {
 	glfwTerminate();
+	delete m_Width;
+	delete m_Height;
 }
 
 bool Window::init()
@@ -37,7 +39,7 @@ bool Window::init()
 		return false;
 	}
 
-	m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
+	m_Window = glfwCreateWindow(*m_Width, *m_Height, m_Title, NULL, NULL);
 	if (!m_Window)
 	{
 		std::cout << "Failed to create GLFW window!" << std::endl;
@@ -83,10 +85,10 @@ void Window::getMousePosition(double& x, double& y) const
 	y = my;
 }
 
-void Window::update()
+void Window::update() const
 {
 	glfwPollEvents();
-	glfwGetFramebufferSize(m_Window, &m_Width, &m_Height);
+	glfwGetFramebufferSize(m_Window, m_Width, m_Height);
 	glfwSwapBuffers(m_Window);
 }
 

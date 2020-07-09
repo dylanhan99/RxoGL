@@ -165,8 +165,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="graphics\CameraOrtho.cpp" />
     <ClCompile Include="graphics\Font.cpp" />
     <ClCompile Include="graphics\layers\Group.cpp" />
+    <ClCompile Include="graphics\layers\UILayer.cpp" />
     <ClCompile Include="graphics\renderables\Label.cpp" />
     <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp" />
     <ClCompile Include="graphics\buffers\Buffer.cpp" />
@@ -178,9 +181,12 @@
     <ClCompile Include="graphics\shader.cpp" />
     <ClCompile Include="graphics\renderers\SimpleRenderer2D.cpp" />
     <ClCompile Include="graphics\renderables\Sprite.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneTest.cpp" />
     <ClCompile Include="tests\TestGroups.cpp" />
     <ClCompile Include="tests\Test.cpp" />
     <ClCompile Include="graphics\textures\Texture.cpp" />
+    <ClCompile Include="tests\TestSceneryLayers.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
     <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
@@ -191,8 +197,13 @@
     <ClCompile Include="graphics\buffers\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="DeltaTime.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="graphics\CameraOrtho.h" />
     <ClInclude Include="graphics\Font.h" />
     <ClInclude Include="graphics\layers\Group.h" />
+    <ClInclude Include="graphics\layers\UILayer.h" />
     <ClInclude Include="graphics\renderables\Label.h" />
     <ClInclude Include="graphics\renderers\BatchRenderer2D.h" />
     <ClInclude Include="graphics\buffers\Buffer.h" />
@@ -204,9 +215,14 @@
     <ClInclude Include="graphics\renderers\SimpleRenderer2D.h" />
     <ClInclude Include="graphics\renderables\Sprite.h" />
     <ClInclude Include="graphics\textures\TextureSheet.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="rxogl.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneTest.h" />
     <ClInclude Include="tests\TestGroups.h" />
     <ClInclude Include="tests\Test.h" />
     <ClInclude Include="graphics\textures\Texture.h" />
+    <ClInclude Include="tests\TestSceneryLayers.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />
     <ClInclude Include="graphics\shader.h" />

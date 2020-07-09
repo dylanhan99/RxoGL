@@ -1,11 +1,25 @@
 #version 330 core
-layout (location = 0) in vec4 vertex; // <vec2 pos, vec2 tex>
-out vec2 TexCoords;
+
+layout(location = 0) in vec4    position;
+layout(location = 1) in vec4    vertexColor;
+layout(location = 2) in vec2    texCoord;
+layout(location = 3) in float   texIndex;
+//layout(location = 4) in float   isText;
+
+out vec4    v_Col;
+out vec2    v_TexCoord;
+out float   v_TexIndex;
+//out float    v_IsText;
 
 uniform mat4 u_MVP;
+  
+void main(){
+    // Output position of the vertex, in clip space : MVP * position
+    gl_Position = u_MVP * position;
 
-void main()
-{
-    gl_Position = u_MVP * vec4(vertex.xy, 0.0, 1.0);
-    TexCoords = vertex.zw;
-}  
+    v_Col       = vertexColor;
+    v_TexCoord  = texCoord;
+    v_TexIndex  = texIndex;
+    //v_IsText    = isText;
+
+}

@@ -52,6 +52,14 @@ namespace constants {
 		float			IsText;
 	};
 
+	//struct TextVertex
+	//{
+	//	rxoPosition		Position; // Vec4 because Homogeneous coordinates. The fourth element = 1
+	//	rxoColor		Color;
+	//	rxoTexCoords	TexCoords;
+	//	float			TexIndex;
+	//};
+
 	typedef glm::ivec2		rxoCharSize;
 	typedef glm::ivec2		rxoCharBearing;
 	typedef unsigned int	rxoCharAdvance;

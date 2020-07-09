@@ -1,12 +1,11 @@
 #pragma once
-#include "../../vendor/FreeType/FreeType-gl.h"
-
 #include "Renderer2D.h"
+
+#include "../../vendor/FreeType/FreeType-gl.h"
 #include "../buffers/VertexArray.h"
 #include "../buffers/Buffer.h"
 #include "../renderables/Sprite.h"
 #include "../../ConstantsRxogl.h"
-
 #include "../Font.h"
 
 namespace rxogl
