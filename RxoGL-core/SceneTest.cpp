@@ -4,7 +4,7 @@
 namespace rxogl { namespace scenes {
 	SceneTest::SceneTest()
 		: m_OWTexture("res/textures/a.png"), m_OCTexture("res/textures/b.png"), m_FOTexture("res/textures/c.png"), m_TexSheet("res/textures/abcSheet.png"),
-		m_Camera(960 / 540, false)
+		m_Camera(960 / 540, true)
 	{
 		m_TexSheet.Add("0", 0, 0, 8, 8);
 		m_TexSheet.Add("1", 8, 0, 8, 8);
@@ -78,15 +78,17 @@ namespace rxogl { namespace scenes {
 	void SceneTest::OnRender()
 	{
 		// Update scene variables before rendering layers ^^^
-		glm::mat4 proj = glm::ortho(0.f, 960.f, 0.f, 540.f, -1.0f, 1.0f);
-		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+		//glm::mat4 proj = glm::ortho(0.f, 960.f, 0.f, 540.f, -1.0f, 1.0f);
+		//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
+		const glm::mat4& pv = m_Camera.GetCamera().GetProjectionViewMatrix();
 		// m_TileLayer
 		{
 			m_Shader1->Bind();
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translation);
 
-			glm::mat4 mvp = proj * view * model; // This should be handled in Layer. See comment in layer.cpp
+			//glm::mat4 mvp = proj * view * model; // This should be handled in Layer. See comment in layer.cpp
+			glm::mat4 mvp = pv * model; 
 			m_Shader1->SetUniformMat4f("u_MVP", mvp);
 			m_TileLayer->Render();
 		}
@@ -95,7 +97,7 @@ namespace rxogl { namespace scenes {
 			m_Shader2->Bind();
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
-			glm::mat4 mvp = proj * view * model; // This should be handled in Layer. See comment in layer.cpp
+			glm::mat4 mvp = pv * model;
 			m_Shader2->SetUniformMat4f("u_MVP", mvp);
 			m_UILayer->Render();
 		}

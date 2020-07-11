@@ -51,6 +51,9 @@ namespace rxogl
 
 		m_Camera.SetPosition(m_CameraPosition);
 
+		//std::cout << m_CameraPosition.x << ", " << m_CameraPosition.y << ", " << m_CameraPosition.z << "\n";
+		std::cout << m_Camera.GetRotation() << "\n";
+
 		m_CameraTranslationSpeed = m_ZoomLevel;
 	}
 
