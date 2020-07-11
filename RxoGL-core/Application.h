@@ -9,10 +9,10 @@ namespace rxogl
 	{
 	private: 
 		static Application* m_Instance; // Singleton
-		Window m_Window;
+		Window* m_Window;
 
-		scenes::Scene*		m_CurrentScene = nullptr;
 		scenes::SceneMenu*	m_SceneMenu;
+		scenes::Scene*		m_CurrentScene;
 		
 		void Init();
 	protected:
@@ -39,6 +39,6 @@ namespace rxogl
 
 			return m_Instance;
 		}
-		inline const Window& GetWindow() const { return m_Window; }
+		inline const Window& GetWindow() const { return *m_Window; }
 	};
 }

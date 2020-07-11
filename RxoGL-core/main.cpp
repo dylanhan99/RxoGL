@@ -11,16 +11,16 @@
 //#include "tests/TestTexture3D.h"
 //#include "tests/TestSimpleRenderer2D.h"
 //#include "tests/TestSimpleBatchRenderer2D.h"
-#include "tests/TestMultipleLayer.h"
-#include "tests/TestGroups.h"
-#include "tests/TestTextRender.h"
+//#include "tests/TestMultipleLayer.h"
+//#include "tests/TestGroups.h"
+//#include "tests/TestTextRender.h"
 
 #include "Application.h"
 
 int main()
 {
 	rxogl::Application* application = rxogl::Application::GetInstance();
-	application->SetWindow("rxogl", 960, 540);
+	//application->SetWindow("rxogl", 960, 540);
 	const Window& window = application->GetWindow();
 
 	//tests::Test* currentTest = nullptr;

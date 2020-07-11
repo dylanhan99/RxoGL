@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="graphics\CameraOrtho.cpp" />
+    <ClCompile Include="graphics\CameraOrthoController.cpp" />
     <ClCompile Include="graphics\Font.cpp" />
     <ClCompile Include="graphics\layers\Group.cpp" />
     <ClCompile Include="graphics\layers\UILayer.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="graphics\CameraOrtho.h" />
+    <ClInclude Include="graphics\CameraOrthoController.h" />
     <ClInclude Include="graphics\Font.h" />
     <ClInclude Include="graphics\layers\Group.h" />
     <ClInclude Include="graphics\layers\UILayer.h" />

@@ -28,7 +28,7 @@ private:
 
 public:
 	Window() {}
-	Window(const char* title, int width, int height);
+	Window(const char* title, int* width, int* height);
 	~Window();
 
 	void update() const;

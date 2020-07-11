@@ -5,11 +5,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
-Window::Window(const char* title, int width, int height)
+Window::Window(const char* title, int* width, int* height)
 {
 	m_Title = title;
-	*m_Width = width;
-	*m_Height = height;
+	m_Width = width;
+	m_Height = height;
 
 	if (!init())
 		glfwTerminate();

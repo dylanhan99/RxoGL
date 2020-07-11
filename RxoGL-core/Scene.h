@@ -31,11 +31,11 @@ namespace rxogl { namespace scenes {
 	class SceneMenu : public Scene
 	{
 	private: 
-		Scene* m_CurrentScene;
+		Scene** m_CurrentScene;
 		std::vector<std::pair<std::string, std::function<Scene* ()>>> m_Scenes;
 	public:
 		SceneMenu() {}
-		SceneMenu(Scene*& currentScenePointer);
+		SceneMenu(Scene* currentScenePointer);
 		~SceneMenu();
 
 		void OnImguiRender() override;

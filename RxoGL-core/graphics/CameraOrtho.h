@@ -5,6 +5,7 @@
 
 namespace rxogl
 {
+	class Application;
 	class CameraOrtho
 	{
 	private:
@@ -14,15 +15,26 @@ namespace rxogl
 
 		glm::vec3 m_Position = { 0, 0, 0 };
 		float m_Rotation = 0.f; // In degrees
+
+		//Application* m_Application;
+		//Window* m_Window;
 	public:
+		//CameraOrtho() {}
 		CameraOrtho(float left, float right, float bottom, float top);
 		~CameraOrtho();
 
 		const glm::mat4& GetProjectionMatrix()		const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix()			const { return m_ViewMatrix; }
 		const glm::mat4& GetProjectionViewMatrix()	const { return m_ProjectionViewMatrix; }
+
+		const glm::vec3& GetPosition() const { return m_Position; }
+		void SetPosition(const glm::vec3& position) { m_Position = position; CalcViewMatrix(); }
+		float GetRotation() const { return m_Rotation; }
+		void SetRotation(float rotation) { m_Rotation = rotation; CalcViewMatrix(); }
+		//const Application&	GetApplication()		const { return *m_Application; }
+		//Window&		GetWindow()				const { return *m_Window; }
 		
 		void SetProjection(float left, float right, float bottom, float top);
-		void RecalcViewMatrix();
+		void CalcViewMatrix();
 	};
 }

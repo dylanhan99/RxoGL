@@ -2,8 +2,8 @@
 #include "vendor/imgui/imgui.h"
 
 namespace rxogl { namespace scenes {
-	SceneMenu::SceneMenu(Scene*& currentScenePointer)
-		: m_CurrentScene(currentScenePointer)
+	SceneMenu::SceneMenu(Scene* currentScenePointer)
+		: m_CurrentScene(&currentScenePointer)
 	{
 
 	}
@@ -19,7 +19,11 @@ namespace rxogl { namespace scenes {
 		for (auto& test : m_Scenes)
 		{
 			if (ImGui::Button(test.first.c_str()))
-				m_CurrentScene = test.second();
+			{
+				std::cout << "CLICKEKGEK\n";
+
+				*m_CurrentScene = test.second();
+			}
 		}
 	}
 } }
