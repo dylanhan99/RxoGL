@@ -1,34 +1,43 @@
 #include "CameraOrthoController.h"
 #include "../Application.h"
+#include "../Event.h"
 
 namespace rxogl
 {
+	float CameraOrthoController::m_AspectRatio = NULL;
+	float CameraOrthoController::m_ZoomLevel = 100.f;
+	CameraOrtho CameraOrthoController::m_Camera = CameraOrtho();
+
 	CameraOrthoController::CameraOrthoController(float aspectRatio, bool rotation)
-		: m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
+		: m_Rotation(rotation)
 	{
+		m_AspectRatio = aspectRatio;
+		m_Camera = CameraOrtho(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		Events::EventDispatcher::GetInstance()->RegisterEvent(new Events::Event<float, float>(rxogl::constants::RX_EVENT_WINDOWRESIZE, &OnResize));
+
 	}
 
 	void CameraOrthoController::OnUpdate(float deltatime)
 	{
 		const Window& window = Application::GetInstance()->GetWindow();
 		
-		if (window.isKeyPressed(GLFW_KEY_A))
+		if (window.IsKeyPressed(GLFW_KEY_D))
 		{
 			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 			m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 		}
-		else if (window.isKeyPressed(GLFW_KEY_D))
+		else if (window.IsKeyPressed(GLFW_KEY_A))
 		{
 			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 		}
 
-		if (window.isKeyPressed(GLFW_KEY_W))
+		if (window.IsKeyPressed(GLFW_KEY_S))
 		{
 			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 			m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 		}
-		else if (window.isKeyPressed(GLFW_KEY_S))
+		else if (window.IsKeyPressed(GLFW_KEY_W))
 		{
 			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
 			m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltatime;
@@ -36,9 +45,9 @@ namespace rxogl
 
 		if (m_Rotation)
 		{
-			if (window.isKeyPressed(GLFW_KEY_Q))
+			if (window.IsKeyPressed(GLFW_KEY_Q))
 				m_CameraRotation += m_CameraRotationSpeed * deltatime;
-			if (window.isKeyPressed(GLFW_KEY_E))
+			if (window.IsKeyPressed(GLFW_KEY_E))
 				m_CameraRotation -= m_CameraRotationSpeed * deltatime;
 
 			if (m_CameraRotation > 180.0f)
@@ -50,18 +59,14 @@ namespace rxogl
 		}
 
 		m_Camera.SetPosition(m_CameraPosition);
-
-		//std::cout << m_CameraPosition.x << ", " << m_CameraPosition.y << ", " << m_CameraPosition.z << "\n";
-		std::cout << m_Camera.GetRotation() << "\n";
-
 		m_CameraTranslationSpeed = m_ZoomLevel;
 	}
 
-	void CameraOrthoController::OnResize(float width, float height)
-	{
-		m_AspectRatio = width / height;
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-	}
+	//void CameraOrthoController::OnResize(float width, float height)
+	//{
+	//	m_AspectRatio = width / height;
+	//	m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+	//}
 
 	//bool CameraOrthoController::OnMouseScrolled(MouseScrolledEvent& e)
 	//{

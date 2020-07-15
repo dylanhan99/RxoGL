@@ -16,10 +16,10 @@ namespace rxogl
 		glm::vec3 m_Position = { 0, 0, 0 };
 		float m_Rotation = 0.f; // In degrees
 
-		//Application* m_Application;
-		//Window* m_Window;
+		friend class CameraOrthoController;
+	protected:
+		CameraOrtho() {}
 	public:
-		//CameraOrtho() {}
 		CameraOrtho(float left, float right, float bottom, float top);
 		~CameraOrtho();
 
@@ -31,8 +31,6 @@ namespace rxogl
 		void SetPosition(const glm::vec3& position) { m_Position = position; CalcViewMatrix(); }
 		float GetRotation() const { return m_Rotation; }
 		void SetRotation(float rotation) { m_Rotation = rotation; CalcViewMatrix(); }
-		//const Application&	GetApplication()		const { return *m_Application; }
-		//Window&		GetWindow()				const { return *m_Window; }
 		
 		void SetProjection(float left, float right, float bottom, float top);
 		void CalcViewMatrix();

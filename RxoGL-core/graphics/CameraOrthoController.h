@@ -6,9 +6,9 @@ namespace rxogl
 	class CameraOrthoController
 	{
 	private:
-		float m_AspectRatio;
-		float m_ZoomLevel = 100.f;
-		CameraOrtho m_Camera;
+		static float m_AspectRatio;
+		static float m_ZoomLevel;
+		static CameraOrtho m_Camera;
 
 		bool m_Rotation;
 
@@ -20,7 +20,12 @@ namespace rxogl
 		CameraOrthoController(float aspectRatio, bool rotation = false);
 
 		void OnUpdate(float deltatime);
-		void OnResize(float width, float height);
+		static void OnResize(float width, float height)
+		{
+			m_AspectRatio = width / height;
+			m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+
+		}
 
 		CameraOrtho& GetCamera() { return m_Camera; }
 		const CameraOrtho& GetCamera() const { return m_Camera; }

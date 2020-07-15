@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Event.h"
+
 #include "rxogl.h"
 #include "Scene.h"
 
@@ -40,5 +42,6 @@ namespace rxogl
 			return m_Instance;
 		}
 		inline const Window& GetWindow() const { return *m_Window; }
+		//bool OnWindowResize(WindowResizeEvent& e)
 	};
 }

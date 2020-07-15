@@ -71,5 +71,8 @@ namespace constants {
 		unsigned int Advance;    // Offset to advance to next glyph
 	};
 
+
+	// Event names
+	static std::string RX_EVENT_WINDOWRESIZE = "WindowResize";
 }
 }

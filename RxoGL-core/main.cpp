@@ -1,45 +1,43 @@
-//#include "graphics/window.h"
-//#include "utils/fileutils.h"
-//#include "graphics/shader.h"
-
-//#include "vendor/imgui/imgui.h"
-//#include "vendor/imgui/imgui_impl_glfw.h"
-//#include "vendor/imgui/imgui_impl_opengl3.h"
-
-//#include "tests/TestClearColor.h"
-//#include "tests/TestTexture2D.h"
-//#include "tests/TestTexture3D.h"
-//#include "tests/TestSimpleRenderer2D.h"
-//#include "tests/TestSimpleBatchRenderer2D.h"
-//#include "tests/TestMultipleLayer.h"
-//#include "tests/TestGroups.h"
-//#include "tests/TestTextRender.h"
-
 #include "Application.h"
+
+
+#include "Event.h"
+
+void testCallback(int a) {
+	std::cout << "AAAAAA " << a << std::endl;
+}
+
+void testCallback2() {
+	std::cout << "ZZZZZZ " << std::endl;
+}
+
+void testCallback3() {
+	std::cout << "PPPPPP " << std::endl;
+}
+
+void testCallback4(float a, float b) {
+	std::cout << a << ", " << b << std::endl;
+}
 
 int main()
 {
+	//Events::EventDispatcher* eventDisp = Events::EventDispatcher::GetInstance();
+	//eventDisp->RegisterEvent(new Events::Event<int>("TestEvent", &testCallback));
+	//eventDisp->RegisterEvent(new Events::Event<>("TestEvent", &testCallback2));
+	//eventDisp->RegisterEvent(new Events::Event<>("TestEvent", &testCallback3));
+	//eventDisp->DispatchEvent("TestEvent", 20);	// Calls callback
+	//eventDisp->DispatchEvent("TestEvent");		// Calls callback2
+	//Events::EventDispatcher::GetInstance()->RegisterEvent(new Events::Event<float, float>(rxogl::constants::RX_EVENT_WINDOWRESIZE, &testCallback4));
+	//Events::EventDispatcher::GetInstance()->DispatchEvent(rxogl::constants::RX_EVENT_WINDOWRESIZE, 20.12f, 21.32f);	// Calls callback
+	//return 0;
+
+
 	rxogl::Application* application = rxogl::Application::GetInstance();
 	//application->SetWindow("rxogl", 960, 540);
 	const Window& window = application->GetWindow();
 
-	//tests::Test* currentTest = nullptr;
-	//tests::TestMenu* testMenu = new tests::TestMenu(currentTest);
-	////testMenu->RegisterTest<tests::TestClearColor>("Clear Color");
-	//testMenu->RegisterTest<tests::TestTexture2D>("2D Texture");
-	//testMenu->RegisterTest<tests::TestTexture3D>("3D Texture");
-	//
-	////tests::TestTexture2D* test = new tests::TestTexture2D();
-	//tests::TestSimpleRenderer2D* test = new tests::TestSimpleRenderer2D();
-	//tests::TestSimpleBatchRenderer2D* test = new tests::TestSimpleBatchRenderer2D();
-	//tests::TestMultipleLayer* test = new tests::TestMultipleLayer();
-	//tests::TestGroups* test = new tests::TestGroups();
-	////tests::TestTextRender* test = new tests::TestTextRender();
-	//
-	//currentTest = test;
-
 	float m_LastFrameTime = 0.f;
-	while (!window.closed())
+	while (!window.Closed())
 	{
 		// Start the Dear ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();
@@ -53,10 +51,11 @@ int main()
 			m_LastFrameTime = time;
 
 			application->OnUpdate((float)deltaTime);
-			application->OnRender();
+			if(!window.IsMinimized())
+				application->OnRender();	
 			application->OnImguiRender();
 		}
-		window.update();
+		window.Update();
 	}
 	return 0;
 }

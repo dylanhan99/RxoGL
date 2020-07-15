@@ -15,13 +15,16 @@ private:
 	GLFWwindow* m_Window;
 
 	bool m_Closed;
+	bool m_Minimized = false;
 
 	bool m_Keys[MAX_KEYS];
 	bool m_MouseButtons[MAX_BUTTONS];
-	double mx, my;		
+	double mx, my;
+
 
 private:
 	bool init();
+	friend static void window_resize_callback(GLFWwindow* window, int width, int height);
 	friend static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	friend static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 	friend static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
@@ -31,16 +34,17 @@ public:
 	Window(const char* title, int* width, int* height);
 	~Window();
 
-	void update() const;
-	bool closed() const;
+	void Update() const;
+	bool Closed() const;
 
-	inline const int&	getWidth()	const	{ return *m_Width; }
-	inline const int&	getHeight()	const	{ return *m_Height; }
-	inline GLFWwindow*	GetWindow()			{ return m_Window; }
+	inline const int&	getWidth()		const	{ return *m_Width; }
+	inline const int&	getHeight()		const	{ return *m_Height; }
+	inline GLFWwindow*	GetWindow()				{ return m_Window; }
+	inline bool			IsMinimized()	const	{ return m_Minimized; }
 
-	bool isKeyPressed			(unsigned int keycode)	const;
-	bool isMouseButtonPressed	(unsigned int button)	const;
-	void getMousePosition		(double& x, double& y)	const;
+	bool IsKeyPressed			(unsigned int keycode)	const;
+	bool IsMouseButtonPressed	(unsigned int button)	const;
+	void GetMousePosition		(double& x, double& y)	const;
 
 
 };

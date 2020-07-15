@@ -9,9 +9,6 @@ namespace rxogl
 		m_ViewMatrix(1.0f)
 	{
 		m_ProjectionViewMatrix = m_ProjectionMatrix * m_ViewMatrix;
-
-		//m_Application = Application::GetInstance();
-		//m_Window = &m_Application->GetWindow();
 	}
 
 	CameraOrtho::~CameraOrtho()

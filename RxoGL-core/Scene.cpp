@@ -20,8 +20,6 @@ namespace rxogl { namespace scenes {
 		{
 			if (ImGui::Button(test.first.c_str()))
 			{
-				std::cout << "CLICKEKGEK\n";
-
 				*m_CurrentScene = test.second();
 			}
 		}

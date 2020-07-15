@@ -1,6 +1,8 @@
 #include "window.h"
+#include "../ConstantsRxogl.h"
+#include "../Event.h"
 
-void window_resize(GLFWwindow* window, int width, int height);
+void window_resize_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
@@ -48,7 +50,7 @@ bool Window::init()
 		
 	glfwMakeContextCurrent(m_Window);
 	glfwSetWindowUserPointer(m_Window, this);
-	glfwSetWindowSizeCallback(m_Window, window_resize);
+	glfwSetWindowSizeCallback(m_Window, window_resize_callback);
 	glfwSetKeyCallback(m_Window, key_callback);
 	glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
 	glfwSetCursorPosCallback(m_Window, cursor_position_callback);
@@ -63,7 +65,7 @@ bool Window::init()
 	return true;
 }
 
-bool Window::isKeyPressed(unsigned int keycode) const
+bool Window::IsKeyPressed(unsigned int keycode) const
 {
 	// TODO: log this
 	if (keycode >= MAX_KEYS)
@@ -71,7 +73,7 @@ bool Window::isKeyPressed(unsigned int keycode) const
 	return m_Keys[keycode];
 }
 
-bool Window::isMouseButtonPressed(unsigned int button) const
+bool Window::IsMouseButtonPressed(unsigned int button) const
 {
 	// TODO: log this
 	if (button >= MAX_BUTTONS)
@@ -79,27 +81,41 @@ bool Window::isMouseButtonPressed(unsigned int button) const
 	return m_MouseButtons[button];
 }
 
-void Window::getMousePosition(double& x, double& y) const
+void Window::GetMousePosition(double& x, double& y) const
 {
 	x = mx;
 	y = my;
 }
 
-void Window::update() const
+void Window::Update() const
 {
 	glfwPollEvents();
-	glfwGetFramebufferSize(m_Window, m_Width, m_Height);
-	glfwSwapBuffers(m_Window);
+	if (!m_Minimized) 
+	{
+		glfwGetFramebufferSize(m_Window, m_Width, m_Height);
+		glfwSwapBuffers(m_Window);
+	}
 }
 
-bool Window::closed() const
+bool Window::Closed() const
 {
 	return glfwWindowShouldClose(m_Window);
 }
 
-void window_resize(GLFWwindow* window, int width, int height)
+void window_resize_callback(GLFWwindow* window, int width, int height)
 {
+	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	//std::cout << width << ", " << height << std::endl;
+	if (width <= 0 || height <= 0)
+	{
+		win->m_Minimized = true;
+		return;
+	}
+	win->m_Minimized = false;
 	glViewport(0, 0, width, height);
+	// All functions subscribed to the RX_EVENT_WINDOWRESIZE event are called
+	using namespace rxogl; using namespace constants;
+	Events::EventDispatcher::GetInstance()->DispatchEvent(RX_EVENT_WINDOWRESIZE, (float&)width, (float&)height);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
