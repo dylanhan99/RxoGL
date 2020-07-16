@@ -5,6 +5,7 @@
 void window_resize_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
 Window::Window(const char* title, int* width, int* height)
@@ -53,6 +54,7 @@ bool Window::init()
 	glfwSetWindowSizeCallback(m_Window, window_resize_callback);
 	glfwSetKeyCallback(m_Window, key_callback);
 	glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
+	glfwSetScrollCallback(m_Window, scroll_callback);
 	glfwSetCursorPosCallback(m_Window, cursor_position_callback);
 	glfwSwapInterval(0.0f);
 
@@ -128,6 +130,13 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	Window* win = (Window*)glfwGetWindowUserPointer(window);
 	win->m_MouseButtons[button] = action != GLFW_RELEASE;
+}
+
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset)
+{
+	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	using namespace rxogl; using namespace constants;
+	Events::EventDispatcher::GetInstance()->DispatchEvent(RX_EVENT_SCROLLWHEEL, (int)xOffset, (int)yOffset);
 }
 
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)

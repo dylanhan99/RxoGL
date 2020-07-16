@@ -24,7 +24,12 @@ namespace rxogl
 		{
 			m_AspectRatio = width / height;
 			m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-
+		}
+		static void OnMouseScrolled(int xOffset, int yOffset)
+		{
+			m_ZoomLevel -= yOffset * 5.f;
+			//m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
+			m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		}
 
 		CameraOrtho& GetCamera() { return m_Camera; }

@@ -28,11 +28,11 @@ namespace rxogl
 		const glm::mat4& GetProjectionViewMatrix()	const { return m_ProjectionViewMatrix; }
 
 		const glm::vec3& GetPosition() const { return m_Position; }
-		void SetPosition(const glm::vec3& position) { m_Position = position; CalcViewMatrix(); }
 		float GetRotation() const { return m_Rotation; }
+		void SetPosition(const glm::vec3& position) { m_Position = position; CalcViewMatrix(); }
 		void SetRotation(float rotation) { m_Rotation = rotation; CalcViewMatrix(); }
-		
 		void SetProjection(float left, float right, float bottom, float top);
+		
 		void CalcViewMatrix();
 	};
 }

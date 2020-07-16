@@ -4,8 +4,8 @@
 
 namespace rxogl
 {
-	float CameraOrthoController::m_AspectRatio = NULL;
-	float CameraOrthoController::m_ZoomLevel = 100.f;
+	float		CameraOrthoController::m_AspectRatio = NULL;
+	float		CameraOrthoController::m_ZoomLevel = 100.f;
 	CameraOrtho CameraOrthoController::m_Camera = CameraOrtho();
 
 	CameraOrthoController::CameraOrthoController(float aspectRatio, bool rotation)
@@ -13,8 +13,9 @@ namespace rxogl
 	{
 		m_AspectRatio = aspectRatio;
 		m_Camera = CameraOrtho(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-		Events::EventDispatcher::GetInstance()->RegisterEvent(new Events::Event<float, float>(rxogl::constants::RX_EVENT_WINDOWRESIZE, &OnResize));
 
+		Events::EventDispatcher::GetInstance()->RegisterEvent(new Events::Event<float, float>(rxogl::constants::RX_EVENT_WINDOWRESIZE, &OnResize));
+		Events::EventDispatcher::GetInstance()->RegisterEvent(new Events::Event<int, int>(rxogl::constants::RX_EVENT_SCROLLWHEEL, &OnMouseScrolled));
 	}
 
 	void CameraOrthoController::OnUpdate(float deltatime)
@@ -61,26 +62,4 @@ namespace rxogl
 		m_Camera.SetPosition(m_CameraPosition);
 		m_CameraTranslationSpeed = m_ZoomLevel;
 	}
-
-	//void CameraOrthoController::OnResize(float width, float height)
-	//{
-	//	m_AspectRatio = width / height;
-	//	m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-	//}
-
-	//bool CameraOrthoController::OnMouseScrolled(MouseScrolledEvent& e)
-	//{
-
-	//	m_ZoomLevel -= e.GetYOffset() * 0.25f;
-	//	m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
-	//	m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-	//	return false;
-	//}
-
-	//bool CameraOrthoController::OnWindowResized(WindowResizeEvent& e)
-	//{
-
-	//	OnResize((float)e.GetWidth(), (float)e.GetHeight());
-	//	return false;
-	//}
 }

@@ -74,5 +74,6 @@ namespace constants {
 
 	// Event names
 	static std::string RX_EVENT_WINDOWRESIZE = "WindowResize";
+	static std::string RX_EVENT_SCROLLWHEEL	 = "ScrollWheel";
 }
 }
