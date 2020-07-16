@@ -3,21 +3,21 @@
 
 #include "Event.h"
 
-void testCallback(int a) {
-	std::cout << "AAAAAA " << a << std::endl;
-}
-
-void testCallback2() {
-	std::cout << "ZZZZZZ " << std::endl;
-}
-
-void testCallback3() {
-	std::cout << "PPPPPP " << std::endl;
-}
-
-void testCallback4(float a, float b) {
-	std::cout << a << ", " << b << std::endl;
-}
+//void testCallback(int a) {
+//	std::cout << "AAAAAA " << a << std::endl;
+//}
+//
+//void testCallback2() {
+//	std::cout << "ZZZZZZ " << std::endl;
+//}
+//
+//void testCallback3() {
+//	std::cout << "PPPPPP " << std::endl;
+//}
+//
+//void testCallback4(float a, float b) {
+//	std::cout << a << ", " << b << std::endl;
+//}
 
 int main()
 {

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RxoGL-core", "RxoGL-core\RxoGL-core.vcxproj", "{E75A352A-1561-48D2-B315-3B32F503B860}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImagineThinkingThisIsaGame", "ImagineThinkingThisIsaGame\ImagineThinkingThisIsaGame.vcxproj", "{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{E75A352A-1561-48D2-B315-3B32F503B860}.Release|x64.Build.0 = Release|x64
 		{E75A352A-1561-48D2-B315-3B32F503B860}.Release|x86.ActiveCfg = Release|Win32
 		{E75A352A-1561-48D2-B315-3B32F503B860}.Release|x86.Build.0 = Release|Win32
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Debug|x64.ActiveCfg = Debug|x64
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Debug|x64.Build.0 = Debug|x64
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Debug|x86.ActiveCfg = Debug|Win32
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Debug|x86.Build.0 = Debug|Win32
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Release|x64.ActiveCfg = Release|x64
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Release|x64.Build.0 = Release|x64
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Release|x86.ActiveCfg = Release|Win32
+		{6402F937-5C64-47F8-B3B3-BAA490DB2DDF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
