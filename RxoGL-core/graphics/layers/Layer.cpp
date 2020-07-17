@@ -5,7 +5,7 @@ namespace rxogl
 	Layer::Layer(Renderer2D* renderer, Shader* shader, glm::mat4 matrix)
 		: m_Renderer(renderer), m_Shader(shader), m_ProjectionMatrix(matrix)
 	{
-		renderer->m_Font = Font("res/fonts/arial.ttf", 48);
+		renderer->m_Font = Font("../res/fonts/arial.ttf", 48);
 
 		//m_Shader->Bind();
 		//m_Shader->SetUniformMat4f("pr_matrix", matrix); // Edit shader to take in projection matrix instead of entire mvp

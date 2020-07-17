@@ -48,22 +48,13 @@
     <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\Test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\layers\Layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\buffers\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\layers\TileLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\buffers\Buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\TestGroups.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\renderables\Sprite.cpp">
@@ -90,12 +81,6 @@
     <ClCompile Include="graphics\textures\TextureSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\layers\UILayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\TestSceneryLayers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\CameraOrtho.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,9 +88,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\CameraOrthoController.cpp">
@@ -152,9 +134,6 @@
     <ClInclude Include="vendor\imgui\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ConstantsRxogl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -165,12 +144,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\buffers\VertexArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\layers\TileLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\TestGroups.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\renderables\Sprite.h">
@@ -209,13 +182,7 @@
     <ClInclude Include="graphics\textures\TextureSheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\layers\UILayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DeltaTime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\TestSceneryLayers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\CameraOrtho.h">
@@ -234,9 +201,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\CameraOrthoController.h">

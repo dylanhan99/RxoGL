@@ -92,13 +92,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_LIB;_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;NDEBUG;FT2_BUILD_LIBRARY;FT_DEBUG_LEVEL_ERROR;FT_CONFIG_OPTION_ERROR_STRINGS;FT_DEBUG_LEVEL_TRACE;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)RxoGL-core\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;%(AdditionalDependencies)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,12 +149,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Layers\UILayer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scenes\MainScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RxoGL-core\RxoGL-core.vcxproj">
       <Project>{e75a352a-1561-48d2-b315-3b32f503b860}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Layers\UILayer.h" />
+    <ClInclude Include="Scenes\MainScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,7 +19,7 @@ private:
 	const std::string& m_FragPath;
 	// This cache is used so that the glGetUniformLocation function does not have
 	// to be called every single time. Performance improvement
-	std::unordered_map < std::string, int> m_UniformLocationCache;
+	std::unordered_map <std::string, int> m_UniformLocationCache;
 
 public:
 	Shader(const std::string& vertPath, const std::string& fragPath);

@@ -57,15 +57,15 @@ namespace rxogl
 			//IM_ASSERT(font != NULL);
 		}
 
-		m_SceneMenu = new scenes::SceneMenu(m_CurrentScene);
+		//m_SceneMenu = new scenes::SceneMenu(m_CurrentScene);
 		//m_SceneMenu->RegisterScene<scenes::SceneMainMenu>("Main Menu");
 		//tests::TestGroups* test = new tests::TestGroups();
 		//tests::TestTextRender* test = new tests::TestTextRender();
 		//currentTest = test;
 
-		m_SceneMenu->RegisterScene<scenes::SceneTest>("Test");
-		scenes::SceneTest* test = new scenes::SceneTest();
-		m_CurrentScene = test;
+		//m_SceneMenu->RegisterScene<scenes::SceneTest>("Test");
+		//scenes::SceneTest* test = new scenes::SceneTest();
+		//m_CurrentScene = test;
 	}
 
 	void Application::SetWindow(const char* title, int width, int height)

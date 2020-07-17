@@ -14,7 +14,8 @@ namespace rxogl
 		Window* m_Window;
 
 		scenes::SceneMenu*	m_SceneMenu;
-		scenes::Scene*		m_CurrentScene;
+		mutable scenes::Scene*		m_CurrentScene;
+		std::unordered_map<std::string, scenes::Scene*> m_Scenes;
 		
 		void Init();
 	protected:
@@ -23,11 +24,18 @@ namespace rxogl
 		Application(const char* title, int width, int height);
 		~Application();
 
+		//template<typename T>
+		//void RegisterScene(const std::string& name)
+		//{
+		//	m_SceneMenu.RegisterScene<T>(name);
+		//}
+
 		template<typename T>
 		void RegisterScene(const std::string& name)
 		{
-			m_SceneMenu.RegisterScene<T>(name);
+			m_Scenes[name] = new T();
 		}
+
 		void SetWindow(const char* title, int width, int height);
 
 		void OnUpdate(float deltatime);
@@ -42,6 +50,8 @@ namespace rxogl
 			return m_Instance;
 		}
 		inline const Window& GetWindow() const { return *m_Window; }
+		inline const scenes::Scene& GetCurrentScene() const { return *m_CurrentScene; }
+		inline const void SetCurrentScene(std::string sceneName) const { m_CurrentScene = m_Scenes.at(sceneName); }
 		//bool OnWindowResize(WindowResizeEvent& e)
 	};
 }

@@ -20,8 +20,8 @@ namespace rxogl { namespace scenes {
 		rxogl::Renderable2D* sprText;
 		glm::vec3 m_Translation;
 
-		rxogl::TileLayer* m_TileLayer;
-		rxogl::UILayer* m_UILayer;
+		rxogl::Layer* m_TileLayer;
+		rxogl::Layer* m_UILayer;
 		rxogl::Texture m_OWTexture, m_OCTexture, m_FOTexture;
 		rxogl::TextureSheet m_TexSheet;
 
