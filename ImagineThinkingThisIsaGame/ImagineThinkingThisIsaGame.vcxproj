@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\CameraOrthoController.cpp" />
     <ClCompile Include="Layers\UILayer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scenes\MainScene.cpp" />
@@ -159,6 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\CameraOrthoController.h" />
     <ClInclude Include="Layers\UILayer.h" />
     <ClInclude Include="Scenes\MainScene.h" />
   </ItemGroup>

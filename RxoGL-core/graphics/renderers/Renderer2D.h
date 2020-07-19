@@ -3,7 +3,7 @@
 #include <gl/glew.h>
 #include <vector>
 #include "../../ConstantsRxogl.h"
-#include "../Font.h"
+#include "../fonts/Font.h"
 
 namespace rxogl
 {
@@ -20,8 +20,6 @@ namespace rxogl
 			m_TransformationStackBack = &m_TransformationStack.back();
 		}
 	public:
-		Font m_Font; // Initialized in Layer constructor
-
 		void Push(const glm::mat4& matrix, bool override = false)
 		{
 			if (override)
@@ -44,11 +42,8 @@ namespace rxogl
 
 		virtual void Begin() {}
 		virtual void Submit(const Renderable2D* renderable) = 0;
-		virtual void SubmitString(const Renderable2D* renderable) {}
+		virtual void SubmitString(const Renderable2D* renderable, std::string fontName) {}
 		virtual void End() {}
 		virtual void Flush() = 0;
-	//public:
-	//	void Clear() const;
-	//	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 	};
 }

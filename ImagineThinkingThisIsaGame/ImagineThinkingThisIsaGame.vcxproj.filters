@@ -24,12 +24,18 @@
     <ClCompile Include="Layers\UILayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Camera\CameraOrthoController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\MainScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Layers\UILayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\CameraOrthoController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

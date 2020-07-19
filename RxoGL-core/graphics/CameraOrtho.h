@@ -16,10 +16,8 @@ namespace rxogl
 		glm::vec3 m_Position = { 0, 0, 0 };
 		float m_Rotation = 0.f; // In degrees
 
-		friend class CameraOrthoController;
-	protected:
-		CameraOrtho() {}
 	public:
+		CameraOrtho() {}
 		CameraOrtho(float left, float right, float bottom, float top);
 		~CameraOrtho();
 

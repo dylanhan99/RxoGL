@@ -1,13 +1,9 @@
 #pragma once
-#pragma once
-#include "Scene.h"
 #include "rxogl.h"
-
 #include "../Layers/UILayer.h"
-#include "graphics/CameraOrthoController.h"
+#include "../Camera/CameraOrthoController.h"
 
-namespace Game {
-	namespace scenes {
+namespace Game { namespace Scenes {
 
 		class MainScene : public rxogl::scenes::Scene
 		{
@@ -20,12 +16,12 @@ namespace Game {
 			rxogl::Renderable2D* sprText;
 			glm::vec3 m_Translation;
 
-			UILayer* m_TileLayer;
-			UILayer* m_UILayer;
+			Layers::UILayer* m_TileLayer;
+			Layers::UILayer* m_UILayer;
 			rxogl::Texture m_OWTexture, m_OCTexture, m_FOTexture;
 			rxogl::TextureSheet m_TexSheet;
 
-			rxogl::CameraOrthoController m_Camera;
+			Camera::CameraOrthoController m_Camera;
 
 			std::string m_Fps;
 		public:

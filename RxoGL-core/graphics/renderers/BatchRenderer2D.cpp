@@ -1,4 +1,5 @@
 #include "BatchRenderer2D.h"
+#include "../../Application.h"
 
 namespace rxogl
 {
@@ -83,6 +84,7 @@ namespace rxogl
 			}
 
 			delete texCoords;
+			texCoords = NULL;
 			texCoords = &texture->GetTexCoords(renderable->GetTextureName());
 		}
 
@@ -115,21 +117,25 @@ namespace rxogl
 		m_Buffer++;
 
 		m_IndexCount += 6;
+
+		if (!texture)
+			delete texCoords;
 	}
 
 	// This could easily be an if else in Submit funciton but 
 	// i split to make it clearer to me for now
-	void BatchRenderer2D::SubmitString(const Renderable2D* renderable)
+	void BatchRenderer2D::SubmitString(const Renderable2D* renderable, std::string fontName)
 	{
 		const std::string& text = renderable->GetText();
 		float x_Offset = renderable->GetPosition().x;
+		const Font& font = Application::GetInstance()->GetFontManager().GetFont(fontName);
 
 		for (const char& c : text)
 		{
 			const constants::rxoPosition&	position	= renderable->GetPosition();
 			const constants::rxoColor&		color		= renderable->GetColor();
 			//const glm::vec2&				size		= renderable->GetSize(); // Size should have a defualt null value or something
-			const constants::Character&		ch			= m_Font.GetCharacter(c);
+			const constants::Character&		ch			= font.GetCharacter(c);
 			const unsigned int&				texID		= ch.TextureID;
 			const float&					scale		= renderable->GetScale();
 			const bool&						isText		= renderable->GetIsText();

@@ -6,7 +6,7 @@
 #include "../buffers/Buffer.h"
 #include "../renderables/Sprite.h"
 #include "../../ConstantsRxogl.h"
-#include "../Font.h"
+#include "../fonts/Font.h"
 
 namespace rxogl
 {
@@ -33,7 +33,7 @@ namespace rxogl
 
 		void Begin() override;
 		void Submit(const Renderable2D* renderable) override;
-		virtual void SubmitString(const Renderable2D* renderable) override;
+		virtual void SubmitString(const Renderable2D* renderable, std::string fontName) override;
 		void End() override;
 		void Flush() override;
 	};

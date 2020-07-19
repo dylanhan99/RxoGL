@@ -4,8 +4,8 @@
 
 namespace rxogl
 {
-	Label::Label(float x, float y, float scale, constants::rxoColor color, std::string text)
-		: Renderable2D(), m_Text(text), m_Scale(scale)
+	Label::Label(float x, float y, float scale, constants::rxoColor color, std::string text, std::string fontName)
+		: Renderable2D(), m_Text(text), m_Scale(scale), m_FontName(fontName)
 	{
 		m_Position = constants::rxoPosition(x, y, 0.f, 1);
 		m_Color = color;
@@ -14,6 +14,6 @@ namespace rxogl
 
 	void Label::Submit(Renderer2D* renderer) const
 	{
-		renderer->SubmitString(this);
+		renderer->SubmitString(this, m_FontName);
 	}
 }

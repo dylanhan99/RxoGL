@@ -8,9 +8,7 @@ namespace rxogl
 	public:
 		DeltaTime(float time = 0)
 			: m_Time(time)
-		{
-
-		}
+		{}
 
 		operator float() const { return m_Time; }
 	};

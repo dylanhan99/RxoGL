@@ -1,6 +1,5 @@
 #include <iostream>
 #include "rxogl.h"
-#include "Application.h"
 #include "Scenes/MainScene.h"
 
 int main()
@@ -9,8 +8,9 @@ int main()
 	//application->SetWindow("rxogl", 960, 540);
 	const Window& window = application->GetWindow();
 
-	application->RegisterScene<Game::scenes::MainScene>("MainScene");
+	application->RegisterScene<Game::Scenes::MainScene>("MainScene");
 	application->SetCurrentScene("MainScene");
+
 	float m_LastFrameTime = 0.f;
 	while (!window.Closed())
 	{
@@ -32,5 +32,7 @@ int main()
 		}
 		window.Update();
 	}
+	application->DeleteInstance();
+	Events::EventDispatcher::DeleteInstance();
 	return 0;
 }

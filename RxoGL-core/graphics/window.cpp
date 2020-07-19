@@ -30,8 +30,6 @@ Window::Window(const char* title, int* width, int* height)
 Window::~Window()
 {
 	glfwTerminate();
-	delete m_Width;
-	delete m_Height;
 }
 
 bool Window::init()
@@ -67,6 +65,21 @@ bool Window::init()
 	return true;
 }
 
+void Window::Update() const
+{
+	glfwPollEvents();
+	if (!m_Minimized) 
+	{
+		glfwGetFramebufferSize(m_Window, m_Width, m_Height);
+		glfwSwapBuffers(m_Window);
+	}
+}
+
+bool Window::Closed() const
+{
+	return glfwWindowShouldClose(m_Window);
+}
+
 bool Window::IsKeyPressed(unsigned int keycode) const
 {
 	// TODO: log this
@@ -89,19 +102,9 @@ void Window::GetMousePosition(double& x, double& y) const
 	y = my;
 }
 
-void Window::Update() const
+void Window::SetViewPort(int& width, int& height)
 {
-	glfwPollEvents();
-	if (!m_Minimized) 
-	{
-		glfwGetFramebufferSize(m_Window, m_Width, m_Height);
-		glfwSwapBuffers(m_Window);
-	}
-}
-
-bool Window::Closed() const
-{
-	return glfwWindowShouldClose(m_Window);
+	glViewport(0, 0, width, height);
 }
 
 void window_resize_callback(GLFWwindow* window, int width, int height)
@@ -114,7 +117,7 @@ void window_resize_callback(GLFWwindow* window, int width, int height)
 		return;
 	}
 	win->m_Minimized = false;
-	glViewport(0, 0, width, height);
+	win->SetViewPort(width, height);
 	// All functions subscribed to the RX_EVENT_WINDOWRESIZE event are called
 	using namespace rxogl; using namespace constants;
 	Events::EventDispatcher::GetInstance()->DispatchEvent(RX_EVENT_WINDOWRESIZE, (float&)width, (float&)height);

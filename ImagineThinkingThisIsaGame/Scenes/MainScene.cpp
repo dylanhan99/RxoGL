@@ -1,12 +1,16 @@
 #include "MainScene.h"
-#include "vendor/imgui/imgui.h"
 
-namespace Game {
-	namespace scenes {
+namespace Game { namespace Scenes {
 		MainScene::MainScene()
 			: m_OWTexture("../res/textures/a.png"), m_OCTexture("../res/textures/b.png"), m_FOTexture("../res/textures/c.png"), m_TexSheet("../res/textures/abcSheet.png"),
 			m_Camera(960 / 540, true)
 		{
+			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("arial", "../res/fonts/arial.ttf");
+			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("droid", "../res/fonts/DroidSans.ttf");
+			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("matsura", "../res/fonts/MATURASC.TTF");
+			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("joker", "../res/fonts/JOKERMAN.TTF");
+			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("kuntsler", "../res/fonts/KUNSTLER.TTF");
+
 			m_TexSheet.Add("0", 0, 0, 8, 8);
 			m_TexSheet.Add("1", 8, 0, 8, 8);
 			m_TexSheet.Add("2", 8, 8, 8, 8);
@@ -19,8 +23,8 @@ namespace Game {
 
 			m_Shader1 = new Shader("../res/shaders/basic.vert", "../res/shaders/basic.frag");
 			m_Shader2 = new Shader("../res/shaders/basic.vert", "../res/shaders/basic.frag");
-			m_TileLayer = new UILayer(m_Shader1);
-			m_UILayer = new UILayer(m_Shader2);
+			m_TileLayer = new Layers::UILayer(m_Shader1);
+			m_UILayer = new Layers::UILayer(m_Shader2);
 
 			m_Shader1->Bind();
 			int texIDs[32];
@@ -61,7 +65,10 @@ namespace Game {
 			transform = glm::rotate(transform, glm::radians(20.f), glm::vec3(0, 0, 1));
 			fpsGroup = new rxogl::Group(transform);
 			fpsGroup->Add(new rxogl::Sprite(0, 0, 0, 100, 50, textures[1], ""));
-			fpsGroup->Add(new rxogl::Label(10, 10, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), m_Fps));
+			fpsGroup->Add(new rxogl::Label(10, 10, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), m_Fps, "arial"));
+			fpsGroup->Add(new rxogl::Label(100, 10, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), "the quick brown fox jumps over the lazy dog!", "matsura"));
+			fpsGroup->Add(new rxogl::Label(100, -40, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), "the quick brown fox jumps over the lazy dog!", "joker"));
+			fpsGroup->Add(new rxogl::Label(100, -90, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), "the quick brown fox jumps over the lazy dog!", "kuntsler"));
 			m_UILayer->Add(fpsGroup);
 
 		}

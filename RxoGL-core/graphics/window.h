@@ -21,7 +21,6 @@ private:
 	bool m_MouseButtons[MAX_BUTTONS];
 	double mx, my;
 
-
 private:
 	bool init();
 	friend static void window_resize_callback(GLFWwindow* window, int width, int height);
@@ -46,6 +45,5 @@ public:
 	bool IsKeyPressed			(unsigned int keycode)	const;
 	bool IsMouseButtonPressed	(unsigned int button)	const;
 	void GetMousePosition		(double& x, double& y)	const;
-
-
+	void SetViewPort(int& width, int& height);
 };

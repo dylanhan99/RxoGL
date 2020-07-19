@@ -45,6 +45,15 @@ namespace Events
 					delete e;
 			}
 		}
+
+		static void DeleteInstance()
+		{
+			if (m_Instance)
+			{
+				delete m_Instance;
+				m_Instance = NULL;
+			}
+		}
 		
 		void RegisterEvent(IEvent* event)
 		{

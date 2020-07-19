@@ -1,6 +1,5 @@
 #include "Application.h"
-
-#include "SceneTest.h"
+#include "imgui.h"
 
 namespace rxogl
 {

@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "graphics/layers/Layer.h"
+#include "graphics/fonts/FontManager.h"
 
 namespace rxogl { namespace scenes {
 	class Scene
