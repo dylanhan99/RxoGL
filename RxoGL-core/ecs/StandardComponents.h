@@ -3,7 +3,9 @@
 #include <unordered_map>
 #include "../ConstantsRxogl.h"
 
-namespace rxogl { namespace ecs {
+namespace rxogl { 
+	class TextureData;
+	namespace ecs {
 
 	class Transform : public Component
 	{
@@ -11,6 +13,10 @@ namespace rxogl { namespace ecs {
 		glm::vec4 m_Position;
 		glm::vec2 m_Size;
 	public:
+		Transform() { Init(); }
+		Transform(float x, float y, float z, float wid, float hei)
+			: m_Position(x, y, z, 1), m_Size(wid, hei) { }
+
 		float x() { return m_Position.x; }
 		float y() { return m_Position.y; }
 		float z() { return m_Position.z; }
@@ -50,21 +56,18 @@ namespace rxogl { namespace ecs {
 			glm::vec2 bl, br, tr, tl;
 		};
 	private:
-		unsigned int m_RendererID;
-		std::string m_FilePath;
-		unsigned char* m_LocalBuffer;
-		unsigned int m_Width, m_Height, m_BPP;
-		TexCoords m_TexCoords;
-		constants::rxoColor m_Color;
+		TextureData* m_TextureDat;
 
-		bool m_IsTextureSheet;
+		TexCoords m_TexCoords;
 		std::unordered_map<std::string, TexCoords> m_TexCoordsCache;
+		constants::rxoColor m_Color;
+		bool m_IsTextureSheet;
 	public:
 		Texture(const std::string& filePath, float r, float g, float b, float a, bool isTextureSheet = false);
 		Texture(float r, float g, float b, float a);
 		~Texture();
 
-		void Load();
+		//void Load();
 		void Bind(unsigned int slot = 0) const;
 		void Unbind() const;
 

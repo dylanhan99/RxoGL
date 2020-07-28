@@ -65,28 +65,30 @@ namespace rxogl
 
 			float texSlot = 0.f;
 			bool found = false;
-			for (int i = 0; i < m_TextureSlots.size(); i++)
+			if (there is a texture)
 			{
-				if (m_TextureSlots[i] == texID)
+				for (int i = 0; i < m_TextureSlots.size(); i++)
 				{
-					texSlot = (float)(i + 1);
-					found = true;
-					break;
+					if (m_TextureSlots[i] == texID)
+					{
+						texSlot = (float)(i);// +1);
+						found = true;
+						break;
+					}
 				}
-			}
 
-			if (!found)
-			{
-				if (m_TextureSlots.size() >= 32)
+				if (!found)
 				{
-					End();
-					Flush();
-					Begin();
+					if (m_TextureSlots.size() >= 32)
+					{
+						End();
+						Flush();
+						Begin();
+					}
+					m_TextureSlots.push_back(texID);
+					texSlot = (float)(m_TextureSlots.size() - 1);
 				}
-				m_TextureSlots.push_back(texID);
-				texSlot = (float)(m_TextureSlots.size() - 1);
 			}
-			texSlot;
 			m_Buffer->Position = *m_TransformationStackBack * position;
 			m_Buffer->Color = color;
 			m_Buffer->TexCoords = texCoords.bl;

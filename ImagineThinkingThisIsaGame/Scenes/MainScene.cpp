@@ -12,13 +12,14 @@ namespace Game { namespace Scenes {
 
 			rxogl::ecs::Entity2D* obj = new rxogl::ecs::Entity2D("0");
 			obj->AddComponent <rxogl::ecs::Transform>();
-			//obj->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);
-			//obj->AddComponent<rxogl::ecs::Texture>(0.5f, 0.5f, 1.f, 1.f);
 			obj->AddComponent<rxogl::ecs::Texture>("../res/textures/abcSheet.png", 0.5f, 0.5f, 1.f, 1.f, true);
 			obj->GetComponent<rxogl::ecs::Texture>().Add("0", 0, 0, 8, 8);
 			obj->GetComponent<rxogl::ecs::Texture>().Add("1", 8, 0, 8, 8);
 			obj->GetComponent<rxogl::ecs::Texture>().Add("2", 8, 8, 8, 8);
 
+			rxogl::ecs::Entity2D* obj2 = new rxogl::ecs::Entity2D("0");
+			obj2->AddComponent <rxogl::ecs::Transform>(100, 100, 0, 20, 20);
+			obj2->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);
 			//m_TexSheet.Add("0", 0, 0, 8, 8);
 			//m_TexSheet.Add("1", 8, 0, 8, 8);
 			//m_TexSheet.Add("2", 8, 8, 8, 8);
@@ -60,6 +61,7 @@ namespace Game { namespace Scenes {
 			m_Fps = "4";
 
 			m_Layer->Add(obj);
+			m_Layer->Add(obj2);
 
 			AddLayer(m_Layer);
 

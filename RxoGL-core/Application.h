@@ -5,6 +5,8 @@
 #include "graphics/window.h"
 #include "Scene.h"
 
+#include "graphics/textures/TextureManager.h"
+
 namespace rxogl
 {
 	class Application
@@ -17,6 +19,7 @@ namespace rxogl
 		mutable scenes::Scene* m_CurrentScene;
 		std::unordered_map<std::string, scenes::Scene*> m_Scenes;
 		FontManager m_FontManager;
+		TextureManager m_TextureManager;
 
 		void Init();
 	protected:
@@ -56,6 +59,7 @@ namespace rxogl
 		inline const Window&		 GetWindow()		const { return *m_Window; }
 		inline const scenes::Scene&	 GetCurrentScene()	const { return *m_CurrentScene; }
 		inline FontManager&	 GetFontManager() { return m_FontManager; }
+		inline TextureManager&	 GetTextureManager() { return m_TextureManager; }
 		inline const void SetCurrentScene(std::string sceneName) const { m_CurrentScene = m_Scenes.at(sceneName); }
 		//bool OnWindowResize(WindowResizeEvent& e)
 	};
