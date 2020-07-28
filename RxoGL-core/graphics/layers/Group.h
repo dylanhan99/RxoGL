@@ -1,18 +1,19 @@
 #pragma once
 
-#include "../renderables/Renderable2D.h"
+#include "../renderables/Entity2D.h"
 
-namespace rxogl
-{
-	class Group : public Renderable2D
+namespace rxogl { namespace ecs {
+
+	class Group : public Entity2D
 	{
 	private:
-		std::vector<Renderable2D*> m_Renderables;
+		std::vector<Entity2D*> m_Renderables;
 		glm::mat4 m_TransformationMatrix;
 
 	public:
 		Group(const glm::mat4& transform);
-		void Add(Renderable2D* renderable);
-		void Submit(Renderer2D* renderer) const override;
+		void Add(Entity2D* renderable);
+		void Submit(std::shared_ptr<Renderer2D> renderer) const override;
 	};
-}
+
+} }

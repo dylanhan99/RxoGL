@@ -12,11 +12,12 @@
 #include "graphics/textures/TextureSheet.h"
 
 // Scene/Layer/Renderables
+#include "ecs/StandardComponents.h"
 #include "Scene.h"
 #include "graphics/layers/Layer.h"
 #include "graphics/layers/Group.h"
-#include "graphics/renderables/Sprite.h"
-#include "graphics/renderables/Label.h"
+//#include "graphics/renderables/Sprite.h"
+//#include "graphics/renderables/Label.h"
 
 // Renderers
 #include "graphics/renderers/BatchRenderer2D.h"

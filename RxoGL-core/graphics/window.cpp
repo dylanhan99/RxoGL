@@ -8,10 +8,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
-Window::Window(const char* title, int* width, int* height)
+Window::Window(std::string title, int& width, int& height)
 {
 	m_Title = title;
-	m_Width = width;
+	m_Width = width; // prob can remove the pointer. then the constructor takes in a int& instead
 	m_Height = height;
 
 	if (!init())
@@ -40,7 +40,7 @@ bool Window::init()
 		return false;
 	}
 
-	m_Window = glfwCreateWindow(*m_Width, *m_Height, m_Title, NULL, NULL);
+	m_Window = glfwCreateWindow(m_Width, m_Height, m_Title.c_str(), NULL, NULL);
 	if (!m_Window)
 	{
 		std::cout << "Failed to create GLFW window!" << std::endl;
@@ -70,7 +70,7 @@ void Window::Update() const
 	glfwPollEvents();
 	if (!m_Minimized) 
 	{
-		glfwGetFramebufferSize(m_Window, m_Width, m_Height);
+		glfwGetFramebufferSize(m_Window, (int*)&m_Width, (int*)&m_Height);
 		glfwSwapBuffers(m_Window);
 	}
 }

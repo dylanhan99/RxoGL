@@ -1,9 +1,9 @@
 #pragma once
-#include "Renderable2D.h"
+#include "Entity2D.h"
 
 namespace rxogl
 {
-	class Label : public Renderable2D
+	class Label : public Entity2D
 	{
 	private:
 		std::string m_Text;
@@ -11,7 +11,7 @@ namespace rxogl
 		std::string m_FontName;
 	public:
 		Label(float x, float y, float scale, constants::rxoColor color, std::string text, std::string fontName);
-		void Submit(Renderer2D* renderer) const override;
+		void Submit(std::shared_ptr<Renderer2D> renderer) const override;
 
 		inline void EditText(std::string newText) { m_Text = newText; }
 

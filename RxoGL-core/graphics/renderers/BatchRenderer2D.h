@@ -4,7 +4,7 @@
 #include "../../vendor/FreeType/FreeType-gl.h"
 #include "../buffers/VertexArray.h"
 #include "../buffers/Buffer.h"
-#include "../renderables/Sprite.h"
+//#include "../renderables/Sprite.h"
 #include "../../ConstantsRxogl.h"
 #include "../fonts/Font.h"
 
@@ -21,7 +21,7 @@ namespace rxogl
 	private:
 		VertexArray m_VAO;
 		VertexBuffer m_VBO;
-		IndexBuffer* m_IBO;
+		std::unique_ptr<IndexBuffer> m_IBO;
 		GLsizei m_IndexCount;
 		constants::Vertex* m_Buffer;
 
@@ -32,8 +32,8 @@ namespace rxogl
 		~BatchRenderer2D();
 
 		void Begin() override;
-		void Submit(const Renderable2D* renderable) override;
-		virtual void SubmitString(const Renderable2D* renderable, std::string fontName) override;
+		void Submit(const ecs::Entity2D* renderable) override;
+		//virtual void SubmitString(const Entity2D* renderable, std::string fontName) override;
 		void End() override;
 		void Flush() override;
 	};

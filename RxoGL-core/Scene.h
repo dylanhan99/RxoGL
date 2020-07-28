@@ -11,22 +11,24 @@ namespace rxogl { namespace scenes {
 	class Scene
 	{
 	protected:
-		std::vector<Layer*> m_Layers;
+		std::vector<std::shared_ptr<Layer>> m_Layers;
 	public:
 		Scene() {}
-		virtual ~Scene() 
-		{
-			for (auto* layer : m_Layers)
-				delete layer;
-		}
+		virtual ~Scene() {}
+		//{
+		//	for (auto* layer : m_Layers)
+		//		delete layer;
+		//}
 
 		virtual void OnUpdate(float deltatime) {}
 		virtual void OnRender() 
 		{
-			for (auto* layer : m_Layers)
+			for (auto& layer : m_Layers)
 				layer->Render();
 		}
 		virtual void OnImguiRender() {}
+
+		void AddLayer(Layer* newLayer) { m_Layers.push_back(std::make_shared<Layer>(*newLayer)); }
 	};
 
 	class SceneMenu : public Scene

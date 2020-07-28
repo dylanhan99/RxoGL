@@ -10,21 +10,21 @@ namespace rxogl
 		Init();
 	}
 
-	Application::Application(const char* title, int width, int height)
-		: m_Window(new Window(title, &width, &height))
+	Application::Application(std::string title, int& width, int& height)
+		: m_Window(std::make_unique<Window>(title, width, height))
 	{
 		Init();
 	}
 
 	Application::~Application()
 	{
-		delete m_SceneMenu;
+		//delete m_SceneMenu;
 
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 
-		delete m_Window;
+		//delete m_Window;
 	}
 
 	void Application::Init()
@@ -67,9 +67,9 @@ namespace rxogl
 		//m_CurrentScene = test;
 	}
 
-	void Application::SetWindow(const char* title, int width, int height)
+	void Application::SetWindow(std::string title, int width, int height)
 	{
-		m_Window = new Window(title, &width, &height);
+		m_Window = std::make_unique<Window>(title, width, height);
 	}
 
 	void Application::OnUpdate(float deltatime)
@@ -86,10 +86,10 @@ namespace rxogl
 	void Application::OnImguiRender()
 	{
 		ImGui::Begin("Scenes");
-		if (m_CurrentScene != m_SceneMenu && ImGui::Button("<-"))
+		if (m_CurrentScene != m_SceneMenu.get() && ImGui::Button("<-"))
 		{
 			delete m_CurrentScene;
-			m_CurrentScene = m_SceneMenu;
+			m_CurrentScene = m_SceneMenu.get();
 		}
 		m_CurrentScene->OnImguiRender();
 

@@ -2,7 +2,7 @@
 
 namespace rxogl
 {
-	Layer::Layer(Renderer2D* renderer, Shader* shader, glm::mat4 matrix)
+	Layer::Layer(std::shared_ptr<Renderer2D> renderer, std::shared_ptr<Shader> shader, glm::mat4 matrix)
 		: m_Renderer(renderer), m_Shader(shader), m_ProjectionMatrix(matrix)
 	{
 
@@ -10,13 +10,13 @@ namespace rxogl
 
 	Layer::~Layer()
 	{
-		delete m_Renderer;
-		delete m_Shader;
+		//delete m_Renderer;
+		//delete m_Shader;
 		for (unsigned int i = 0; i < m_Renderables.size(); i++)
 			delete m_Renderables[i];
 	}
 
-	void Layer::Add(Renderable2D* renderable)
+	void Layer::Add(ecs::Entity2D* renderable)
 	{
 		m_Renderables.push_back(renderable);
 	}
@@ -26,7 +26,7 @@ namespace rxogl
 		m_Shader->Bind();
 		m_Renderer->Begin();
 		int i = 0;
-		for (const Renderable2D* renderable : m_Renderables)
+		for (const ecs::Entity2D* renderable : m_Renderables)
 		{
 			renderable->Submit(m_Renderer);
 		}

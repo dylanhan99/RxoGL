@@ -11,10 +11,10 @@ namespace rxogl
 	{
 	private: 
 		static Application* m_Instance; // Singleton
-		Window* m_Window;
+		std::unique_ptr<Window> m_Window;
 
-		scenes::SceneMenu*		m_SceneMenu;
-		mutable scenes::Scene*	m_CurrentScene;
+		std::unique_ptr<scenes::SceneMenu> m_SceneMenu;
+		mutable scenes::Scene* m_CurrentScene;
 		std::unordered_map<std::string, scenes::Scene*> m_Scenes;
 		FontManager m_FontManager;
 
@@ -22,7 +22,7 @@ namespace rxogl
 	protected:
 		Application();
 	public:
-		Application(const char* title, int width, int height);
+		Application(std::string title, int& width, int& height);
 		~Application();
 
 		static void DeleteInstance()
@@ -40,7 +40,7 @@ namespace rxogl
 			m_Scenes[name] = new T();
 		}
 
-		void SetWindow(const char* title, int width, int height);
+		void SetWindow(std::string title, int width, int height);
 
 		void OnUpdate(float deltatime);
 		void OnRender();

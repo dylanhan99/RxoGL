@@ -166,23 +166,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ecs\StandardComponents.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="graphics\CameraOrtho.cpp" />
     <ClCompile Include="graphics\fonts\Font.cpp" />
-    <ClCompile Include="graphics\fonts\FontManager.cpp" />
     <ClCompile Include="graphics\layers\Group.cpp" />
-    <ClCompile Include="graphics\renderables\Label.cpp" />
     <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp" />
     <ClCompile Include="graphics\buffers\Buffer.cpp" />
     <ClCompile Include="graphics\layers\Layer.cpp" />
-    <ClCompile Include="graphics\textures\TextureSheet.cpp" />
     <ClCompile Include="graphics\window.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
-    <ClCompile Include="graphics\renderers\SimpleRenderer2D.cpp" />
-    <ClCompile Include="graphics\renderables\Sprite.cpp" />
     <ClCompile Include="rxpch.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="graphics\textures\Texture.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
     <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
@@ -195,26 +190,25 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="DeltaTime.h" />
+    <ClInclude Include="ecs\ECS.h" />
+    <ClInclude Include="ecs\ExampleComponent.h" />
+    <ClInclude Include="ecs\StandardComponents.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="graphics\CameraOrtho.h" />
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
     <ClInclude Include="graphics\layers\Group.h" />
-    <ClInclude Include="graphics\renderables\Label.h" />
     <ClInclude Include="graphics\renderers\BatchRenderer2D.h" />
     <ClInclude Include="graphics\buffers\Buffer.h" />
     <ClInclude Include="ConstantsRxogl.h" />
     <ClInclude Include="graphics\layers\Layer.h" />
-    <ClInclude Include="graphics\renderables\Renderable2D.h" />
+    <ClInclude Include="graphics\renderables\Entity2D.h" />
     <ClInclude Include="graphics\renderers\Renderer2D.h" />
-    <ClInclude Include="graphics\renderers\SimpleRenderer2D.h" />
-    <ClInclude Include="graphics\renderables\Sprite.h" />
-    <ClInclude Include="graphics\textures\TextureSheet.h" />
+    <ClInclude Include="graphics\textures\TextureManager.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="rxogl.h" />
     <ClInclude Include="rxpch.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="graphics\textures\Texture.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="graphics\window.h" />
     <ClInclude Include="graphics\shader.h" />

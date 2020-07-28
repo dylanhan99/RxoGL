@@ -6,7 +6,7 @@ namespace Game { namespace Layers {
 class UILayer : public rxogl::Layer
 {
 public:
-	UILayer(Shader* shader);
+	UILayer(std::shared_ptr<Shader> shader);
 	~UILayer();
 };
 

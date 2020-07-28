@@ -17,6 +17,7 @@ namespace rxogl
 	Texture::~Texture()
 	{
 		GLCall(glDeleteTextures(1, &m_RendererID));
+		delete m_LocalBuffer;
 	}
 
 	void Texture::Load()

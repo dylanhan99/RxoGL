@@ -5,9 +5,13 @@
 #include "../../ConstantsRxogl.h"
 #include "../fonts/Font.h"
 
+//#include "../renderables/Entity2D.h"
+
 namespace rxogl
 {
-	class Renderable2D;
+	namespace ecs {
+		class Entity2D;
+	}
 	class Renderer2D
 	{
 	protected:
@@ -41,8 +45,8 @@ namespace rxogl
 		}
 
 		virtual void Begin() {}
-		virtual void Submit(const Renderable2D* renderable) = 0;
-		virtual void SubmitString(const Renderable2D* renderable, std::string fontName) {}
+		virtual void Submit(const ecs::Entity2D* renderable) = 0;
+		//virtual void SubmitString(const Entity2D* renderable, std::string fontName) {}
 		virtual void End() {}
 		virtual void Flush() = 0;
 	};

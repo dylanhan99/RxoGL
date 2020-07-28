@@ -57,25 +57,10 @@
     <ClCompile Include="graphics\buffers\Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\renderables\Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\renderers\SimpleRenderer2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\layers\Group.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\renderables\Label.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\textures\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\textures\TextureSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics\CameraOrtho.cpp">
@@ -96,7 +81,7 @@
     <ClCompile Include="graphics\fonts\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\fonts\FontManager.cpp">
+    <ClCompile Include="ecs\StandardComponents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,19 +134,10 @@
     <ClInclude Include="graphics\buffers\VertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\renderables\Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\renderables\Renderable2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\renderers\BatchRenderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\renderers\Renderer2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\renderers\SimpleRenderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\layers\Group.h">
@@ -170,16 +146,7 @@
     <ClInclude Include="utils\LoadImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\renderables\Label.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\FreeType\FreeType-gl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\textures\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\textures\TextureSheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DeltaTime.h">
@@ -210,6 +177,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\fonts\FontManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\ECS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\ExampleComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\StandardComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\renderables\Entity2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\textures\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
