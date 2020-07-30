@@ -13,14 +13,14 @@ namespace rxogl { namespace ecs {
 		m_Renderables.push_back(renderable);
 	}
 
-	void Group::Submit(std::shared_ptr<Renderer2D> renderer) const
-	{
-		renderer->Push(m_TransformationMatrix);
-
-		for (const Entity2D* renderable : m_Renderables)
-			renderable->Submit(renderer);
-
-		renderer->Pop();
-	}
+	//void Group::Submit(std::shared_ptr<Renderer2D> renderer) const
+	//{
+	//	renderer->Push(m_TransformationMatrix);
+	//
+	//	for (const Entity2D* renderable : m_Renderables)
+	//		renderable->Submit(renderer);
+	//
+	//	renderer->Pop();
+	//}
 
 } }

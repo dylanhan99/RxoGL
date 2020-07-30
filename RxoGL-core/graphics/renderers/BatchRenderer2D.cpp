@@ -47,31 +47,34 @@ namespace rxogl
 		m_Buffer = (constants::Vertex*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-	void BatchRenderer2D::Submit(const ecs::Entity2D* renderable)
+	// If the component has been submitted, it has to be a renderable already
+	// e.g. Texture/Label, etc.
+	void BatchRenderer2D::Submit(const ecs::RenderableComponent* component)
 	{
-		if (renderable->HasComponent<ecs::Texture>())
+		const auto& entity		= component->Entity();
+
+		const auto& transform	= entity.GetComponent<ecs::Transform>();
+		const auto& texture		= entity.GetComponent<ecs::Texture>();
+		const auto& label		= entity.GetComponent<ecs::Label>();
+
+		const auto& position	= transform.GetPosition();
+		const auto& size		= transform.GetSize();
+
+		if (entity.HasComponent<ecs::Texture>())
 		{
-			const auto& transform = renderable->GetComponent<ecs::Transform>();
-			const auto& texture = renderable->GetComponent<ecs::Texture>();
-			const auto& label = renderable->GetComponent<ecs::Label>();
-
-			const auto& position = transform.GetPosition();
-			const auto& color = texture.GetColor();
-			//const auto& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.f);
-			const auto& size = transform.GetSize();
-			const auto& texCoords = texture.GetTexCoords();
-			const auto& texID = texture.GetTexID();
-			const auto& isText = renderable->GetIsText();
-
+			const auto& color		= texture.GetColor();
+			const auto& texCoords   = texture.GetTexCoords();
+			const auto& texID		= texture.GetTexID();
+			const auto& isText		= component->IsText();
 			float texSlot = 0.f;
 			bool found = false;
-			if (there is a texture)
+			if (texture.HasTexture())
 			{
 				for (int i = 0; i < m_TextureSlots.size(); i++)
 				{
 					if (m_TextureSlots[i] == texID)
 					{
-						texSlot = (float)(i);// +1);
+						texSlot = (float)(i + 1);
 						found = true;
 						break;
 					}
@@ -86,7 +89,7 @@ namespace rxogl
 						Begin();
 					}
 					m_TextureSlots.push_back(texID);
-					texSlot = (float)(m_TextureSlots.size() - 1);
+					texSlot = (float)(m_TextureSlots.size());// -1);
 				}
 			}
 			m_Buffer->Position = *m_TransformationStackBack * position;
@@ -118,90 +121,86 @@ namespace rxogl
 			m_Buffer++;
 
 			m_IndexCount += 6;
+			return;
 		}
-	}
 
-	/*
-	// This could easily be an if else in Submit funciton but 
-	// i split to make it clearer to me for now
-	void BatchRenderer2D::SubmitString(const ecs::Entity2D* renderable, std::string fontName)
-	{
-		const std::string& text = renderable->GetText();
-		float x_Offset = renderable->GetPosition().x;
-		const Font& font = Application::GetInstance()->GetFontManager().GetFont(fontName);
-
-		for (const char& c : text)
+	//void BatchRenderer2D::SubmitString(const ecs::Entity2D* renderable, std::string fontName)
 		{
-			const constants::rxoPosition&	position	= renderable->GetPosition();
-			const constants::rxoColor&		color		= renderable->GetColor();
-			//const glm::vec2&				size		= renderable->GetSize(); // Size should have a defualt null value or something
-			const constants::Character&		ch			= font.GetCharacter(c);
-			const unsigned int&				texID		= ch.TextureID;
-			const float&					scale		= renderable->GetScale();
-			const bool&						isText		= renderable->GetIsText();
+			const std::string& text = label.GetText();
+			float x_Offset = transform.GetPosition().x;
+			const Font& font = Application::GetInstance()->GetFontManager().GetFont(label.GetFontName());
 
-			float xpos = x_Offset + ch.Bearing.x * scale;
-			float ypos = position.y - (ch.Size.y - ch.Bearing.y) * scale;
-			float w = ch.Size.x * scale;
-			float h = ch.Size.y * scale;
-
-			float texSlot = 0.f;
-			bool found = false;
-			for (int i = 0; i < m_TextureSlots.size(); i++)
+			for (const char& c : text)
 			{
-				if (m_TextureSlots[i] == texID)
+				//const constants::rxoPosition&	position	= transform.GetPosition();
+				const constants::rxoColor&		color		= label.GetColor();
+				const constants::Character&		ch			= font.GetCharacter(c);
+				const unsigned int&				texID		= ch.TextureID;
+				const float&					scale		= label.GetScale();
+				const bool&						isText		= true;
+
+				float xpos = x_Offset + ch.Bearing.x * scale;
+				float ypos = position.y - (ch.Size.y - ch.Bearing.y) * scale;
+				float w = ch.Size.x * scale;
+				float h = ch.Size.y * scale;
+
+				float texSlot = 0.f;
+				bool found = false;
+				for (int i = 0; i < m_TextureSlots.size(); i++)
 				{
-					texSlot = (float)(i + 1);
-					found = true;
-					break;
+					if (m_TextureSlots[i] == texID)
+					{
+						texSlot = (float)(i + 1);
+						found = true;
+						break;
+					}
 				}
-			}
 
-			if (!found)
-			{
-				if (m_TextureSlots.size() >= 32)
+				if (!found)
 				{
-					End();
-					Flush();
-					Begin();
+					if (m_TextureSlots.size() >= 32)
+					{
+						End();
+						Flush();
+						Begin();
+					}
+					m_TextureSlots.push_back(texID);
+					texSlot = (float)(m_TextureSlots.size());// -1);
 				}
-				m_TextureSlots.push_back(texID);
-				texSlot = (float)(m_TextureSlots.size() - 1);
+
+				m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos,		ypos,		0, 1);
+				m_Buffer->Color			= color;
+				m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
+				m_Buffer->TexIndex		= texSlot;
+				m_Buffer->IsText		= isText;
+				m_Buffer++;
+
+				m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos + w,	ypos,		0, 1);
+				m_Buffer->Color			= color;
+				m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
+				m_Buffer->TexIndex		= texSlot;
+				m_Buffer->IsText		= isText;
+				m_Buffer++;
+
+				m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos + w,	ypos + h,	0, 1);
+				m_Buffer->Color			= color;
+				m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
+				m_Buffer->TexIndex		= texSlot;
+				m_Buffer->IsText		= isText;
+				m_Buffer++;
+
+				m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos,		ypos + h,	0, 1);
+				m_Buffer->Color			= color;
+				m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
+				m_Buffer->TexIndex		= texSlot;
+				m_Buffer->IsText		= isText;
+				m_Buffer++;
+
+				m_IndexCount += 6;
+				x_Offset += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
 			}
-
-			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos,		ypos,		0, 1);
-			m_Buffer->Color			= color;
-			m_Buffer->TexCoords = glm::vec2(0.0f, 1.0f);
-			m_Buffer->TexIndex		= texSlot;
-			m_Buffer->IsText		= isText;
-			m_Buffer++;
-
-			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos + w,	ypos,		0, 1);
-			m_Buffer->Color			= color;
-			m_Buffer->TexCoords = glm::vec2(1.0f, 1.0f);
-			m_Buffer->TexIndex		= texSlot;
-			m_Buffer->IsText		= isText;
-			m_Buffer++;
-
-			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos + w,	ypos + h,	0, 1);
-			m_Buffer->Color			= color;
-			m_Buffer->TexCoords = glm::vec2(1.0f, 0.0f);
-			m_Buffer->TexIndex		= texSlot;
-			m_Buffer->IsText		= isText;
-			m_Buffer++;
-
-			m_Buffer->Position		= *m_TransformationStackBack * constants::rxoPosition(xpos,		ypos + h,	0, 1);
-			m_Buffer->Color			= color;
-			m_Buffer->TexCoords = glm::vec2(0.0f, 0.0f);
-			m_Buffer->TexIndex		= texSlot;
-			m_Buffer->IsText		= isText;
-			m_Buffer++;
-
-			m_IndexCount += 6;
-			x_Offset += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
 		}
 	}
-	*/
 
 	void BatchRenderer2D::End()
 	{
@@ -226,6 +225,7 @@ namespace rxogl
 		m_IBO->Unbind();
 		m_VAO.Unbind();
 
+		m_TextureSlots.clear(); // An O(n) operation in this case.
 		m_IndexCount = 0;
 	}
 }

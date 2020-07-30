@@ -1,17 +1,17 @@
 #pragma once
-#include <gl/glew.h>
+#include "../../ConstantsRxogl.h"
+#include "../../utils/LoadImage.h"
 
 namespace rxogl
 {
-	class TextureData
+	struct TextureData
 	{
-	private:
 		unsigned int m_RendererID;
 		std::string m_FilePath;
 		unsigned char* m_LocalBuffer;
 		unsigned int m_Width, m_Height, m_BPP;
-	public:
-		TextureData(const std::string& path) { Load(); }
+	
+		TextureData(const std::string& path) : m_FilePath(path) { Load(); }
 		~TextureData()
 		{
 			if (m_LocalBuffer)
@@ -44,12 +44,16 @@ namespace rxogl
 	class TextureManager
 	{
 	private:
-		std::unordered_map<std::string, TextureData> m_Textures;
+		std::unordered_map<std::string, std::shared_ptr<TextureData>> m_Textures;
 	public:
 		TextureManager() { }
 		~TextureManager() { }
 	
-		const TextureData& AddTexture(std::string path) { m_Textures[path] = newTexture; return GetTexture(path); }
-		inline const TextureData& GetTexture(std::string path) const { return m_Textures.at(path); }
+		std::shared_ptr<TextureData> AddTexture(std::string path)
+		{ 
+			m_Textures[path] = std::make_shared<TextureData>(path); 
+			return GetTexture(path); 
+		}
+		inline std::shared_ptr<TextureData> GetTexture(std::string path) const { return m_Textures.at(path); }
 	};
 }

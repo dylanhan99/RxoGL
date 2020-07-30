@@ -10,19 +10,20 @@ namespace Game { namespace Scenes {
 			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("joker", "../res/fonts/JOKERMAN.TTF");
 			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("kuntsler", "../res/fonts/KUNSTLER.TTF");
 
-			rxogl::ecs::Entity2D* obj = new rxogl::ecs::Entity2D("0");
-			obj->AddComponent <rxogl::ecs::Transform>();
-			obj->AddComponent<rxogl::ecs::Texture>("../res/textures/abcSheet.png", 0.5f, 0.5f, 1.f, 1.f, true);
+			rxogl::ecs::Entity2D* obj = new rxogl::ecs::Entity2D();
+			obj->AddComponent<rxogl::ecs::Transform>(100.f, 100.f, 0.f, 30.f, 30.f);
+			obj->AddComponent<rxogl::ecs::Texture>("0", "../res/textures/abcSheet.png", 0.5f, 0.5f, 1.f, 1.f, true);
 			obj->GetComponent<rxogl::ecs::Texture>().Add("0", 0, 0, 8, 8);
 			obj->GetComponent<rxogl::ecs::Texture>().Add("1", 8, 0, 8, 8);
 			obj->GetComponent<rxogl::ecs::Texture>().Add("2", 8, 8, 8, 8);
 
-			rxogl::ecs::Entity2D* obj2 = new rxogl::ecs::Entity2D("0");
-			obj2->AddComponent <rxogl::ecs::Transform>(100, 100, 0, 20, 20);
+			rxogl::ecs::Entity2D* obj2 = new rxogl::ecs::Entity2D();
+			obj2->AddComponent<rxogl::ecs::Transform>(5.f, 5.f, 0.f, 10.f, 30.f);
 			obj2->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);
-			//m_TexSheet.Add("0", 0, 0, 8, 8);
-			//m_TexSheet.Add("1", 8, 0, 8, 8);
-			//m_TexSheet.Add("2", 8, 8, 8, 8);
+
+			rxogl::ecs::Entity2D* obj3 = new rxogl::ecs::Entity2D();
+			obj3->AddComponent<rxogl::ecs::Transform>(5.f, 5.f, 0.f, 10.f, 30.f);
+			obj3->AddComponent<rxogl::ecs::Label>(1.f, 0.5f, 0.5f, 1.f, 1.f, "wtf man render pls", "arial");
 
 			m_Shader1 = std::make_shared<Shader>("../res/shaders/basic.vert", "../res/shaders/basic.frag");
 			m_Layer = new Layers::UILayer(m_Shader1);
@@ -62,6 +63,7 @@ namespace Game { namespace Scenes {
 
 			m_Layer->Add(obj);
 			m_Layer->Add(obj2);
+			m_Layer->Add(obj3);
 
 			AddLayer(m_Layer);
 
@@ -89,6 +91,7 @@ namespace Game { namespace Scenes {
 
 		void MainScene::OnUpdate(float deltatime)
 		{
+			// Update all entities and components
 			const glm::mat4& pv = m_Camera.GetCamera().GetProjectionViewMatrix();
 			{
 				m_Layer->GetShader()->Bind();

@@ -10,7 +10,7 @@
 namespace rxogl
 {
 	namespace ecs {
-		class Entity2D;
+		class RenderableComponent;
 	}
 	class Renderer2D
 	{
@@ -45,7 +45,7 @@ namespace rxogl
 		}
 
 		virtual void Begin() {}
-		virtual void Submit(const ecs::Entity2D* renderable) = 0;
+		virtual void Submit(const ecs::RenderableComponent* component) = 0;
 		//virtual void SubmitString(const Entity2D* renderable, std::string fontName) {}
 		virtual void End() {}
 		virtual void Flush() = 0;

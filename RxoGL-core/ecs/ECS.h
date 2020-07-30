@@ -7,9 +7,10 @@
 #include <bitset>
 #include <array>
 
-class Renderer2D;
-
-namespace rxogl { namespace ecs {
+namespace rxogl { 
+	class Renderer2D;
+	class Layer;
+	namespace ecs {
 		
 	class Component;
 	class Entity;
@@ -33,20 +34,33 @@ namespace rxogl { namespace ecs {
 
 	class Component
 	{
-	public:
+	private:
+		friend class Entity;
+	protected:
 		Entity* m_Entity; // Reference to the entity it is attached to
-
+	public:
 		virtual void Init() {}
 		virtual void Update() {}
-		virtual void Draw() {}
+		virtual void Draw(std::shared_ptr<Renderer2D> renderer) {}
 
 		virtual ~Component() {}
-
-		// This should be used only for stuff to be rendered to screen.
-		// E.g. Texture, Label, etc.
-		virtual void Submit(std::shared_ptr<Renderer2D> renderer) const {} 
+		inline const Entity& Entity() const { return *m_Entity; }
 	};
 
+	class RenderableComponent : public Component
+	{
+	protected:
+		std::string m_TextureName; // TextureName should be parsed in as 0/NULL/"" if NOT a sprite sheet.
+		float		m_IsText; // is font or not
+		// This should be used only for stuff to be rendered to screen.
+		// E.g. Texture, Label, etc.
+		//virtual void Submit(std::shared_ptr<Renderer2D> renderer) const {}
+	public:
+		void Draw(std::shared_ptr<Renderer2D> renderer) override;// { renderer->Submit(this); }
+		inline const float&			IsText()			const { return m_IsText; }
+		inline const std::string&	GetTextureName()	const { return m_TextureName; }
+	};
+	
 	class Entity
 	{
 	private:
@@ -55,12 +69,14 @@ namespace rxogl { namespace ecs {
 
 		ComponentArray m_ComponentArray;
 		ComponentBitSet m_ComponentBitSet;
+
 	public:
-		void Update()
-		{
-			for (auto& c : m_Components) c->Update();
-			for (auto& c : m_Components) c->Draw();
-		}
+		Layer* m_Layer;
+		void Update();
+		//{
+		//	for (auto& c : m_Components) c->Update();
+		//	for (auto& c : m_Components) c->Draw(m_Layer->GetRenderer());
+		//}
 		void Draw() {}
 		bool IsActive() const { return m_Active; }
 		void Destroy() { m_Active = false; }
@@ -90,14 +106,12 @@ namespace rxogl { namespace ecs {
 			auto ptr(m_ComponentArray[GetComponentTypeID<T>()]);
 			return *static_cast<T*>(ptr);
 		}
-
-		virtual const std::string& GetTextureName() const { return ""; }
 	};
 
-	class Manager
+	class EntityManager
 	{
 	private:
-		std::vector<std::unique_ptr<Entity>> m_Entities;
+		std::vector<std::shared_ptr<Entity>> m_Entities;
 	public:
 		void Update()
 		{
@@ -111,19 +125,20 @@ namespace rxogl { namespace ecs {
 
 		void Refresh()
 		{
-			m_Entities.erase(std::remove_if(std::begin(m_Entities), std::end(m_Entities), [](const std::unique_ptr<Entity>& entity)
+			m_Entities.erase(std::remove_if(std::begin(m_Entities), std::end(m_Entities), [](const std::shared_ptr<Entity>& entity)
 				{
 					return !entity->IsActive();
 				}),
 				std::end(m_Entities));
 		}
 
-		Entity& AddEntity()
+		void AddEntity(Entity* e)
 		{
-			Entity* e = new Entity();
-			std::unique_ptr<Entity> uPtr{ e };
+			//Entity* e = new Entity();
+			std::shared_ptr<Entity> uPtr{ e };
 			m_Entities.emplace_back(std::move(uPtr));
-			return *e;
+			//return *e;
 		}
 	};
+
 } }

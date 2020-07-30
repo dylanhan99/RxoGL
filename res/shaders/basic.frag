@@ -12,7 +12,7 @@ uniform sampler2D u_Textures[32];
 void main()
 {
     o_Col = v_Col;
-    if(v_TexIndex >= 0.0)
+    if(v_TexIndex > 0.0)
     {
         int index = int(v_TexIndex);
         if(v_IsText > 0.5) // true
@@ -22,11 +22,10 @@ void main()
         }
         else
         {
-            vec4 texCol = texture(u_Textures[index - 1], v_TexCoord);
-            vec4 tempCol = texCol * 0.5 + v_Col * (1 - 0.5);
-            o_Col = tempCol;
-            //float idk = dot(texCol, v_Col);
-            //o_Col = texture(u_Textures[index - 1], v_TexCoord);
+            //vec4 texCol = texture(u_Textures[index - 1], v_TexCoord);
+            //vec4 tempCol = texCol * 0.5 + v_Col * (1 - 0.5);
+            //o_Col = tempCol;
+            o_Col = texture(u_Textures[index - 1], v_TexCoord);
         }
     }
 }

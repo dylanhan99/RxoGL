@@ -13,7 +13,7 @@ namespace rxogl { namespace ecs {
 	public:
 		Group(const glm::mat4& transform);
 		void Add(Entity2D* renderable);
-		void Submit(std::shared_ptr<Renderer2D> renderer) const override;
+		//void Submit(std::shared_ptr<Renderer2D> renderer) const override;
 	};
 
 } }

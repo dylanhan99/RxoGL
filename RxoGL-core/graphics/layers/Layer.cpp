@@ -1,4 +1,7 @@
 #include "Layer.h"
+#include "../shader.h"
+#include "../renderers/Renderer2D.h"
+//#include "../renderables/Entity2D.h"
 
 namespace rxogl
 {
@@ -10,26 +13,27 @@ namespace rxogl
 
 	Layer::~Layer()
 	{
-		//delete m_Renderer;
-		//delete m_Shader;
-		for (unsigned int i = 0; i < m_Renderables.size(); i++)
-			delete m_Renderables[i];
+		//for (unsigned int i = 0; i < m_Renderables.size(); i++)
+		//	delete m_Renderables[i];
 	}
 
-	void Layer::Add(ecs::Entity2D* renderable)
+	void Layer::Add(ecs::Entity* entity)
 	{
-		m_Renderables.push_back(renderable);
+		entity->m_Layer = this;
+		m_EntityManager.AddEntity(entity);// = *entity;
+		//m_Renderables.push_back(entity);
 	}
 
 	void Layer::Render()
 	{
 		m_Shader->Bind();
 		m_Renderer->Begin();
-		int i = 0;
-		for (const ecs::Entity2D* renderable : m_Renderables)
-		{
-			renderable->Submit(m_Renderer);
-		}
+		//for (const auto* entity : m_Renderables)
+		//{
+		//	entity->Submit(m_Renderer);
+		//}
+		m_EntityManager.Update();
+		m_EntityManager.Draw();
 		m_Renderer->End();
 		m_Renderer->Flush();
 	}

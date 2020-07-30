@@ -32,7 +32,7 @@ namespace rxogl
 		~BatchRenderer2D();
 
 		void Begin() override;
-		void Submit(const ecs::Entity2D* renderable) override;
+		void Submit(const ecs::RenderableComponent* component) override;
 		//virtual void SubmitString(const Entity2D* renderable, std::string fontName) override;
 		void End() override;
 		void Flush() override;
