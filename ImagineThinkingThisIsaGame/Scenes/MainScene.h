@@ -12,6 +12,7 @@ namespace Game { namespace Scenes {
 			std::shared_ptr<Shader> m_Shader2;
 			rxogl::ecs::Entity2D* sprButton;
 			rxogl::ecs::Entity2D* sprText;
+			rxogl::ecs::Group* fpsGroup;
 			glm::vec3 m_Translation;
 
 			Layers::UILayer* m_Layer;

@@ -28,10 +28,6 @@ namespace rxogl
 	{
 		m_Shader->Bind();
 		m_Renderer->Begin();
-		//for (const auto* entity : m_Renderables)
-		//{
-		//	entity->Submit(m_Renderer);
-		//}
 		m_EntityManager.Update();
 		m_EntityManager.Draw();
 		m_Renderer->End();

@@ -72,14 +72,10 @@ namespace rxogl {
 
 	public:
 		Layer* m_Layer;
-		void Update();
-		//{
-		//	for (auto& c : m_Components) c->Update();
-		//	for (auto& c : m_Components) c->Draw(m_Layer->GetRenderer());
-		//}
-		void Draw() {}
+		virtual void Update();
+		virtual void Draw();
 		bool IsActive() const { return m_Active; }
-		void Destroy() { m_Active = false; }
+		void SetActive(bool state) { m_Active = state; }
 
 		template <typename T> bool HasComponent() const
 		{

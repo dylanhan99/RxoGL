@@ -30,11 +30,6 @@ namespace rxogl { namespace ecs {
 		
 	}
 
-	//void Texture::Submit(std::shared_ptr<Renderer2D> renderer) const
-	//{
-	//	renderer->Submit(this);
-	//}
-
 	//void Texture::Load()
 	//{
 	//	m_LocalBuffer = utils::LoadTexture(m_FilePath.c_str(), m_Width, m_Height);
@@ -77,10 +72,5 @@ namespace rxogl { namespace ecs {
 		//m_Color = color;
 		//m_IsText = true;
 	}
-
-	//void Label::Submit(std::shared_ptr<Renderer2D> renderer) const
-	//{
-	//	renderer->Submit(this);
-	//}
 
 } }

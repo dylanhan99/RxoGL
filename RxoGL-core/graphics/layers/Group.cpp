@@ -1,4 +1,5 @@
 #include "Group.h"
+#include "Layer.h"
 
 namespace rxogl { namespace ecs {
 
@@ -8,10 +9,19 @@ namespace rxogl { namespace ecs {
 
 	}
 
-	void Group::Add(Entity2D* renderable)
+	void Group::Add(ecs::Entity* entity)
 	{
-		m_Renderables.push_back(renderable);
+		entity->m_Layer = m_Layer;
+		m_EntityManager.AddEntity(entity);
 	}
+
+	void Group::Draw()
+	{
+		m_Layer->GetRenderer()->Push(m_TransformationMatrix);
+		m_EntityManager.Draw();
+		m_Layer->GetRenderer()->Pop();
+	}
+
 
 	//void Group::Submit(std::shared_ptr<Renderer2D> renderer) const
 	//{

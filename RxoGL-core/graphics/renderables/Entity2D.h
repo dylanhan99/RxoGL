@@ -13,15 +13,8 @@ namespace rxogl { namespace ecs {
 
 	class Entity2D : public Entity
 	{
-	protected:
-		
 	public:
-		Entity2D() {}; //: m_TextureName(""), m_IsText(false) {};
-		//Entity2D(std::string textureName)
-		//	: m_TextureName(textureName), m_IsText(false)
-		//{
-		//
-		//}
+		Entity2D() {};
 
 		~Entity2D()
 		{ }

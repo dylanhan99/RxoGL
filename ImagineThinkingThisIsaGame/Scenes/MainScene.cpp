@@ -23,7 +23,7 @@ namespace Game { namespace Scenes {
 
 			rxogl::ecs::Entity2D* obj3 = new rxogl::ecs::Entity2D();
 			obj3->AddComponent<rxogl::ecs::Transform>(5.f, 5.f, 0.f, 10.f, 30.f);
-			obj3->AddComponent<rxogl::ecs::Label>(1.f, 0.5f, 0.5f, 1.f, 1.f, "wtf man render pls", "arial");
+			obj3->AddComponent<rxogl::ecs::Label>(1.f, 0.5f, 0.5f, 1.f, 1.f, "59", "arial");
 
 			m_Shader1 = std::make_shared<Shader>("../res/shaders/basic.vert", "../res/shaders/basic.frag");
 			m_Layer = new Layers::UILayer(m_Shader1);
@@ -59,29 +59,18 @@ namespace Game { namespace Scenes {
 			//m_Shader2->Bind();
 			//m_Shader2->SetUniform1iv("u_Textures", 32, texIDs);
 
-			m_Fps = "4";
-
-			m_Layer->Add(obj);
-			m_Layer->Add(obj2);
-			m_Layer->Add(obj3);
-
-			AddLayer(m_Layer);
-
-			//glm::mat4 transform = glm::rotate(glm::radians(20.f), glm::vec3(0, 0, 1));
-			//transform = glm::translate(transform, glm::vec3(0, 450, 0));
+			glm::mat4 transform = glm::rotate(glm::radians(180.f), glm::vec3(0, 0, 1));
+			transform = glm::translate(transform, glm::vec3(0, 450, 0));
 			//glm::mat4 transform = glm::translate(glm::vec3(0, 450, 0));
 			//transform = glm::rotate(transform, glm::radians(20.f), glm::vec3(0, 0, 1));
-			//fpsGroup = new rxogl::Group(transform);
-			//fpsGroup->Add(new rxogl::Sprite(0, 0, 0, 100, 50, textures[1], ""));
-			//fpsGroup->Add(new rxogl::Label(10, 10, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), m_Fps, "arial"));
-			//fpsGroup->Add(new rxogl::Label(100, 10, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), "the quick brown fox jumps over the lazy dog!", "matsura"));
-			//fpsGroup->Add(new rxogl::Label(100, -40, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), "the quick brown fox jumps over the lazy dog!", "joker"));
-			//fpsGroup->Add(new rxogl::Label(100, -90, 1, rxogl::constants::rxoColor(0.5, 0.5, 1, 1), "the quick brown fox jumps over the lazy dog!", "kuntsler"));
-			//m_UILayer->Add(fpsGroup);
+			fpsGroup = new rxogl::ecs::Group(transform);
+			m_Layer->Add(fpsGroup);
+			m_Layer->Add(obj);
 
+			fpsGroup->Add(obj2);
+			fpsGroup->Add(obj3);
 
-			//AddLayer(m_TileLayer);
-			//AddLayer(m_UILayer);
+			AddLayer(m_Layer);
 		}
 
 		MainScene::~MainScene()

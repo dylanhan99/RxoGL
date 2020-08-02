@@ -7,6 +7,10 @@ namespace rxogl { namespace ecs {
 	void Entity::Update()
 	{
 		for (auto& c : m_Components) c->Update();
+	}
+
+	void Entity::Draw()
+	{
 		for (auto& c : m_Components) c->Draw(m_Layer->GetRenderer());
 	}
 

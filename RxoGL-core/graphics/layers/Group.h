@@ -7,13 +7,18 @@ namespace rxogl { namespace ecs {
 	class Group : public Entity2D
 	{
 	private:
-		std::vector<Entity2D*> m_Renderables;
+		ecs::EntityManager m_EntityManager;
 		glm::mat4 m_TransformationMatrix;
 
 	public:
 		Group(const glm::mat4& transform);
-		void Add(Entity2D* renderable);
-		//void Submit(std::shared_ptr<Renderer2D> renderer) const override;
+		void Add(ecs::Entity* entity);
+
+		void Update() override
+		{
+			m_EntityManager.Update();
+		}
+		void Draw() override;
 	};
 
 } }

@@ -172,7 +172,6 @@
     <ClCompile Include="graphics\CameraOrtho.cpp" />
     <ClCompile Include="graphics\fonts\Font.cpp" />
     <ClCompile Include="graphics\layers\Group.cpp" />
-    <ClCompile Include="graphics\renderables\Entity2D.cpp" />
     <ClCompile Include="graphics\renderers\BatchRenderer2D.cpp" />
     <ClCompile Include="graphics\buffers\Buffer.cpp" />
     <ClCompile Include="graphics\layers\Layer.cpp" />
@@ -208,6 +207,7 @@
     <ClInclude Include="graphics\renderers\Renderer2D.h" />
     <ClInclude Include="graphics\textures\TextureManager.h" />
     <ClInclude Include="imgui.h" />
+    <ClInclude Include="physics\PhysicsManager.h" />
     <ClInclude Include="rxogl.h" />
     <ClInclude Include="rxpch.h" />
     <ClInclude Include="Scene.h" />
