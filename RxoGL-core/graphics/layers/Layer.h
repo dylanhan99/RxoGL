@@ -13,7 +13,6 @@ namespace rxogl
 	protected:
 		std::shared_ptr<Renderer2D> m_Renderer;
 		std::shared_ptr<Shader> m_Shader;
-		//std::vector<ecs::Entity2D*> m_Renderables;
 		ecs::EntityManager m_EntityManager;
 		glm::mat4 m_ProjectionMatrix;
 
@@ -21,6 +20,7 @@ namespace rxogl
 	public:
 		virtual ~Layer();
 		virtual void Add(ecs::Entity* entity);
+		virtual void Update(float deltatime);
 		virtual void Render();
 
 		inline const std::shared_ptr<Renderer2D> GetRenderer() const { return m_Renderer; }

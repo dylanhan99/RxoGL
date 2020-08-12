@@ -5,9 +5,7 @@ namespace rxogl { namespace ecs {
 
 	Group::Group(const glm::mat4& transform)
 		: m_TransformationMatrix(transform)
-	{
-
-	}
+	{ }
 
 	void Group::Add(ecs::Entity* entity)
 	{
@@ -21,16 +19,5 @@ namespace rxogl { namespace ecs {
 		m_EntityManager.Draw();
 		m_Layer->GetRenderer()->Pop();
 	}
-
-
-	//void Group::Submit(std::shared_ptr<Renderer2D> renderer) const
-	//{
-	//	renderer->Push(m_TransformationMatrix);
-	//
-	//	for (const Entity2D* renderable : m_Renderables)
-	//		renderable->Submit(renderer);
-	//
-	//	renderer->Pop();
-	//}
 
 } }

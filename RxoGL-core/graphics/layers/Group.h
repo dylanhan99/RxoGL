@@ -9,15 +9,12 @@ namespace rxogl { namespace ecs {
 	private:
 		ecs::EntityManager m_EntityManager;
 		glm::mat4 m_TransformationMatrix;
-
 	public:
 		Group(const glm::mat4& transform);
 		void Add(ecs::Entity* entity);
 
-		void Update() override
-		{
-			m_EntityManager.Update();
-		}
+		void Update(float deltatime) override
+		{ m_EntityManager.Update(deltatime); }
 		void Draw() override;
 	};
 

@@ -177,6 +177,7 @@
     <ClCompile Include="graphics\layers\Layer.cpp" />
     <ClCompile Include="graphics\window.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
+    <ClCompile Include="physics\PhysicsManager.cpp" />
     <ClCompile Include="rxpch.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />

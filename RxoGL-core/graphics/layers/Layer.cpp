@@ -24,11 +24,15 @@ namespace rxogl
 		//m_Renderables.push_back(entity);
 	}
 
+	void Layer::Update(float deltatime)
+	{
+		m_EntityManager.Update(deltatime);
+	}
+
 	void Layer::Render()
 	{
 		m_Shader->Bind();
 		m_Renderer->Begin();
-		m_EntityManager.Update();
 		m_EntityManager.Draw();
 		m_Renderer->End();
 		m_Renderer->Flush();

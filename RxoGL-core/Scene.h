@@ -15,12 +15,12 @@ namespace rxogl { namespace scenes {
 	public:
 		Scene() {}
 		virtual ~Scene() {}
-		//{
-		//	for (auto* layer : m_Layers)
-		//		delete layer;
-		//}
 
-		virtual void OnUpdate(float deltatime) {}
+		virtual void OnUpdate(float deltatime) 
+		{
+			for (auto& layer : m_Layers)
+				layer->Update(deltatime);
+		}
 		virtual void OnRender() 
 		{
 			for (auto& layer : m_Layers)

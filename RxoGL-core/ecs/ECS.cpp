@@ -1,22 +1,34 @@
 #include "ECS.h"
 #include "../graphics/renderers/Renderer2D.h"
 #include "../graphics/layers/Layer.h"
+#include "../Application.h"
 
 namespace rxogl { namespace ecs {
 
-	void Entity::Update()
+	void Entity::Update(float deltatime)
 	{
-		for (auto& c : m_Components) c->Update();
+		for (auto& c : m_Components) c->Update(deltatime);
 	}
 
 	void Entity::Draw()
 	{
-		for (auto& c : m_Components) c->Draw(m_Layer->GetRenderer());
+		for (auto& c : m_Components) c->Draw();
 	}
 
-	void RenderableComponent::Draw(std::shared_ptr<Renderer2D> renderer) 
+	//void Entity::AddCollider(std::shared_ptr<ColliderComponent> col)
+	//{
+	//	Application::GetInstance()->GetPhysicsManager().GetColliders().push_back(col);
+	//}
+
+
+	void RenderableComponent::Draw()
 	{ 
-		renderer->Submit(this); 
+		m_Entity->m_Layer->GetRenderer()->Submit(this);
+	}
+
+	void PhysicsComponent::Update(float deltatime)
+	{
+		//Application::GetInstance()->GetPhysicsManager().
 	}
 
 } }

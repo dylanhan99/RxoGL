@@ -6,6 +6,7 @@
 #include "Scene.h"
 
 #include "graphics/textures/TextureManager.h"
+#include "physics/PhysicsManager.h"
 
 namespace rxogl
 {
@@ -20,6 +21,7 @@ namespace rxogl
 		std::unordered_map<std::string, scenes::Scene*> m_Scenes;
 		FontManager m_FontManager;
 		TextureManager m_TextureManager;
+		PhysicsManager m_PhysicsManager;
 
 		void Init();
 	protected:
@@ -60,6 +62,7 @@ namespace rxogl
 		inline const scenes::Scene&	 GetCurrentScene()	const { return *m_CurrentScene; }
 		inline FontManager&	 GetFontManager() { return m_FontManager; }
 		inline TextureManager&	 GetTextureManager() { return m_TextureManager; }
+		inline PhysicsManager&	 GetPhysicsManager() { return m_PhysicsManager; }
 		inline const void SetCurrentScene(std::string sceneName) const { m_CurrentScene = m_Scenes.at(sceneName); }
 		//bool OnWindowResize(WindowResizeEvent& e)
 	};

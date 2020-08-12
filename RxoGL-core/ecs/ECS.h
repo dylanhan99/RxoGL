@@ -39,11 +39,15 @@ namespace rxogl {
 	protected:
 		Entity* m_Entity; // Reference to the entity it is attached to
 	public:
-		virtual void Init() {}
-		virtual void Update() {}
-		virtual void Draw(std::shared_ptr<Renderer2D> renderer) {}
-
 		virtual ~Component() {}
+		virtual void Init() {}
+		virtual void Update(float deltatime) {}
+		virtual void Draw() {}
+
+		//virtual void OnCollisionEnter(std::shared_ptr<ColliderComponent> other) { }
+		//virtual void OnCollisionStay(std::shared_ptr<ColliderComponent> other)	{ }
+		//virtual void OnCollisionExit(std::shared_ptr<ColliderComponent> other)	{ }
+
 		inline const Entity& Entity() const { return *m_Entity; }
 	};
 
@@ -56,23 +60,44 @@ namespace rxogl {
 		// E.g. Texture, Label, etc.
 		//virtual void Submit(std::shared_ptr<Renderer2D> renderer) const {}
 	public:
-		void Draw(std::shared_ptr<Renderer2D> renderer) override;// { renderer->Submit(this); }
+		void Draw() override;
 		inline const float&			IsText()			const { return m_IsText; }
 		inline const std::string&	GetTextureName()	const { return m_TextureName; }
+	};
+
+	class PhysicsComponent : public Component
+	{
+		void Update(float deltatime) override;
+	};
+
+	class ColliderComponent : public Component
+	{
+	public:
+		//void OnCollisionEnter(std::shared_ptr<ColliderComponent> other) override;
+		//void OnCollisionStay(std::shared_ptr<ColliderComponent> other)	override;
+		//void OnCollisionExit(std::shared_ptr<ColliderComponent> other)	override;
 	};
 	
 	class Entity
 	{
 	private:
+		using EntityID = size_t;
+		inline EntityID NewEntityID()
+		{
+			static EntityID lastID = 0;
+			return lastID++;
+		}
+
+		EntityID m_EntID = NewEntityID();
 		bool m_Active = true;
-		std::vector<std::unique_ptr<Component>> m_Components;
+		std::vector<std::shared_ptr<Component>> m_Components;
+		//std::vector<std::shared_ptr<ColliderComponent>> m_ColliderComponents;
 
 		ComponentArray m_ComponentArray;
 		ComponentBitSet m_ComponentBitSet;
-
 	public:
 		Layer* m_Layer;
-		virtual void Update();
+		virtual void Update(float deltatime);
 		virtual void Draw();
 		bool IsActive() const { return m_Active; }
 		void SetActive(bool state) { m_Active = state; }
@@ -81,15 +106,13 @@ namespace rxogl {
 		{
 			return m_ComponentBitSet[GetComponentTypeID<T>()];
 		}
-
 		template <typename T, typename... TArgs>
 		T& AddComponent(TArgs&&... mArgs)
 		{
 			T* c(new T(std::forward<TArgs>(mArgs)...));
 			c->m_Entity = this;
-			std::unique_ptr<Component> uPtr{ c };
+			std::shared_ptr<Component> uPtr{ c };
 			m_Components.emplace_back(std::move(uPtr));
-
 			m_ComponentArray[GetComponentTypeID<T>()] = c;
 			m_ComponentBitSet[GetComponentTypeID<T>()] = true;
 
@@ -102,6 +125,16 @@ namespace rxogl {
 			auto ptr(m_ComponentArray[GetComponentTypeID<T>()]);
 			return *static_cast<T*>(ptr);
 		}
+		inline const EntityID& GetID() const { return m_EntID; }
+
+		//void OnCollisionEnter(std::shared_ptr<ColliderComponent> other)
+		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionEnter(other); }
+		//void OnCollisionStay(std::shared_ptr<ColliderComponent> other)
+		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionStay(other); }
+		//void OnCollisionExit(std::shared_ptr<ColliderComponent> other)
+		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionExit(other); }
+	//private:
+		//void AddCollider(std::shared_ptr<ColliderComponent> col); // Add to PhysicsManager's collider vector
 	};
 
 	class EntityManager
@@ -109,15 +142,10 @@ namespace rxogl {
 	private:
 		std::vector<std::shared_ptr<Entity>> m_Entities;
 	public:
-		void Update()
-		{
-			for (auto& e : m_Entities) e->Update();
-		}
-
+		void Update(float deltatime)
+		{ for (auto& e : m_Entities) e->Update(deltatime); }
 		void Draw()
-		{
-			for (auto& e : m_Entities) e->Draw();
-		}
+		{ for (auto& e : m_Entities) e->Draw(); }
 
 		void Refresh()
 		{
