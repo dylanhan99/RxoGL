@@ -123,7 +123,7 @@ namespace Game { namespace Scenes {
 
 		void MainScene::OnImguiRender()
 		{
-			ImGui::SliderFloat3("Player x", &playerPos.x, -960.0f, 960.0f);
+			ImGui::SliderFloat3("Player x", &playerPos.x, 0.0f, 960.0f);
 		}
 	}
 }

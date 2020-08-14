@@ -2,6 +2,7 @@
 
 #include "../graphics/renderers/Renderer2D.h"
 #include "../Application.h"
+#include "../physics/PhysicsManager.h"
 
 namespace rxogl { namespace ecs {
 
@@ -20,5 +21,18 @@ namespace rxogl { namespace ecs {
 	{
 		Application::GetInstance()->GetPhysicsManager().GetColliders().push_back(this);
 	}
+
+	bool BoxCollider2D::ResolveCollision(ColliderComponent& other)
+	{
+		switch (other.GetColliderType()) {
+		case ColliderType::BoxCollider2D:
+			return PhysicsManager::ResolveCollision<BoxCollider2D, BoxCollider2D>(*this, (BoxCollider2D&)other);
+		case ColliderType::CircleCollider2D:
+			return PhysicsManager::ResolveCollision<BoxCollider2D, CircleCollider2D>(*this, (CircleCollider2D&)other);
+		default:
+			return false;
+		}
+	}
+
 
 } }

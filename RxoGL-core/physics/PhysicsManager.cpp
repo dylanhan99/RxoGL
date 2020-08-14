@@ -1,5 +1,5 @@
 #include "PhysicsManager.h"
-#include "../ecs/StandardComponents.h"
+//#include "../ecs/StandardComponents.h"
 #include "../Application.h"
 
 namespace rxogl
@@ -11,16 +11,9 @@ namespace rxogl
 			for (auto spt_ColliderB : m_Colliders)
 			{
 				if (spt_ColliderB == spt_ColliderA) continue;
-				Resolve(*spt_ColliderA, *spt_ColliderB);
+				spt_ColliderA->ResolveCollision(*spt_ColliderB);
 			}
 		}
-	}
-
-	void PhysicsManager::Resolve(ecs::ColliderComponent& colA, ecs::ColliderComponent& colB)
-	{
-		auto& c1 = dynamic_cast<ecs::BoxCollider2D&>(colA);
-		auto& c2 = dynamic_cast<ecs::BoxCollider2D&>(colB);
-		BOXvsBOX(c1, c2);
 	}
 
 	bool PhysicsManager::BOXvsBOX(ecs::BoxCollider2D c1, ecs::BoxCollider2D c2)
@@ -42,5 +35,10 @@ namespace rxogl
 		std::cout << "Circle touch\n" << std::endl;
 		return r < (pow((c1Transform.x() + c2Transform.x()), 2) + 
 					pow((c1Transform.y() + c2Transform.y()), 2));
+	}
+
+	bool PhysicsManager::BOXvsCIRCLE(ecs::BoxCollider2D c1, ecs::CircleCollider2D c2)
+	{
+		return false;
 	}
 }

@@ -72,7 +72,18 @@ namespace rxogl {
 
 	class ColliderComponent : public Component
 	{
+	protected:
+		enum class ColliderType
+		{
+			BoxCollider2D = 0,
+			CircleCollider2D
+		};
+		ColliderType m_ColliderType;
 	public:
+		virtual bool ResolveCollision(ColliderComponent& other)
+		{ return false; }
+
+		const ColliderType& GetColliderType() const { return m_ColliderType; }
 		//void OnCollisionEnter(std::shared_ptr<ColliderComponent> other) override;
 		//void OnCollisionStay(std::shared_ptr<ColliderComponent> other)	override;
 		//void OnCollisionExit(std::shared_ptr<ColliderComponent> other)	override;

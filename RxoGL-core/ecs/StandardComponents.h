@@ -5,7 +5,6 @@
 #include "../graphics/textures/TextureManager.h"
 #include "../Event.h"
 
-
 namespace rxogl { 
 	//class TextureData;
 	namespace ecs {
@@ -178,18 +177,19 @@ namespace rxogl {
 		glm::vec2 m_Min;
 		glm::vec2 m_Max;
 
+		BoxCollider2D() : m_Min(glm::vec2()), m_Max(m_Min)
+		{ m_ColliderType = ColliderType::BoxCollider2D; }
+
 		void Init() override
 		{
 			Collider2D::Init();
 			UpdateMinMax();
 			auto& transform = m_Entity->GetComponent<ecs::Transform>();
-			transform.OnPosChange.RegisterEvent(new Events::Event<>(transform.m_OnPosChangeEvent, std::bind(&BoxCollider2D::UpdateMinMax, this)));
+			transform.OnPosChange.RegisterEvent
+			(new Events::Event<>(transform.m_OnPosChangeEvent, std::bind(&BoxCollider2D::UpdateMinMax, this)));
 		}
 
-		static void test()
-		{}
-
-		void UpdateMinMax() // this shit needs to be static to parse into RegisterEvent
+		void UpdateMinMax()
 		{
 			auto& transform = m_Entity->GetComponent<ecs::Transform>();
 			m_Min = glm::vec2((transform.x() - transform.GetSize().x) * 0.5,
@@ -197,6 +197,8 @@ namespace rxogl {
 			m_Max = glm::vec2((transform.x() + transform.GetSize().x) * 0.5,
 							  (transform.y() + transform.GetSize().y) * 0.5);
 		}
+
+		bool ResolveCollision(ColliderComponent& other) override;
 	};
 
 	class CircleCollider2D : public Collider2D
@@ -206,6 +208,7 @@ namespace rxogl {
 
 		CircleCollider2D(float rad)
 		{
+			m_ColliderType = ColliderType::CircleCollider2D;
 			m_Radius = rad;
 		}
 	};
