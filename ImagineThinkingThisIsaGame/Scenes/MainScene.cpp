@@ -27,14 +27,13 @@ namespace Game { namespace Scenes {
 			//obj3->AddComponent<rxogl::ecs::Transform>(5.f, 5.f, 0.f, 10.f, 30.f);
 			//obj3->AddComponent<rxogl::ecs::Label>(1.f, 0.5f, 0.5f, 1.f, 1.f, "59", "arial");
 
-			//rxogl::ecs::Entity2D* 
 			player = new rxogl::ecs::Entity2D();
 			player->AddComponent<rxogl::ecs::Transform>(playerPos.x, playerPos.y, playerPos.z, 10.f, 30.f);
 			player->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);
 			player->AddComponent<rxogl::ecs::BoxCollider2D>();
 			
 			rxogl::ecs::Entity2D* other = new rxogl::ecs::Entity2D();
-			other->AddComponent<rxogl::ecs::Transform>(5.f, 5.f, 0.f, 10.f, 30.f);
+			other->AddComponent<rxogl::ecs::Transform>(0.f, 0.f, 0.f, 10.f, 30.f);
 			other->AddComponent<rxogl::ecs::Texture>(0.5f, 1.f, 0.3f, 1.f);
 			other->AddComponent<rxogl::ecs::BoxCollider2D>();
 
@@ -123,7 +122,8 @@ namespace Game { namespace Scenes {
 
 		void MainScene::OnImguiRender()
 		{
-			ImGui::SliderFloat3("Player x", &playerPos.x, 0.0f, 960.0f);
+			ImGui::SliderFloat3("Trans x", &m_Translation.x, -100.0f, 100.0f);
+			ImGui::SliderFloat3("Player x", &playerPos.x, -100.0f, 100.0f);
 		}
 	}
 }

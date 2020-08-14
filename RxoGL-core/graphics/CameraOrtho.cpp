@@ -1,5 +1,4 @@
 #include "CameraOrtho.h"
-
 #include "../Application.h"
 
 namespace rxogl

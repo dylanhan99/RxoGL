@@ -192,10 +192,13 @@ namespace rxogl {
 		void UpdateMinMax()
 		{
 			auto& transform = m_Entity->GetComponent<ecs::Transform>();
-			m_Min = glm::vec2((transform.x() - transform.GetSize().x) * 0.5,
-							  (transform.y() - transform.GetSize().y) * 0.5);
-			m_Max = glm::vec2((transform.x() + transform.GetSize().x) * 0.5,
-							  (transform.y() + transform.GetSize().y) * 0.5);
+			//m_Min = glm::vec2((transform.x() - transform.GetSize().x) * 0.5,
+			//				  (transform.y() - transform.GetSize().y) * 0.5);
+			//m_Max = glm::vec2((transform.x() + transform.GetSize().x) * 0.5,
+			//				  (transform.y() + transform.GetSize().y) * 0.5);
+
+			m_Min = glm::vec2(transform.x(), transform.y());
+			m_Max = glm::vec2(transform.x() + transform.GetSize().x, transform.y() + transform.GetSize().y);
 		}
 
 		bool ResolveCollision(ColliderComponent& other) override;
