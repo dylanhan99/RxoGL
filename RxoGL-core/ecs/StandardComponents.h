@@ -183,25 +183,31 @@ namespace rxogl {
 		void Init() override
 		{
 			Collider2D::Init();
+			m_Entity->AddCollider(m_Entity->GetComponent<BoxCollider2D>());
 			UpdateMinMax();
-			auto& transform = m_Entity->GetComponent<ecs::Transform>();
-			transform.OnPosChange.RegisterEvent
-			(new Events::Event<>(transform.m_OnPosChangeEvent, std::bind(&BoxCollider2D::UpdateMinMax, this)));
+			auto transform = m_Entity->GetComponent<ecs::Transform>();
+			transform->OnPosChange.RegisterEvent
+			(new Events::Event<>(transform->m_OnPosChangeEvent, std::bind(&BoxCollider2D::UpdateMinMax, this)));
 		}
 
 		void UpdateMinMax()
 		{
-			auto& transform = m_Entity->GetComponent<ecs::Transform>();
+			auto transform = m_Entity->GetComponent<ecs::Transform>();
 			//m_Min = glm::vec2((transform.x() - transform.GetSize().x) * 0.5,
 			//				  (transform.y() - transform.GetSize().y) * 0.5);
 			//m_Max = glm::vec2((transform.x() + transform.GetSize().x) * 0.5,
 			//				  (transform.y() + transform.GetSize().y) * 0.5);
 
-			m_Min = glm::vec2(transform.x(), transform.y());
-			m_Max = glm::vec2(transform.x() + transform.GetSize().x, transform.y() + transform.GetSize().y);
+			m_Min = glm::vec2(transform->x(), transform->y());
+			m_Max = glm::vec2(transform->x() + transform->GetSize().x, transform->y() + transform->GetSize().y);
 		}
 
-		bool ResolveCollision(ColliderComponent& other) override;
+		bool ResolveCollision(const ColliderComponent& other) override;
+	};
+
+	class PolygonCollider2D : public Collider2D
+	{
+		std::vector<glm::vec3> m_Vertices;
 	};
 
 	class CircleCollider2D : public Collider2D

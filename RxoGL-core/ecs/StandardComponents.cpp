@@ -19,10 +19,10 @@ namespace rxogl { namespace ecs {
 
 	void Collider2D::Init()
 	{
-		Application::GetInstance()->GetPhysicsManager().GetColliders().push_back(this);
+		//Application::GetInstance()->GetPhysicsManager().GetCollidables().push_back(m_Entity);
 	}
 
-	bool BoxCollider2D::ResolveCollision(ColliderComponent& other)
+	bool BoxCollider2D::ResolveCollision(const ColliderComponent& other)
 	{
 		switch (other.GetColliderType()) {
 		case ColliderType::BoxCollider2D:
@@ -33,6 +33,5 @@ namespace rxogl { namespace ecs {
 			return false;
 		}
 	}
-
 
 } }

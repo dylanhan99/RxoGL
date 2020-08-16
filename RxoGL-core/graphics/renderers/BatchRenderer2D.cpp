@@ -57,18 +57,18 @@ namespace rxogl
 		const auto& texture		= entity.GetComponent<ecs::Texture>();
 		const auto& label		= entity.GetComponent<ecs::Label>();
 
-		const auto& position	= transform.GetPosition();
-		const auto& size		= transform.GetSize();
+		const auto& position	= transform->GetPosition();
+		const auto& size		= transform->GetSize();
 
 		if (entity.HasComponent<ecs::Texture>())
 		{
-			const auto& color		= texture.GetColor();
-			const auto& texCoords   = texture.GetTexCoords();
-			const auto& texID		= texture.GetTexID();
+			const auto& color		= texture->GetColor();
+			const auto& texCoords   = texture->GetTexCoords();
+			const auto& texID		= texture->GetTexID();
 			const auto& isText		= component->IsText();
 			float texSlot = 0.f;
 			bool found = false;
-			if (texture.HasTexture())
+			if (texture->HasTexture())
 			{
 				for (int i = 0; i < m_TextureSlots.size(); i++)
 				{
@@ -126,17 +126,17 @@ namespace rxogl
 
 	//void BatchRenderer2D::SubmitString(const ecs::Entity2D* renderable, std::string fontName)
 		{
-			const std::string& text = label.GetText();
-			float x_Offset = transform.GetPosition().x;
-			const Font& font = Application::GetInstance()->GetFontManager().GetFont(label.GetFontName());
+			const std::string& text = label->GetText();
+			float x_Offset = transform->GetPosition().x;
+			const Font& font = Application::GetInstance()->GetFontManager().GetFont(label->GetFontName());
 
 			for (const char& c : text)
 			{
 				//const constants::rxoPosition&	position	= transform.GetPosition();
-				const constants::rxoColor&		color		= label.GetColor();
+				const constants::rxoColor&		color		= label->GetColor();
 				const constants::Character&		ch			= font.GetCharacter(c);
 				const unsigned int&				texID		= ch.TextureID;
-				const float&					scale		= label.GetScale();
+				const float&					scale		= label->GetScale();
 				const bool&						isText		= true;
 
 				float xpos = x_Offset + ch.Bearing.x * scale;

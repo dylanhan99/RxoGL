@@ -29,13 +29,21 @@ namespace rxogl
 	//	}
 	//};
 
+	class CollisionManager
+	{
+
+	};
+
 	class PhysicsManager
 	{
 	private:
-		std::vector<ecs::ColliderComponent*> m_Colliders;
+		//std::vector<ecs::ColliderComponent*> m_Colliders;
+		std::vector<std::shared_ptr<ecs::Entity>> m_Collidables;
 	public:
 		void Update(float deltatime);
-		inline std::vector<ecs::ColliderComponent*>& GetColliders() { return m_Colliders; }
+		//inline std::vector<ecs::ColliderComponent*>& GetColliders() { return m_Colliders; }
+		inline std::vector<std::shared_ptr<ecs::Entity>>& GetCollidables() { return m_Collidables; }
+		inline void AddCollidable(std::shared_ptr<ecs::Entity> sPtr) { m_Collidables.push_back(sPtr); }
 
 		template<typename T, typename O>
 		static bool ResolveCollision(T c1, O c2)

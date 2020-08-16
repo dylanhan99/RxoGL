@@ -94,8 +94,8 @@ namespace Game { namespace Scenes {
 		void MainScene::OnUpdate(float deltatime)
 		{
 			// Update all entities and components
-			auto& tran = player->GetComponent<rxogl::ecs::Transform>();
-			player->GetComponent<rxogl::ecs::Transform>().SetPos(playerPos);
+			auto tran = player->GetComponent<rxogl::ecs::Transform>();
+			player->GetComponent<rxogl::ecs::Transform>()->SetPos(playerPos);
 
 			const glm::mat4& pv = m_Camera.GetCamera().GetProjectionViewMatrix();
 			{

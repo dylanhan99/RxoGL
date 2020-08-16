@@ -7,6 +7,8 @@
 #include <bitset>
 #include <array>
 
+#include <typeinfo>
+
 namespace rxogl { 
 	class Renderer2D;
 	class Layer;
@@ -18,7 +20,7 @@ namespace rxogl {
 	constexpr std::size_t max_components = 32;
 	using ComponentID = std::size_t;
 	using ComponentBitSet = std::bitset<max_components>;
-	using ComponentArray = std::array<Component*, max_components>;
+	using ComponentArray = std::array<std::shared_ptr<Component>, max_components>;
 
 	inline ComponentID GetComponentTypeID()
 	{
@@ -75,12 +77,16 @@ namespace rxogl {
 	protected:
 		enum class ColliderType
 		{
-			BoxCollider2D = 0,
+			None = 0,
+			PolygonCollider2D,
+			BoxCollider2D,
 			CircleCollider2D
 		};
 		ColliderType m_ColliderType;
 	public:
-		virtual bool ResolveCollision(ColliderComponent& other)
+		//void Init() override
+
+		virtual bool ResolveCollision(const ColliderComponent& other)
 		{ return false; }
 
 		const ColliderType& GetColliderType() const { return m_ColliderType; }
@@ -102,7 +108,7 @@ namespace rxogl {
 		EntityID m_EntID = NewEntityID();
 		bool m_Active = true;
 		std::vector<std::shared_ptr<Component>> m_Components;
-		//std::vector<std::shared_ptr<ColliderComponent>> m_ColliderComponents;
+		std::vector<std::shared_ptr<ColliderComponent>> m_Collidables;
 
 		ComponentArray m_ComponentArray;
 		ComponentBitSet m_ComponentBitSet;
@@ -113,31 +119,43 @@ namespace rxogl {
 		bool IsActive() const { return m_Active; }
 		void SetActive(bool state) { m_Active = state; }
 
-		template <typename T> bool HasComponent() const
+		template <typename T> 
+		bool HasComponent() const
 		{
 			return m_ComponentBitSet[GetComponentTypeID<T>()];
 		}
+
 		template <typename T, typename... TArgs>
-		T& AddComponent(TArgs&&... mArgs)
+		void AddComponent(TArgs&&... mArgs)//std::shared_ptr<Component> AddComponent(TArgs&&... mArgs)
 		{
 			T* c(new T(std::forward<TArgs>(mArgs)...));
 			c->m_Entity = this;
-			std::shared_ptr<Component> uPtr{ c };
-			m_Components.emplace_back(std::move(uPtr));
-			m_ComponentArray[GetComponentTypeID<T>()] = c;
+			std::shared_ptr<Component> sPtr{ c };
+
+			m_ComponentArray[GetComponentTypeID<T>()] = sPtr;
 			m_ComponentBitSet[GetComponentTypeID<T>()] = true;
+			//m_Collidables.emplace_back(sPtr);
 
-			c->Init();
-			return *c;
+			sPtr->Init();
+			//m_Components.emplace_back(std::move(sPtr)); pls use this in future
+			m_Components.push_back(sPtr);
+			//return sPtr;
 		}
 
-		template <typename T> T& GetComponent() const
+		template <typename T> 
+		std::shared_ptr<T> GetComponent() const
 		{
-			auto ptr(m_ComponentArray[GetComponentTypeID<T>()]);
-			return *static_cast<T*>(ptr);
+			//auto ptr(m_Components[GetComponentTypeID<T>()]);
+			//return *static_cast<T*>(ptr);
+			//auto sPtr = m_Components[GetComponentTypeID<T>()];
+			//return sPtr;
+			return std::static_pointer_cast<T>(m_ComponentArray[GetComponentTypeID<T>()]);
+			//return *static_cast<T*>(m_Components[GetComponentTypeID<T>()]);
 		}
+		
+		inline const std::vector<std::shared_ptr<ColliderComponent>>& GetColliders() const { return m_Collidables; }
+		inline void AddCollider(std::shared_ptr<ColliderComponent> col) { m_Collidables.push_back(col); }
 		inline const EntityID& GetID() const { return m_EntID; }
-
 		//void OnCollisionEnter(std::shared_ptr<ColliderComponent> other)
 		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionEnter(other); }
 		//void OnCollisionStay(std::shared_ptr<ColliderComponent> other)
@@ -167,13 +185,14 @@ namespace rxogl {
 				std::end(m_Entities));
 		}
 
-		void AddEntity(Entity* e)
-		{
-			//Entity* e = new Entity();
-			std::shared_ptr<Entity> uPtr{ e };
-			m_Entities.emplace_back(std::move(uPtr));
-			//return *e;
-		}
+		void AddEntity(Entity* e);
+		//{
+		//	//Entity* e = new Entity();
+		//	std::shared_ptr<Entity> sPtr{ e };
+		//	m_Entities.emplace_back(std::move(sPtr));
+		//	Application::GetInstance()->GetPhysicsManager().AddCollidable(sPtr);
+		//	//return *e;
+		//}
 	};
 
 } }
