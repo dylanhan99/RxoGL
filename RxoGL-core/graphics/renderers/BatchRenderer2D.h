@@ -22,6 +22,7 @@ namespace rxogl
 		VertexArray m_VAO;
 		VertexBuffer m_VBO;
 		std::unique_ptr<IndexBuffer> m_IBO;
+		//IndexBuffer m_IBO;
 		GLsizei m_IndexCount;
 		constants::Vertex* m_Buffer;
 

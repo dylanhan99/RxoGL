@@ -35,13 +35,11 @@ namespace rxogl {
 		void SetPos(float x, float y, float z) 
 		{ 
 			m_Position = glm::vec4(x, y, z, 1); 
-			//Events::EventDispatcher::GetInstance()->DispatchEvent(m_OnPosChangeEvent);
 			OnPosChange.DispatchEvent(m_OnPosChangeEvent);
 		}
 		void SetPos(glm::vec3 newPos) 
 		{ 
 			m_Position = glm::vec4(newPos.x, newPos.y, newPos.z, 1); 
-			//Events::EventDispatcher::GetInstance()->DispatchEvent(m_OnPosChangeEvent);
 			OnPosChange.DispatchEvent(m_OnPosChangeEvent);
 		}
 	};
@@ -68,7 +66,7 @@ namespace rxogl {
 		bool m_IsTextureSheet;
 	public:
 		Texture(const std::string& textureName, const std::string& filePath, float r, float g, float b, float a, bool isTextureSheet = false);
-		Texture(float r, float g, float b, float a)
+		Texture(float r, float g, float b, float a, std::size_t numSides = 4)
 			: m_TextureDat(NULL), m_TexCoords({ glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 1.0f) }),
 			m_IsTextureSheet(false), m_Color(r, g, b, a) { }
 		~Texture() {}
@@ -158,7 +156,7 @@ namespace rxogl {
 
 		glm::vec2 m_Velocity;
 	public:
-		void Update(float deltatime) override;
+		void Update(float deltatime) override { }
 	};
 
 	class Collider2D : public ColliderComponent
@@ -193,11 +191,6 @@ namespace rxogl {
 		void UpdateMinMax()
 		{
 			auto transform = m_Entity->GetComponent<ecs::Transform>();
-			//m_Min = glm::vec2((transform.x() - transform.GetSize().x) * 0.5,
-			//				  (transform.y() - transform.GetSize().y) * 0.5);
-			//m_Max = glm::vec2((transform.x() + transform.GetSize().x) * 0.5,
-			//				  (transform.y() + transform.GetSize().y) * 0.5);
-
 			m_Min = glm::vec2(transform->x(), transform->y());
 			m_Max = glm::vec2(transform->x() + transform->GetSize().x, transform->y() + transform->GetSize().y);
 		}

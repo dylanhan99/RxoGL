@@ -29,7 +29,8 @@ namespace Game { namespace Scenes {
 
 			player = new rxogl::ecs::Entity2D();
 			player->AddComponent<rxogl::ecs::Transform>(playerPos.x, playerPos.y, playerPos.z, 10.f, 30.f);
-			player->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);
+			//player->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);
+			player->AddComponent<rxogl::ecs::Texture>("yo", "../res/textures/abcSheet.png", 1.f, 1.f, 1.f, 1.f);
 			player->AddComponent<rxogl::ecs::BoxCollider2D>();
 			
 			rxogl::ecs::Entity2D* other = new rxogl::ecs::Entity2D();

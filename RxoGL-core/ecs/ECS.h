@@ -56,12 +56,15 @@ namespace rxogl {
 	class RenderableComponent : public Component
 	{
 	protected:
-		std::string m_TextureName; // TextureName should be parsed in as 0/NULL/"" if NOT a sprite sheet.
-		float		m_IsText; // is font or not
+		std::string m_TextureName;	// TextureName should be parsed in as 0/NULL/"" if NOT a sprite sheet.
+		float		m_IsText;		// is font or not
+		std::size_t m_NumSides;		// For polygon rendering.
 		// This should be used only for stuff to be rendered to screen.
 		// E.g. Texture, Label, etc.
 		//virtual void Submit(std::shared_ptr<Renderer2D> renderer) const {}
 	public:
+		RenderableComponent(std::size_t numSides = 4) : m_NumSides(numSides) { }
+
 		void Draw() override;
 		inline const float&			IsText()			const { return m_IsText; }
 		inline const std::string&	GetTextureName()	const { return m_TextureName; }
@@ -90,9 +93,9 @@ namespace rxogl {
 		{ return false; }
 
 		const ColliderType& GetColliderType() const { return m_ColliderType; }
-		//void OnCollisionEnter(std::shared_ptr<ColliderComponent> other) override;
-		//void OnCollisionStay(std::shared_ptr<ColliderComponent> other)	override;
-		//void OnCollisionExit(std::shared_ptr<ColliderComponent> other)	override;
+		virtual void OnCollisionEnter(std::shared_ptr<ColliderComponent> other) { }// override;
+		virtual void OnCollisionStay(std::shared_ptr<ColliderComponent> other) { }//	override;
+		virtual void OnCollisionExit(std::shared_ptr<ColliderComponent> other) { }//	override;
 	};
 	
 	class Entity

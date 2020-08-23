@@ -26,9 +26,9 @@ namespace rxogl { namespace ecs {
 	{
 		switch (other.GetColliderType()) {
 		case ColliderType::BoxCollider2D:
-			return PhysicsManager::ResolveCollision<BoxCollider2D, BoxCollider2D>(*this, (BoxCollider2D&)other);
+			return CollisionManager::ResolveCollision<BoxCollider2D, BoxCollider2D>(*this, (BoxCollider2D&)other);
 		case ColliderType::CircleCollider2D:
-			return PhysicsManager::ResolveCollision<BoxCollider2D, CircleCollider2D>(*this, (CircleCollider2D&)other);
+			return CollisionManager::ResolveCollision<BoxCollider2D, CircleCollider2D>(*this, (CircleCollider2D&)other);
 		default:
 			return false;
 		}
