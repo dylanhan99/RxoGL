@@ -15,7 +15,6 @@ namespace rxogl
 				{
 					for (auto spt_ColliderB : spt_EntityB->GetColliders())
 					{
-						m_Colliding;
 						auto pairA = std::make_pair(spt_ColliderA, spt_ColliderB);
 						auto pairB = std::make_pair(spt_ColliderB, spt_ColliderA);
 						bool isColliding = spt_ColliderA->ResolveCollision(*spt_ColliderB);
@@ -32,7 +31,7 @@ namespace rxogl
 								spt_ColliderA->OnCollisionEnter(spt_ColliderB);
 								spt_ColliderB->OnCollisionEnter(spt_ColliderA);
 
-								std::cout << "ENTER" << std::endl;
+								//std::cout << "ENTER" << std::endl;
 							}
 						}
 					}
@@ -49,14 +48,14 @@ namespace rxogl
 				collisionPair.second->OnCollisionExit(collisionPair.first);
 				removePairs.push_back(collisionPair);
 
-				std::cout << "EXIT" << std::endl;
+				//std::cout << "EXIT" << std::endl;
 
 				continue;
 			}
 			collisionPair.first->OnCollisionStay(collisionPair.second);
 			collisionPair.second->OnCollisionStay(collisionPair.first);
 
-			std::cout << "STAY" << std::endl;
+			//std::cout << "STAY" << std::endl;
 		}
 		for (auto collisionPair : removePairs)
 			m_Colliding.erase(collisionPair);

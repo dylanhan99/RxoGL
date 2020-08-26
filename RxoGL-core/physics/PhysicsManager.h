@@ -9,9 +9,6 @@ namespace rxogl
 {
 	struct ComponentPairHash
 	{
-		// To parse in an std::pair here
-		// ComponentPairHash(test); 
-		//where test = pair<shared_ptr<ColliderComponent>, shared_ptr<ColliderComponent>>
 		template <typename T>
 		std::size_t operator()(T t) const 
 		{

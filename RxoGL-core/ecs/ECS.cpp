@@ -31,14 +31,14 @@ namespace rxogl { namespace ecs {
 		//Application::GetInstance()->GetPhysicsManager().
 	}
 
-	void EntityManager::AddEntity(Entity* e)
+	std::shared_ptr<Entity> EntityManager::AddEntity(Entity* e)
 	{
 		//Entity* e = new Entity();
 		std::shared_ptr<Entity> sPtr{ e };
 		//m_Entities.emplace_back(std::move(sPtr)); pls use this in future
 		m_Entities.push_back(sPtr);
 		Application::GetInstance()->GetCollisionManager().AddCollidable(sPtr);
-		//return *e;
+		return sPtr;
 	}
 
 } }

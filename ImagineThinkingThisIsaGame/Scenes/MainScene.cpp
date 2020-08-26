@@ -27,6 +27,9 @@ namespace Game { namespace Scenes {
 			//obj3->AddComponent<rxogl::ecs::Transform>(5.f, 5.f, 0.f, 10.f, 30.f);
 			//obj3->AddComponent<rxogl::ecs::Label>(1.f, 0.5f, 0.5f, 1.f, 1.f, "59", "arial");
 
+			camera = new rxogl::ecs::Entity2D();
+			camera->AddComponent<rxogl::ecs::NativeScriptComponent>()->Bind<Camera::CameraOrthoController>();
+
 			player = new rxogl::ecs::Entity2D();
 			player->AddComponent<rxogl::ecs::Transform>(playerPos.x, playerPos.y, playerPos.z, 10.f, 30.f);
 			//player->AddComponent<rxogl::ecs::Texture>(1.f, 0.5f, 0.3f, 1.f);

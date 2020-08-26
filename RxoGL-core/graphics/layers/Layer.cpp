@@ -19,9 +19,7 @@ namespace rxogl
 
 	void Layer::Add(ecs::Entity* entity)
 	{
-		entity->m_Layer = this;
-		m_EntityManager.AddEntity(entity);// = *entity;
-		//m_Renderables.push_back(entity);
+		m_EntityManager.AddEntity(entity)->m_Layer = this;
 	}
 
 	void Layer::Update(float deltatime)

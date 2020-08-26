@@ -9,8 +9,7 @@ namespace rxogl { namespace ecs {
 
 	void Group::Add(ecs::Entity* entity)
 	{
-		entity->m_Layer = m_Layer;
-		m_EntityManager.AddEntity(entity);
+		m_EntityManager.AddEntity(entity)->m_Layer = m_Layer;
 	}
 
 	void Group::Draw()

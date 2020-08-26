@@ -16,8 +16,10 @@ namespace Game { namespace Camera {
 		float m_CameraTranslationSpeed = 40.0f, m_CameraRotationSpeed = 180.0f;
 	public:
 		//CameraOrthoController(){}
+		CameraOrthoController(){}
 		CameraOrthoController(float aspectRatio, bool rotation = false);
-
+		void OnCreate(){}
+		void OnDestroy(){}
 		void OnUpdate(float deltatime);
 		static void OnResize(float width, float height)
 		{

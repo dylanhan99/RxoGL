@@ -20,6 +20,7 @@ namespace Game { namespace Scenes {
 			Camera::CameraOrthoController m_Camera;
 
 			std::string m_Fps;
+			rxogl::ecs::Entity2D* camera;
 			rxogl::ecs::Entity2D* player;
 			glm::vec3 playerPos;
 		public:

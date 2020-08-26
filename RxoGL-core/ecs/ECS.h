@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <bitset>
 #include <array>
+#include <functional>
 
 #include <typeinfo>
 
@@ -40,15 +41,16 @@ namespace rxogl {
 		friend class Entity;
 	protected:
 		Entity* m_Entity; // Reference to the entity it is attached to
+
+		std::shared_ptr<void> m_SptThis;
 	public:
 		virtual ~Component() {}
 		virtual void Init() {}
 		virtual void Update(float deltatime) {}
 		virtual void Draw() {}
+		
+		//std::function<void()> BindScript = []() {  };
 
-		//virtual void OnCollisionEnter(std::shared_ptr<ColliderComponent> other) { }
-		//virtual void OnCollisionStay(std::shared_ptr<ColliderComponent> other)	{ }
-		//virtual void OnCollisionExit(std::shared_ptr<ColliderComponent> other)	{ }
 
 		inline const Entity& Entity() const { return *m_Entity; }
 	};
@@ -97,6 +99,32 @@ namespace rxogl {
 		virtual void OnCollisionStay(std::shared_ptr<ColliderComponent> other) { }//	override;
 		virtual void OnCollisionExit(std::shared_ptr<ColliderComponent> other) { }//	override;
 	};
+
+	//template<typename Ty>
+	class NativeScriptComponent : public Component
+	{
+	private:
+		void* m_Instance = nullptr;
+
+		std::function<void()> InstantiateFunction;
+		std::function<void()> DestroyInstanceFunction;
+		
+		std::function<void(NativeScriptComponent*)> OnCreateFunction;
+		std::function<void(NativeScriptComponent*)> OnDestroyFunction;
+		std::function<void(NativeScriptComponent*, float)> OnUpdateFunction;
+
+	public:
+		template<typename T>
+		void Bind()
+		{
+			InstantiateFunction = [&]() { m_Instance = new T(); };
+			DestroyInstanceFunction = [&]() { delete (T*)m_Instance; m_Instance = nullptr; };
+			
+			OnCreateFunction = [](NativeScriptComponent* instance) { ((T*)instance)->OnCreate(); };
+			OnDestroyFunction = [](NativeScriptComponent* instance) { ((T*)instance)->OnDestroy(); };
+			OnUpdateFunction = [](NativeScriptComponent* instance, float deltatime) { ((T*)instance)->OnUpdate(deltatime); };
+		}
+	};
 	
 	class Entity
 	{
@@ -129,11 +157,12 @@ namespace rxogl {
 		}
 
 		template <typename T, typename... TArgs>
-		void AddComponent(TArgs&&... mArgs)//std::shared_ptr<Component> AddComponent(TArgs&&... mArgs)
+		std::shared_ptr<T> AddComponent(TArgs&&... mArgs)//std::shared_ptr<Component> AddComponent(TArgs&&... mArgs)
 		{
 			T* c(new T(std::forward<TArgs>(mArgs)...));
-			c->m_Entity = this;
-			std::shared_ptr<Component> sPtr{ c };
+			std::shared_ptr<T> sPtr{ c };
+			sPtr->m_Entity = this;
+			sPtr->m_SptThis = sPtr;
 
 			m_ComponentArray[GetComponentTypeID<T>()] = sPtr;
 			m_ComponentBitSet[GetComponentTypeID<T>()] = true;
@@ -142,7 +171,7 @@ namespace rxogl {
 			sPtr->Init();
 			//m_Components.emplace_back(std::move(sPtr)); pls use this in future
 			m_Components.push_back(sPtr);
-			//return sPtr;
+			return sPtr;
 		}
 
 		template <typename T> 
@@ -153,20 +182,11 @@ namespace rxogl {
 			//auto sPtr = m_Components[GetComponentTypeID<T>()];
 			//return sPtr;
 			return std::static_pointer_cast<T>(m_ComponentArray[GetComponentTypeID<T>()]);
-			//return *static_cast<T*>(m_Components[GetComponentTypeID<T>()]);
 		}
 		
 		inline const std::vector<std::shared_ptr<ColliderComponent>>& GetColliders() const { return m_Collidables; }
 		inline void AddCollider(std::shared_ptr<ColliderComponent> col) { m_Collidables.push_back(col); }
 		inline const EntityID& GetID() const { return m_EntID; }
-		//void OnCollisionEnter(std::shared_ptr<ColliderComponent> other)
-		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionEnter(other); }
-		//void OnCollisionStay(std::shared_ptr<ColliderComponent> other)
-		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionStay(other); }
-		//void OnCollisionExit(std::shared_ptr<ColliderComponent> other)
-		//{ for(const auto& c : m_CollidableComponents) c->OnCollisionExit(other); }
-	//private:
-		//void AddCollider(std::shared_ptr<ColliderComponent> col); // Add to PhysicsManager's collider vector
 	};
 
 	class EntityManager
@@ -188,7 +208,7 @@ namespace rxogl {
 				std::end(m_Entities));
 		}
 
-		void AddEntity(Entity* e);
+		std::shared_ptr<Entity> AddEntity(Entity* e);
 		//{
 		//	//Entity* e = new Entity();
 		//	std::shared_ptr<Entity> sPtr{ e };
