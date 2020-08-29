@@ -8,6 +8,7 @@ namespace rxogl
 	Application::Application()
 	{
 		Init();
+		//m_NativeScriptManager = NativeScriptManager::GetInstance();
 	}
 
 	Application::Application(std::string title, int& width, int& height)
@@ -76,6 +77,8 @@ namespace rxogl
 	{
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		m_CollisionManager.Update(deltatime);
+		//m_PhysicsManager.Update(deltatime);
+		NativeScriptManager::GetInstance()->Update(deltatime);
 		m_CurrentScene->OnUpdate(deltatime);
 	}
 

@@ -7,6 +7,7 @@
 
 #include "graphics/textures/TextureManager.h"
 #include "physics/PhysicsManager.h"
+#include "native-scripting/NativeScriptManager.h"
 
 namespace rxogl
 {
@@ -23,6 +24,7 @@ namespace rxogl
 		TextureManager m_TextureManager;
 		CollisionManager m_CollisionManager;
 		PhysicsManager m_PhysicsManager;
+		//NativeScriptManager* m_NativeScriptManager;
 
 		void Init();
 	protected:

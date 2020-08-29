@@ -9,6 +9,7 @@
 #include <functional>
 
 #include <typeinfo>
+#include "../native-scripting/NativeScriptManager.h"
 
 namespace rxogl { 
 	class Renderer2D;
@@ -100,30 +101,54 @@ namespace rxogl {
 		virtual void OnCollisionExit(std::shared_ptr<ColliderComponent> other) { }//	override;
 	};
 
-	//template<typename Ty>
 	class NativeScriptComponent : public Component
 	{
 	private:
 		void* m_Instance = nullptr;
-
+	public:
 		std::function<void()> InstantiateFunction;
 		std::function<void()> DestroyInstanceFunction;
-		
-		std::function<void(NativeScriptComponent*)> OnCreateFunction;
-		std::function<void(NativeScriptComponent*)> OnDestroyFunction;
-		std::function<void(NativeScriptComponent*, float)> OnUpdateFunction;
+		std::function<void()> OnCreateFunction;
+		std::function<void()> OnDestroyFunction;
+		std::function<void(float)> OnUpdateFunction;
 
-	public:
-		template<typename T>
-		void Bind()
+		//template<typename T>
+		void* GetInstance()
 		{
-			InstantiateFunction = [&]() { m_Instance = new T(); };
-			DestroyInstanceFunction = [&]() { delete (T*)m_Instance; m_Instance = nullptr; };
-			
-			OnCreateFunction = [](NativeScriptComponent* instance) { ((T*)instance)->OnCreate(); };
-			OnDestroyFunction = [](NativeScriptComponent* instance) { ((T*)instance)->OnDestroy(); };
-			OnUpdateFunction = [](NativeScriptComponent* instance, float deltatime) { ((T*)instance)->OnUpdate(deltatime); };
+			return m_Instance;
 		}
+
+		template<typename T, typename... TArgs>
+		void Bind(TArgs&&... mArgs)
+		{
+			InstantiateFunction		= [&]() { 
+				if (!m_Instance)
+				{
+					m_Instance = new T(std::forward<TArgs>(mArgs)...);
+					((T*)m_Instance)->m_Entity = m_Entity;
+				}
+			};
+			DestroyInstanceFunction = [&]() { delete (T*)m_Instance; m_Instance = nullptr; };
+		
+			OnCreateFunction  = [&]() { ((T*)m_Instance)->OnCreate(); };
+			OnDestroyFunction = [&]() { ((T*)m_Instance)->OnDestroy(); };
+			OnUpdateFunction  = [&](float deltatime) { ((T*)m_Instance)->OnUpdate(deltatime); };
+
+			//((T*)m_Instance)->m_Entity = m_Entity;
+			NativeScriptManager::GetInstance()->AddScript(std::static_pointer_cast<NativeScriptComponent>(m_SptThis));
+		}
+	};
+
+	class NativeScript
+	{
+	private:
+		friend class NativeScriptComponent;
+	protected:
+		Entity* m_Entity;
+	public:
+		virtual void OnCreate() = 0;
+		virtual void OnDestroy() = 0;
+		virtual void OnUpdate(float deltatime) = 0;
 	};
 	
 	class Entity

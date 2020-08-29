@@ -1,8 +1,9 @@
 #pragma once
 #include "rxogl.h"
+#include "ecs/ECS.h"
 
 namespace Game { namespace Camera {
-	class CameraOrthoController
+	class CameraOrthoController : public rxogl::ecs::NativeScript
 	{
 	private:
 		static float m_AspectRatio;
@@ -15,12 +16,10 @@ namespace Game { namespace Camera {
 		float m_CameraRotation = 0.0f; //In degrees, in the anti-clockwise direction
 		float m_CameraTranslationSpeed = 40.0f, m_CameraRotationSpeed = 180.0f;
 	public:
-		//CameraOrthoController(){}
-		CameraOrthoController(){}
 		CameraOrthoController(float aspectRatio, bool rotation = false);
-		void OnCreate(){}
-		void OnDestroy(){}
-		void OnUpdate(float deltatime);
+		void OnCreate() override{ std::cout << "CameraOrthoController Created...\n"; }
+		void OnDestroy()override{ std::cout << "CameraOrthoController Destroyed...\n"; }
+		void OnUpdate(float deltatime) override;
 		static void OnResize(float width, float height)
 		{
 			m_AspectRatio = width / height;

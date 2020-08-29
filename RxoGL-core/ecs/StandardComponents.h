@@ -214,4 +214,5 @@ namespace rxogl {
 			m_Radius = rad;
 		}
 	};
+
 } }

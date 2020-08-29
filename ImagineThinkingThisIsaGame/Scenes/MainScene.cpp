@@ -2,8 +2,9 @@
 
 namespace Game { namespace Scenes {
 		MainScene::MainScene()
-			: m_Camera(960 / 540, true)
+			//: m_Camera(960 / 540, true)
 		{
+			rxogl::NativeScriptManager::GetInstance();
 			playerPos = glm::vec3(0.f, 0.f, 0.f);
 
 			rxogl::Application::GetInstance()->GetFontManager().RegisterFont("arial", "../res/fonts/arial.ttf");
@@ -28,7 +29,8 @@ namespace Game { namespace Scenes {
 			//obj3->AddComponent<rxogl::ecs::Label>(1.f, 0.5f, 0.5f, 1.f, 1.f, "59", "arial");
 
 			camera = new rxogl::ecs::Entity2D();
-			camera->AddComponent<rxogl::ecs::NativeScriptComponent>()->Bind<Camera::CameraOrthoController>();
+			camera->AddComponent<rxogl::ecs::NativeScriptComponent>()->Bind<Camera::CameraOrthoController>(960 / 540, true);
+			rxogl::NativeScriptManager::GetInstance()->Init();
 
 			player = new rxogl::ecs::Entity2D();
 			player->AddComponent<rxogl::ecs::Transform>(playerPos.x, playerPos.y, playerPos.z, 10.f, 30.f);
@@ -84,6 +86,7 @@ namespace Game { namespace Scenes {
 			//fpsGroup->Add(obj2);
 			//fpsGroup->Add(obj3);
 
+			m_Layer->Add(camera);
 			m_Layer->Add(player);
 			m_Layer->Add(other);
 
@@ -101,13 +104,13 @@ namespace Game { namespace Scenes {
 			auto tran = player->GetComponent<rxogl::ecs::Transform>();
 			player->GetComponent<rxogl::ecs::Transform>()->SetPos(playerPos);
 
-			const glm::mat4& pv = m_Camera.GetCamera().GetProjectionViewMatrix();
-			{
-				m_Layer->GetShader()->Bind();
-				glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translation);
-				glm::mat4 mvp = pv * model;
-				m_Layer->GetShader()->SetUniformMat4f("u_MVP", mvp);
-			}
+			//const glm::mat4& pv = camera->GetComponent<rxogl::ecs::NativeScriptComponent>()->GetInstance()->GetCamera().GetProjectionViewMatrix();
+			//{
+			//	m_Layer->GetShader()->Bind();
+			//	glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translation);
+			//	glm::mat4 mvp = pv * model;
+			//	m_Layer->GetShader()->SetUniformMat4f("u_MVP", mvp);
+			//}
 			//{
 			//	m_UILayer->GetShader()->Bind();
 			//	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
@@ -115,7 +118,7 @@ namespace Game { namespace Scenes {
 			//	m_UILayer->GetShader()->SetUniformMat4f("u_MVP", mvp);
 			//}
 
-			m_Camera.OnUpdate(deltatime);
+			//m_Camera.OnUpdate(deltatime);
 		}
 
 		void MainScene::OnRender()

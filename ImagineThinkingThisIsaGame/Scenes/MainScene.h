@@ -17,7 +17,7 @@ namespace Game { namespace Scenes {
 
 			Layers::UILayer* m_Layer;
 
-			Camera::CameraOrthoController m_Camera;
+			//Camera::CameraOrthoController m_Camera;
 
 			std::string m_Fps;
 			rxogl::ecs::Entity2D* camera;

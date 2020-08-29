@@ -1,4 +1,5 @@
 #include "CameraOrthoController.h"
+#include "ConstantsRxogl.h"
 
 namespace Game { namespace Camera {
 
@@ -18,6 +19,7 @@ namespace Game { namespace Camera {
 
 	void CameraOrthoController::OnUpdate(float deltatime)
 	{
+		std::cout << "CameraOrthoController Updating...\n";
 		const Window& window = rxogl::Application::GetInstance()->GetWindow();
 
 		if (window.IsKeyPressed(GLFW_KEY_D))
@@ -59,5 +61,13 @@ namespace Game { namespace Camera {
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_CameraTranslationSpeed = m_ZoomLevel;
+
+		const glm::mat4& pv = m_Camera.GetProjectionViewMatrix();
+		{
+			m_Entity->m_Layer->GetShader()->Bind();
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3());
+			glm::mat4 mvp = pv * model;
+			m_Entity->m_Layer->GetShader()->SetUniformMat4f("u_MVP", mvp);
+		}
 	}
 } }
