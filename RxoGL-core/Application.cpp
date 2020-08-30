@@ -19,13 +19,9 @@ namespace rxogl
 
 	Application::~Application()
 	{
-		//delete m_SceneMenu;
-
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
-
-		//delete m_Window;
 	}
 
 	void Application::Init()

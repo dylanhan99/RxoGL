@@ -19,7 +19,7 @@ namespace Game { namespace Camera {
 
 	void CameraOrthoController::OnUpdate(float deltatime)
 	{
-		std::cout << "CameraOrthoController Updating...\n";
+		//std::cout << "CameraOrthoController Updating...\n";
 		const Window& window = rxogl::Application::GetInstance()->GetWindow();
 
 		if (window.IsKeyPressed(GLFW_KEY_D))

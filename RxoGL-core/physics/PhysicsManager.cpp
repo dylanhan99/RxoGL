@@ -47,9 +47,6 @@ namespace rxogl
 				collisionPair.first->OnCollisionExit(collisionPair.second);
 				collisionPair.second->OnCollisionExit(collisionPair.first);
 				removePairs.push_back(collisionPair);
-
-				//std::cout << "EXIT" << std::endl;
-
 				continue;
 			}
 			collisionPair.first->OnCollisionStay(collisionPair.second);
@@ -59,15 +56,12 @@ namespace rxogl
 		}
 		for (auto collisionPair : removePairs)
 			m_Colliding.erase(collisionPair);
-
 	}
 
 	bool CollisionManager::BOXvsBOX(ecs::BoxCollider2D c1, ecs::BoxCollider2D c2)
 	{
 		if (c1.m_Max.x < c2.m_Min.x or c1.m_Min.x > c2.m_Max.x) return false;
 		if (c1.m_Max.y < c2.m_Min.y or c1.m_Min.y > c2.m_Max.y) return false;
-
-		//std::cout << "Box touch" << std::endl;
 		return true;
 	}
 
@@ -77,8 +71,6 @@ namespace rxogl
 		auto c2Transform = c2.Entity().GetComponent<ecs::Transform>();
 		float r = c1.m_Radius + c2.m_Radius;
 		r *= r;
-
-		//std::cout << "Circle touch\n" << std::endl;
 		return r < (pow((c1Transform->x() + c2Transform->x()), 2) + 
 					pow((c1Transform->y() + c2Transform->y()), 2));
 	}

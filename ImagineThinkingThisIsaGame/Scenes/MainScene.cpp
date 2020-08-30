@@ -53,28 +53,34 @@ namespace Game { namespace Scenes {
 				texIDs[i] = i;
 			m_Shader1->SetUniform1iv("u_Textures", 32, texIDs);
 
-			//float size = 20;
-			//float width = size;
-			//for (float y = 0; y < 540; y += size)
-			//{
-			//	for (float x = 0; x < 960; x += size)
-			//	{
-			//		if (rand() % 4 == 0)
-			//		{
-			//			m_Layer->Add(new rxogl::Sprite(x, y, 0,
-			//				width, width,
-			//				&m_TexSheet,
-			//				std::to_string(rand() % 3)));
-			//		}
-			//		else
-			//		{
-			//			m_Layer->Add(new rxogl::Sprite(x, y, 0,
-			//				width, width,
-			//				glm::vec4(rand() % 1000 / 1000.f, 0, 0.7f, 1)));
-			//		}
-			//	}
-			//}
+			std::size_t count = 0;
+			float size = 20;
+			float width = size;
+			for (float y = 0; y < 540; y += size)
+			{
+				for (float x = 0; x < 960; x += size)
+				{
+					if (rand() % 4 == 0)
+					{
+						auto temp = new rxogl::ecs::Entity2D();
+						temp->AddComponent<rxogl::ecs::Transform>(x, y, 0, width, width);
+						temp->AddComponent<rxogl::ecs::Texture>("yo", "../res/textures/abcSheet.png", 1.f, 1.f, 1.f, 1.f, true)->Add("yo", 0.f, 0.f, 8.f, 8.f);
+						temp->AddComponent<rxogl::ecs::BoxCollider2D>();
+						m_Layer->Add(temp);
+					}
+					else
+					{
+						auto temp = new rxogl::ecs::Entity2D();
+						temp->AddComponent<rxogl::ecs::Transform>(x, y, 0, width, width);
+						temp->AddComponent<rxogl::ecs::Texture>(rand() % 1000 / 1000.f, 0, 0.7f, 1);
+						temp->AddComponent<rxogl::ecs::BoxCollider2D>();
+						m_Layer->Add(temp);
 
+					}
+					count++;
+				}
+			}
+			std::cout << count << std::endl;
 			//m_Shader2->Bind();
 			//m_Shader2->SetUniform1iv("u_Textures", 32, texIDs);
 
@@ -87,8 +93,8 @@ namespace Game { namespace Scenes {
 			//fpsGroup->Add(obj3);
 
 			m_Layer->Add(camera);
-			m_Layer->Add(player);
-			m_Layer->Add(other);
+			//m_Layer->Add(player);
+			//m_Layer->Add(other);
 
 			AddLayer(m_Layer);
 		}
@@ -103,22 +109,6 @@ namespace Game { namespace Scenes {
 			// Update all entities and components
 			auto tran = player->GetComponent<rxogl::ecs::Transform>();
 			player->GetComponent<rxogl::ecs::Transform>()->SetPos(playerPos);
-
-			//const glm::mat4& pv = camera->GetComponent<rxogl::ecs::NativeScriptComponent>()->GetInstance()->GetCamera().GetProjectionViewMatrix();
-			//{
-			//	m_Layer->GetShader()->Bind();
-			//	glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translation);
-			//	glm::mat4 mvp = pv * model;
-			//	m_Layer->GetShader()->SetUniformMat4f("u_MVP", mvp);
-			//}
-			//{
-			//	m_UILayer->GetShader()->Bind();
-			//	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-			//	glm::mat4 mvp = pv * model;
-			//	m_UILayer->GetShader()->SetUniformMat4f("u_MVP", mvp);
-			//}
-
-			//m_Camera.OnUpdate(deltatime);
 		}
 
 		void MainScene::OnRender()

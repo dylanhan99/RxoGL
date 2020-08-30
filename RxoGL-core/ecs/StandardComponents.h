@@ -108,10 +108,10 @@ namespace rxogl {
 				return true;
 			return false;
 		}
-		inline const unsigned int& GetTexID()		const { return m_TextureDat->m_RendererID; }
-		inline const unsigned int& GetWidth()		const { return m_TextureDat->m_Width; }
-		inline const unsigned int& GetHeight()		const { return m_TextureDat->m_Height; }
-		inline const constants::rxoColor& GetColor() const { return m_Color; }
+		inline const unsigned int&		  GetTexID()  const { return m_TextureDat->m_RendererID; }
+		inline const unsigned int&		  GetWidth()  const { return m_TextureDat->m_Width; }
+		inline const unsigned int&		  GetHeight() const { return m_TextureDat->m_Height; }
+		inline const constants::rxoColor& GetColor()  const { return m_Color; }
 		inline const TexCoords& GetTexCoords()	const
 		{
 			switch (m_IsTextureSheet) {
