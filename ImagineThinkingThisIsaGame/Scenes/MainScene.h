@@ -1,7 +1,9 @@
 #pragma once
 #include "rxogl.h"
 #include "../Layers/UILayer.h"
-#include "../Camera/CameraOrthoController.h"
+#include "../Camera/CameraMovementScript.h"
+#include "../Camera/PlayerControlScript.h"
+#include "../Scripts/PlayerCollisionScript.h"
 
 namespace Game { namespace Scenes {
 

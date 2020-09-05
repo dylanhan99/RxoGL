@@ -37,6 +37,7 @@ namespace rxogl { namespace ecs {
 		std::shared_ptr<Entity> sPtr{ e };
 		//m_Entities.emplace_back(std::move(sPtr)); pls use this in future
 		m_Entities.push_back(sPtr);
+		m_Entities_Tags[sPtr->GetTag()].push_back(sPtr);
 		Application::GetInstance()->GetCollisionManager().AddCollidable(sPtr);
 		return sPtr;
 	}

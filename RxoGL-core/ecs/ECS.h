@@ -7,6 +7,7 @@
 #include <bitset>
 #include <array>
 #include <functional>
+#include <unordered_map>
 
 #include <typeinfo>
 #include "../native-scripting/NativeScriptManager.h"
@@ -163,6 +164,7 @@ namespace rxogl {
 
 		EntityID m_EntID = NewEntityID();
 		bool m_Active = true;
+		std::string m_Tag;
 		std::vector<std::shared_ptr<Component>> m_Components;
 		std::vector<std::shared_ptr<ColliderComponent>> m_Collidables;
 
@@ -170,6 +172,8 @@ namespace rxogl {
 		ComponentBitSet m_ComponentBitSet;
 	public:
 		Layer* m_Layer;
+
+		Entity(std::string tag = "") : m_Tag(tag){}
 		virtual void Update(float deltatime);
 		virtual void Draw();
 		bool IsActive() const { return m_Active; }
@@ -208,6 +212,11 @@ namespace rxogl {
 			//return sPtr;
 			return std::static_pointer_cast<T>(m_ComponentArray[GetComponentTypeID<T>()]);
 		}
+
+		std::string GetTag()
+		{
+			return m_Tag;
+		}
 		
 		inline const std::vector<std::shared_ptr<ColliderComponent>>& GetColliders() const { return m_Collidables; }
 		inline void AddCollider(std::shared_ptr<ColliderComponent> col) { m_Collidables.push_back(col); }
@@ -218,6 +227,7 @@ namespace rxogl {
 	{
 	private:
 		std::vector<std::shared_ptr<Entity>> m_Entities;
+		std::unordered_map<std::string, std::vector<std::shared_ptr<ecs::Entity>>> m_Entities_Tags;
 	public:
 		void Update(float deltatime)
 		{ for (auto& e : m_Entities) e->Update(deltatime); }
@@ -234,13 +244,7 @@ namespace rxogl {
 		}
 
 		std::shared_ptr<Entity> AddEntity(Entity* e);
-		//{
-		//	//Entity* e = new Entity();
-		//	std::shared_ptr<Entity> sPtr{ e };
-		//	m_Entities.emplace_back(std::move(sPtr));
-		//	Application::GetInstance()->GetPhysicsManager().AddCollidable(sPtr);
-		//	//return *e;
-		//}
+		inline std::vector<std::shared_ptr<rxogl::ecs::Entity>> GetEntitiesTag(std::string tag) { return m_Entities_Tags[tag]; }
 	};
 
 } }

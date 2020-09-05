@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\CameraMovementScript.cpp" />
     <ClCompile Include="Camera\CameraOrthoController.cpp" />
     <ClCompile Include="Layers\UILayer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -160,9 +161,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\CameraMovementScript.h" />
     <ClInclude Include="Camera\CameraOrthoController.h" />
+    <ClInclude Include="Camera\PlayerControlScript.h" />
     <ClInclude Include="Layers\UILayer.h" />
     <ClInclude Include="Scenes\MainScene.h" />
+    <ClInclude Include="Scripts\PlayerCollisionScript.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

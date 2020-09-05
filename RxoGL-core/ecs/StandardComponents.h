@@ -156,7 +156,10 @@ namespace rxogl {
 
 		glm::vec2 m_Velocity;
 	public:
-		void Update(float deltatime) override { }
+		void Update(float deltatime) override 
+		{
+
+		}
 	};
 
 	class Collider2D : public ColliderComponent

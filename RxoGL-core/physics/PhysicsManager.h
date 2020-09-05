@@ -67,5 +67,7 @@ namespace rxogl
 
 	class PhysicsManager
 	{
+	//private:
+	//	std::unordered_map<std::string, std::vector<std::shared_ptr<ecs::Entity>>> m_;
 	};
 }

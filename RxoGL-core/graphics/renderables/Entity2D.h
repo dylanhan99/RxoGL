@@ -14,7 +14,7 @@ namespace rxogl { namespace ecs {
 	class Entity2D : public Entity
 	{
 	public:
-		Entity2D() {};
+		Entity2D(std::string tag = "") : Entity(tag) {};
 
 		~Entity2D()
 		{ }

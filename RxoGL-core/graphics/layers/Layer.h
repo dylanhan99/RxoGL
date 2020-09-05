@@ -25,5 +25,6 @@ namespace rxogl
 
 		inline const std::shared_ptr<Renderer2D> GetRenderer() const { return m_Renderer; }
 		inline const std::shared_ptr<Shader> GetShader() const { return m_Shader; }
+		inline std::vector<std::shared_ptr<rxogl::ecs::Entity>> GetEntitiesTag(std::string tag) { return m_EntityManager.GetEntitiesTag(tag); }
 	};
 }
